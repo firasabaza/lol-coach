@@ -23,18 +23,38 @@ python -m lolcoach --simulation
 | `--simulation` | joue la partie de démonstration |
 | `--vitesse 30` | accélère la simulation (défaut : 10) |
 | `--muet` | sans la voix |
-| `--sans-fenetre` | sans la mini fenêtre |
+| `--sans-fenetre` | sans la messagerie en jeu |
 | `--debrief parties/xxx.jsonl.gz` | refait le rapport d'une partie enregistrée |
+| `--maj-donnees` | télécharge objets et champions du dernier patch (à relancer après un patch) |
 
-Rien à installer : Python 3.12 et sa bibliothèque standard. La voix utilise les voix françaises
-de Windows, par PowerShell 7.
+Il faut Python 3.12. Le coach lui-même n'utilise que la bibliothèque standard ; la messagerie
+en jeu demande Qt :
+
+```
+python -m pip install -r requirements.txt
+```
+
+La voix utilise les voix françaises de Windows, par PowerShell 7.
 
 ## Régler
 
-Tout est dans `config.toml` : niveau de conseil (`coach`, `faits`, `silencieux`), voix, position
-de la fenêtre, seuils (or de recall, PV, farm, délais d'annonce).
+Tout est dans `config.toml` : niveau de conseil (`coach`, `faits`, `silencieux`), voix (nom,
+hauteur, débit, volume), messagerie (coin de l'écran, durée des bulles), touches des minuteurs,
+seuils (or de recall, PV, farm, délais d'annonce).
 
-La mini fenêtre ne passe au-dessus du jeu qu'en mode **fenêtré sans bordure**.
+La messagerie ne passe au-dessus du jeu qu'en mode **fenêtré sans bordure**. Une bulle s'efface
+après quelques secondes, ou dès que tu as suivi le conseil (achat fait, ward posée, PV remontés).
+
+## Build et compositions
+
+Au début de la partie, le coach lit les dix champions : plan de lane selon le matchup, build type
+de ton champion, objets que la compo adverse impose (anti-soin, Ceinture de mercure, pénétration
+d'armure, bottes défensives). Pendant la partie, il te dit quand ton or termine le prochain objet.
+
+Les classes des champions et les prix viennent de données publiques, mises en cache dans
+`donnees/` (`--maj-donnees`). Les listes fines et les chemins d'items sont tenus à la main dans
+`donnees/champions_notes.toml` : ce sont des repères par famille d'ADC, pas des statistiques du
+patch. Corrige-les quand la méta bouge.
 
 ## Minuteurs de sorts ennemis
 
@@ -72,7 +92,8 @@ fenêtres de timing.
 - `SPEC.md` : le projet, les choix, le plan.
 - `docs/CONNAISSANCES.md` : ce que le coach sait, avec les sources.
 - `donnees/saison.toml` : les timers de la saison. À mettre à jour quand un patch les change.
-- `lolcoach/regles.py` : les règles de coaching. C'est là qu'on ajoute un conseil.
+- `lolcoach/regles.py` : les fondamentaux. `lolcoach/strategie.py` : matchup, build, macro avancée.
+- `donnees/champions_notes.toml` : soigneurs, accroches, ultis d'engage, chemins d'items par famille.
 
 ## Tests
 

@@ -38,16 +38,19 @@ Firas, ADC. Scénario type :
       avantage numérique, farm, écart d'items, tours
 - [x] Anti-spam : priorités, une seule annonce par situation, péremption des conseils en retard
 - [x] Voix française (synthèse Windows hors ligne)
-- [x] Mini fenêtre au premier plan (dernier conseil + timers)
+- [x] Affichage en jeu au premier plan
 - [x] Enregistrement de la partie + débrief HTML
 - [x] Tests automatiques sur une partie simulée
 - [x] Suivi du jungler adverse par déduction (kills, objectifs, tours, réapparition)
 - [x] Minuteurs des sorts d'invocateur ennemis, déclenchés par une touche du joueur
+- [x] Première vraie partie (outil d'entraînement) : format réel de l'API vérifié et corrigé
+- [x] Conseils selon les champions : plan de lane, build type, objets d'adaptation
+- [x] Macro avancée : pics d'objets, primes, état de la partie, Baron, âme, Elder
+- [x] Messagerie en jeu en bulles (Qt), voix féminine
 
 ## Plus tard
 
 - Profil support, puis les autres rôles (un fichier de règles par rôle)
-- Prix et recettes d'items via Data Dragon : « Lame d'infini achetable »
 - Type de partie via l'API du client (classée, perso, bots) et niveau différent par file
 - **Prochain chantier, validé le 2026-10-04 :** revue de la minimap sur replay, pour le débrief.
   À chaque mort ou gank subi, le jungler était-il visible sur la carte avant, et depuis combien
@@ -55,7 +58,8 @@ Firas, ADC. Scénario type :
   caler la position de la minimap et la reconnaissance des icônes.
 - Lecture de l'état des waves à l'écran.
 - Voix neuronale (plus naturelle), débrief commenté par un LLM
-- Matchups : conseils spécifiques par champion
+- Builds par champion tirés de statistiques du patch (aujourd'hui : repères par famille, tenus à la main)
+- Conseils par matchup précis (aujourd'hui : par classe de champion)
 
 ## Non
 
@@ -72,15 +76,17 @@ Firas, ADC. Scénario type :
 | Python 3.12, bibliothèque standard uniquement | Déjà installé, même stack que JARVIS, rien à installer | — |
 | `urllib` + `ssl` | L'API locale est en HTTPS auto-signé sur 127.0.0.1 | `requests` |
 | Voix : `System.Speech` via un PowerShell persistant | Voix FR déjà sur la machine, hors ligne, instantané | `edge-tts` (neuronal, en ligne) |
-| Fenêtre : `tkinter` | Fourni avec Python, suffit pour un bandeau au premier plan | PySide6 |
+| Messagerie : PySide6 (Qt) | Transparence par pixel, coins arrondis lissés, fondus : tkinter ne savait faire qu'un rectangle | — |
 | Débrief : HTML généré, un seul fichier | S'ouvre partout, pas de serveur | — |
 | Tests : `unittest` | Fourni avec Python | pytest |
 
 ## Risques / inconnues
 
-1. **Ce que l'API donne vraiment en partie réelle.** Le CS des ennemis pourrait être arrondi, le
-   champ `price` des items et les noms de tours sont à confirmer. À vérifier dès la première
-   partie en Practice Tool.
+1. **Ce que l'API donne vraiment.** Vérifié en outil d'entraînement le 2026-10-04 : `price` est
+   le coût de combinaison (les prix viennent de Data Dragon), les sbires sont arrondis à la
+   dizaine, les tours s'appellent `Turret_TChaos_L0_P3_...`, les bots sont nommés autrement dans
+   les événements. Reste à voir en partie classée : rôles des joueurs humains, visibilité des
+   objets ennemis.
 2. **Pas de positions ni d'état de wave dans l'API.** Les conseils de wave reposent sur l'horloge
    (vagues canon) et l'or, pas sur ce qui est à l'écran.
 3. **Timings 2026.** Les spawns sont vérifiés sur le wiki officiel ; les fenêtres de gank sont

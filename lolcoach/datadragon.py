@@ -1,7 +1,7 @@
-"""Prix total des objets, lu dans Data Dragon (les données statiques publiques de Riot).
+"""Données statiques du jeu : objets (Data Dragon, Riot) et champions (Meraki Analytics, données ouvertes).
 
-L'API du jeu ne donne, dans `price`, que le coût de combinaison d'un objet : un objet fini à
-3000 gold y vaut quelques centaines. Le vrai prix vient d'ici, mis en cache dans donnees/objets.json.
+L'API du jeu ne donne, dans `price`, que le coût de combinaison d'un objet, et rien sur la nature
+des champions. Ces données viennent d'ici et sont mises en cache dans donnees/.
 
     python -m lolcoach --maj-donnees    à relancer après un patch
 """
@@ -10,31 +10,68 @@ from __future__ import annotations
 
 import json
 import urllib.request
+from functools import cache
 from pathlib import Path
 
 from .reglages import RACINE
 
-BASE = "https://ddragon.leagueoflegends.com"
-CACHE = RACINE / "donnees" / "objets.json"
+DDRAGON = "https://ddragon.leagueoflegends.com"
+MERAKI = "https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json"
+OBJETS = RACINE / "donnees" / "objets.json"
+CHAMPIONS = RACINE / "donnees" / "champions.json"
+FAILLE = "11"  # identifiant de la Faille de l'invocateur dans Data Dragon
 
 
 def _lire(url: str):
-    with urllib.request.urlopen(url, timeout=20) as reponse:
+    requete = urllib.request.Request(url, headers={"User-Agent": "lol-coach"})
+    with urllib.request.urlopen(requete, timeout=40) as reponse:
         return json.load(reponse)
 
 
-def mettre_a_jour(cache: Path = CACHE) -> str:
-    """Télécharge les prix du dernier patch. Rend le numéro du patch."""
-    version = _lire(f"{BASE}/api/versions.json")[0]
-    objets = _lire(f"{BASE}/cdn/{version}/data/fr_FR/item.json")["data"]
-    prix = {identifiant: objet["gold"]["total"] for identifiant, objet in sorted(objets.items(), key=lambda o: int(o[0]))}
-    cache.write_text(json.dumps({"patch": version, "prix": prix}, indent=0), encoding="utf-8")
-    return version
+def mettre_a_jour(objets: Path = OBJETS, champions: Path = CHAMPIONS) -> str:
+    """Télécharge objets et champions du dernier patch. Rend le numéro du patch."""
+    patch = _lire(f"{DDRAGON}/api/versions.json")[0]
+    bruts = _lire(f"{DDRAGON}/cdn/{patch}/data/fr_FR/item.json")["data"]
+    table = {
+        identifiant: {
+            "nom": o["name"], "prix": o["gold"]["total"], "achetable": o["gold"]["purchasable"],
+            "recette": [int(c) for c in o.get("from", [])],
+            "armure": o.get("stats", {}).get("FlatArmorMod", 0),
+        }
+        for identifiant, o in sorted(bruts.items(), key=lambda o: int(o[0]))
+        if o.get("maps", {}).get(FAILLE)
+    }
+    objets.write_text(json.dumps({"patch": patch, "objets": table}, ensure_ascii=False, indent=0), encoding="utf-8")
+
+    fiches = {
+        cle: {
+            "nom": c["name"],
+            "roles": c.get("roles", []),
+            "degats": "AP" if c.get("adaptiveType") == "MAGIC_DAMAGE" else "AD",
+            "portee": int(c["stats"]["attackRange"]["flat"]),
+            "melee": c.get("attackType") == "MELEE",
+            "notes": {k: c.get("attributeRatings", {}).get(k, 0) for k in ("damage", "toughness", "control", "mobility")},
+        }
+        for cle, c in sorted(_lire(MERAKI).items())
+    }
+    champions.write_text(json.dumps({"patch": patch, "champions": fiches}, ensure_ascii=False, indent=0), encoding="utf-8")
+    return patch
 
 
-def prix_totaux(cache: Path = CACHE) -> dict[int, int]:
-    """Identifiant d'objet -> prix total. Vide si le cache manque : on retombe alors sur l'API du jeu."""
+def _cache(chemin: Path, cle: str) -> dict:
     try:
-        return {int(i): int(p) for i, p in json.loads(cache.read_text(encoding="utf-8"))["prix"].items()}
+        return json.loads(chemin.read_text(encoding="utf-8"))[cle]
     except (OSError, ValueError, KeyError):
         return {}
+
+
+@cache
+def objets() -> dict[int, dict]:
+    """Identifiant d'objet -> {nom, prix total, achetable, recette, armure}. Vide si le cache manque."""
+    return {int(i): o for i, o in _cache(OBJETS, "objets").items()}
+
+
+@cache
+def champions() -> dict[str, dict]:
+    """Clé du champion (« Kaisa ») -> {nom, roles, degats, portee, melee, notes}. Vide si le cache manque."""
+    return _cache(CHAMPIONS, "champions")

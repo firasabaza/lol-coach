@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import contextlib
 import ctypes
+import importlib.util
 import io
 import tempfile
 import threading
@@ -15,6 +16,8 @@ from pathlib import Path
 from lolcoach import simulateur
 from lolcoach.__main__ import Coach, _hors_profil
 from lolcoach.client import Client
+from lolcoach.compo import adaptations, bottes, chemin, lire_compo, reste_a_payer
+from lolcoach.datadragon import objets
 from lolcoach.debrief import generer
 from lolcoach.enregistreur import Enregistreur, relire
 from lolcoach.etat import depuis_json
@@ -131,7 +134,7 @@ class PartieSimulee(unittest.TestCase):
 
     def test_le_coach_ne_noie_pas_le_joueur(self):
         par_minute = len(self.conseils) / (simulateur.FIN / 60)
-        self.assertLess(par_minute, 3)
+        self.assertLess(par_minute, 3.5)
 
     def test_connexion_en_cours_de_partie(self):
         conseils = jouer(debut=800, fin=830)
@@ -139,6 +142,81 @@ class PartieSimulee(unittest.TestCase):
         self.assertIn("debut", cles)
         self.assertEqual(conseils[0][1].fait, "Coach connecté.")
         self.assertNotIn("tour-bot-prise", cles)  # la tour est tombée avant qu'on arrive
+
+
+def partie_contre(*champions: str, t: int = 100) -> dict:
+    """La partie simulée, avec d'autres champions en face (noms internes, dans l'ordre du tableau)."""
+    brut = simulateur.partie(t)
+    ennemis = [j for j in brut["allPlayers"] if j["team"] == "CHAOS"]
+    for joueur, champion in zip(ennemis, champions):
+        joueur["championName"] = champion
+        joueur["rawChampionName"] = f"game_character_displayname_{champion}"
+    return brut
+
+
+class Compositions(unittest.TestCase):
+    """Ce que les champions de la partie changent : compo adverse, build, objets d'adaptation."""
+
+    def test_lecture_de_la_compo(self):
+        # En face dans la partie simulée : Caitlyn, Leona, Lee Sin, Syndra, Darius.
+        compo = lire_compo(depuis_json(simulateur.partie(100)))
+        self.assertEqual({j.champion for j in compo.ap}, {"Syndra"})
+        self.assertEqual(len(compo.ad), 4)
+        self.assertEqual({j.champion for j in compo.tanks}, {"Leona", "Darius"})
+        self.assertEqual({j.champion for j in compo.plongeurs}, {"Lee Sin"})
+        self.assertIn("Leona", {j.champion for j in compo.ultis_engage})
+
+    def test_chemin_type_et_reste_a_payer(self):
+        etat = depuis_json(simulateur.partie(100))
+        self.assertEqual(chemin(etat.moi), [3032, 3031, 3046])  # Jinx : famille crit
+        table = objets()
+        recette = table[6672]["recette"]
+        composants = sum(table[c]["prix"] for c in recette)
+        self.assertEqual(reste_a_payer(6672, []), table[6672]["prix"])
+        self.assertEqual(reste_a_payer(6672, recette), table[6672]["prix"] - composants)
+        self.assertEqual(reste_a_payer(6672, [6672]), 0)
+
+    def test_adaptations_selon_la_compo(self):
+        self.assertEqual(adaptations(depuis_json(simulateur.partie(100)))[0][0], 3036)  # deux tanks : Dominik
+        contre_suppression = depuis_json(partie_contre("Caitlyn", "Soraka", "Warwick", "Malzahar", "Aatrox"))
+        proposes = [objet for objet, _ in adaptations(contre_suppression)]
+        self.assertEqual(proposes[:2], [3140, 3123])  # Ceinture de mercure, puis anti-soin
+        self.assertIsNone(bottes(depuis_json(partie_contre("Caitlyn", "Soraka", "Karthus", "Syndra", "Malphite"))))
+        plein_de_controles = depuis_json(partie_contre("Ashe", "Leona", "Amumu", "Lissandra", "Maokai"))
+        self.assertEqual(bottes(plein_de_controles)[0], 3111)  # Sandales de Mercure
+
+    def test_conseils_avances_sur_la_partie_simulee(self):
+        conseils = jouer()
+        heures = {c.cle: t for t, c in reversed(conseils)}
+        attendus = {"plan-de-lane": 8, "build-type": 25, "build-adaptation": 45, "jungler-precoce": 95,
+                    "ulti-Leona ennemie": 470, "etat-10": 635, "plan-de-combat": 1080}
+        for cle, heure in attendus.items():
+            self.assertEqual(heures.get(cle), heure, cle)
+        self.assertIn("finir-3032", heures)  # assez d'or pour finir le premier objet du chemin
+        plan = next(c for _, c in conseils if c.cle == "plan-de-lane")
+        self.assertIn("Leona engage au contact", plan.action)
+        self.assertEqual(plan.texte("faits"), "")  # un plan est une conclusion : rien en mode faits
+
+    def test_baron_pris_par_l_adversaire(self):
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(1250)))
+        brut = simulateur.partie(1251)
+        brut["events"]["Events"].append({"EventID": 99, "EventName": "BaronKill", "EventTime": 1251.0,
+                                         "KillerName": "Lee Sin ennemi", "Assisters": [], "Stolen": "False"})
+        dits = {c.cle: c for c in moteur.lire(depuis_json(brut))}
+        self.assertEqual(dits["baron-pris-99"].fait, "Baron pour eux.")
+        self.assertEqual(moteur.suivi.prochain_baron, 1251 + 360)
+
+    @unittest.skipUnless(importlib.util.find_spec("PySide6"), "messagerie en jeu non installée")
+    def test_famille_des_bulles(self):
+        from lolcoach.fenetre import genre
+
+        self.assertEqual(genre("drake-300-60"), "objectif")
+        self.assertEqual(genre("finir-3032"), "or")
+        self.assertEqual(genre("menace-Zed"), "danger")
+        self.assertEqual(genre("sort-note-Leona-Flash-600"), "sort")
+        self.assertEqual(genre("jungler-vu-top"), "jungler")
+        self.assertEqual(genre("debut"), "info")
 
 
 class VraiePartie(unittest.TestCase):

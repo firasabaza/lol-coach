@@ -177,3 +177,84 @@ Guides :
 
 Limite de cette base : ce sont des guides écrits. Le contenu vidéo des coachs Challenger n'a pas
 pu être lu directement ; il est à intégrer au fil des parties.
+
+## 11. Matchup et composition
+
+**Principe [consensus].** La lane ne se joue pas pareil selon ce qu'il y a en face.
+- Support à accroche (Blitzcrank, Thresh, Nautilus, Pyke) : rester derrière ses sbires.
+- Support d'engage (Leona, Alistar, Rell) : garder la vague de son côté ; ses niveaux 2, 3 et 6
+  décident de la lane.
+- Enchanteur (Lulu, Nami, Soraka) : ils gagnent les trades longs ; trader court quand le sort
+  clé est parti.
+- Mage ou artillerie (Xerath, Zyra, Brand) : esquiver d'abord, farmer ensuite.
+- Écart de portée entre les deux ADC : celui qui a la portée harcèle à chaque last hit ; l'autre
+  joue ses sorts et ses niveaux.
+- ADC qui scale (Jinx, Kog'Maw, Vayne, Kai'Sa) : la lane se joue pour le farm. ADC dominant
+  (Draven, Caitlyn, Lucian) : sortir à égalité, c'est avoir perdu.
+
+**Règles du coach.** À 0:08, deux phrases de plan de lane tirées du support adverse, de l'écart
+de portée, de l'archétype de ton champion et de ton support. Au niveau 6 d'un support ou d'un
+jungler dont l'ulti engage de loin : garder le Flash pour l'esquiver.
+
+**D'où ça vient.** Classes, portée et type de dégâts : données ouvertes Meraki Analytics. Listes
+fines (accroches, soigneurs, ultis d'engage) : `donnees/champions_notes.toml`, tenues à la main.
+
+## 12. Build et objets d'adaptation
+
+**Principe [consensus].** Les deux premiers objets sont ceux du champion ; à partir du troisième,
+on répond à la partie.
+- Un champion qui te sort du combat d'un sort (Malzahar, Warwick, Mordekaiser) : Ceinture de
+  mercure avant les combats à cinq.
+- Deux soigneurs ou plus : Marque du bourreau tôt, Rappel mortel ensuite.
+- Deux tanks, ou un ennemi qui empile l'armure : Salutations de Dominik.
+- Un assassin nourri, ou trois plongeurs : Ange gardien (Sablier de Zhonya sur un build AP).
+- Trois sources de dégâts magiques : Gueule de Malmortius.
+- Trois contrôles ou plus : Sandales de Mercure. Quatre physiques dont un assassin : Coques en acier.
+- Lame d'infini jamais en premier : son passif demande 40 % de critique.
+- Le meilleur recall est celui qui termine un objet : c'est un pic de puissance.
+
+**Règles du coach.** À 0:25 le build type, à 0:45 la lecture de la compo et les objets à prévoir.
+En partie : « X gold : objet finissable », un pic annoncé à chaque objet terminé, et le prochain
+objet d'adaptation au deuxième objet.
+
+**Limite.** Les chemins d'items sont des repères par famille d'ADC (crit, lanceur, on-hit,
+létalité), écrits à la main à partir de guides : ce ne sont pas les statistiques du patch.
+
+## 13. Macro avancée
+
+**Principe [consensus].**
+- Un kill n'est qu'un moyen : il doit donner une tour ou un objectif dans les trente secondes.
+- Objectif dans moins de deux minutes après un kill : on y va, on ne back pas.
+- Être sur place une minute avant un objectif, avec PV et objets.
+- Baron seulement en supériorité numérique, avec la vision, et de quoi le finir.
+- Baron pris : back, achat, puis siège avec les sbires renforcés. Baron perdu : nettoyer les
+  vagues sous tour, pas de combat dans leurs sbires, tenir trois minutes.
+- De 14 à 20 minutes, l'ADC est au plus fragile : assassins en ligne, build incomplet. Rester
+  avec support et jungler.
+- En combat : derrière la frontline, la cible la plus proche d'abord.
+- Devant : convertir vite. Derrière : ne contester que sous vision et attendre l'erreur.
+- Porter une prime, c'est jouer derrière sa frontline ; une prime adverse se prend à plusieurs.
+- Niveau 9 : trinket bleu.
+
+**Règles du coach.** État de la partie toutes les cinq minutes (kills, tours, drakes), écart de
+farm avec l'ADC adverse, infériorité numérique, jungler allié mort au moment du drake, plan de
+combat deux minutes avant le Baron, consignes après Baron, âme et Elder.
+
+## 14. Ce que la vraie partie a appris sur l'API (2026-10-04)
+
+- `price` est le coût de combinaison d'un objet, pas son prix : Tueur de krakens y vaut 325.
+- Les sbires sont arrondis à la dizaine inférieure, pour tous les joueurs. Compter les camps du
+  jungler adverse par son CS est donc impossible.
+- Les tours s'appellent `Turret_TChaos_L0_P3_...` : L0 bot, L1 mid, L2 top ; P3 extérieure.
+- Les événements nomment un humain par son `riotIdGameName`, un bot par son `summonerName`.
+- `HordeKill` signale un grub tué. Il n'existe pas d'événement pour les pings ni pour le chat.
+- Dans l'outil d'entraînement, l'heure des événements avait 37 secondes de retard sur l'horloge.
+
+Sources ajoutées :
+- [buildzcrank, LoL Macro Guide 2026](https://buildzcrank.com/en/blog/macro-guide-league-of-legends-2026/)
+- [buildzcrank, LoL Itemization Guide 2026](https://buildzcrank.com/en/blog/lol-itemization-guide-2026/)
+- [goboost, How to close out games](https://goboost.gg/blog/lol-macro-guide-how-to-close-out-games-and-break-the-20-minute-aram-2026/)
+- [dodge.gg, Attack speed and crit items 2026](https://www.dodge.gg/en-US/lol/news/attack-speed-crit-items-2026)
+- [loltheory, Wave management](https://blog.loltheory.gg/wave-management-league-of-legends/)
+- [Meraki Analytics, lolstaticdata](https://github.com/meraki-analytics/lolstaticdata)
+- [Riot Data Dragon](https://ddragon.leagueoflegends.com/api/versions.json)

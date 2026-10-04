@@ -4,11 +4,8 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from functools import cache
 
-from .datadragon import prix_totaux
-
-_prix = cache(prix_totaux)  # lu une fois par lancement
+from .datadragon import objets as _objets
 
 PINK = 2055
 PRIX_OBJET_FINI = 2000  # en dessous, c'est un composant, des bottes ou un consommable
@@ -35,7 +32,8 @@ class Sort:
 @dataclass(frozen=True)
 class Joueur:
     nom: str
-    champion: str
+    champion: str  # nom affiché, dans la langue du client : « Kai'Sa »
+    cle: str  # nom interne, stable : « Kaisa »
     equipe: str  # "ORDER" (bleu) ou "CHAOS" (rouge)
     role: str  # TOP, JUNGLE, MIDDLE, BOTTOM, UTILITY, ou "" si le jeu ne le donne pas
     niveau: int
@@ -142,6 +140,7 @@ def _joueur(d: dict) -> Joueur:
     return Joueur(
         nom=_nom(d),
         champion=d.get("championName", ""),
+        cle=d.get("rawChampionName", "").rsplit("_", 1)[-1] or re.sub(r"\W", "", d.get("championName", "")),
         equipe=d.get("team", ""),
         role=d.get("position", "") if d.get("position") != "NONE" else "",
         niveau=int(d.get("level", 1)),
@@ -156,7 +155,7 @@ def _joueur(d: dict) -> Joueur:
             # `price` n'est que le coût de combinaison : le prix total vient de Data Dragon.
             Objet(
                 int(o.get("itemID", 0)), o.get("displayName", ""),
-                _prix().get(int(o.get("itemID", 0)), int(o.get("price", 0))), int(o.get("count", 1)),
+                _objets().get(int(o.get("itemID", 0)), {}).get("prix", int(o.get("price", 0))), int(o.get("count", 1)),
             )
             for o in d.get("items", [])
         ),

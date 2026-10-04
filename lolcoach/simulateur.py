@@ -124,6 +124,7 @@ def _joueur(nom: str, champion: str, equipe: str, role: str, smite: bool, t: flo
     sort_d, nom_d = ("SummonerSmite", "Châtiment") if smite else ("SummonerDot", "Embrasement")
     return {
         "championName": champion,
+        "rawChampionName": "game_character_displayname_" + champion.replace(" ", ""),
         "isBot": False,
         "isDead": mort is not None,
         "items": [

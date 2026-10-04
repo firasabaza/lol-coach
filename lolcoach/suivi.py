@@ -101,6 +101,7 @@ class Suivi:
 
         self.pv: deque[float] = deque(maxlen=5)
         self.mort_ce_tour = False
+        self.kills_a_la_mort: int | None = None  # pour la série de kills en cours
         self.reapparu_a = 0.0
         self._vivant = True
 
@@ -210,6 +211,8 @@ class Suivi:
 
         self.pv.append(e.pv)
         self.mort_ce_tour = e.moi.mort and self._vivant
+        if self.kills_a_la_mort is None or self.mort_ce_tour:
+            self.kills_a_la_mort = e.moi.kills
         if not e.moi.mort and not self._vivant:
             self.reapparu_a = e.t
         self._vivant = not e.moi.mort

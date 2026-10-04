@@ -22,11 +22,14 @@ trade = "tréde"
 trades = "tréde"
 dive = "daïve"
 
+# Messagerie en jeu : des bulles qui apparaissent puis s'effacent. Rien ne reste à l'écran, sauf
+# les minuteurs de sorts que tu as lancés toi-même.
 [fenetre]
 active = true            # le jeu doit être en « fenêtré sans bordure » pour qu'elle passe au-dessus
 coin = "haut-gauche"     # haut-gauche, haut-droite, bas-gauche, bas-droite
 marge = 24
-opacite = 0.88
+opacite = 0.92           # fond des bulles : 1 = opaque
+duree = 9                # secondes d'affichage d'une bulle ; elle part plus tôt si tu suis le conseil
 
 # Minuteurs des sorts d'invocateur ennemis. Le coach ne voit pas tes pings : quand tu vois partir
 # un sort, appuie sur la touche de cet ennemi, en plus de ton ping. Deux appuis en moins de

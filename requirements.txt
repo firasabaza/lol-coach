@@ -1,0 +1,2 @@
+# La messagerie en jeu. Le coach tourne sans (voix et débrief), avec --sans-fenetre.
+PySide6-Essentials>=6.7

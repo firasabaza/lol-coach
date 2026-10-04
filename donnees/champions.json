@@ -1,0 +1,2856 @@
+{
+"patch": "16.19.1",
+"champions": {
+"Aatrox": {
+"nom": "Aatrox",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 3,
+"control": 2,
+"mobility": 2
+}
+},
+"Ahri": {
+"nom": "Ahri",
+"roles": [
+"ASSASSIN",
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Akali": {
+"nom": "Akali",
+"roles": [
+"ASSASSIN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Akshan": {
+"nom": "Akshan",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Alistar": {
+"nom": "Alistar",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Ambessa": {
+"nom": "Ambessa",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 3
+}
+},
+"Amumu": {
+"nom": "Amumu",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Anivia": {
+"nom": "Anivia",
+"roles": [
+"BATTLEMAGE",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 600,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Annie": {
+"nom": "Annie",
+"roles": [
+"BURST",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 625,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Aphelios": {
+"nom": "Aphelios",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Ashe": {
+"nom": "Ashe",
+"roles": [
+"MARKSMAN",
+"SUPPORT"
+],
+"degats": "AD",
+"portee": 600,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"AurelionSol": {
+"nom": "Aurelion Sol",
+"roles": [
+"BATTLEMAGE",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Aurora": {
+"nom": "Aurora",
+"roles": [
+"ASSASSIN",
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Azir": {
+"nom": "Azir",
+"roles": [
+"MAGE",
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Bard": {
+"nom": "Bard",
+"roles": [
+"CATCHER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 3,
+"mobility": 2
+}
+},
+"Belveth": {
+"nom": "Bel'Veth",
+"roles": [
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Blitzcrank": {
+"nom": "Blitzcrank",
+"roles": [
+"CATCHER",
+"SUPPORT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 2,
+"control": 3,
+"mobility": 1
+}
+},
+"Brand": {
+"nom": "Brand",
+"roles": [
+"BURST",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Braum": {
+"nom": "Braum",
+"roles": [
+"SUPPORT",
+"TANK",
+"WARDEN"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 2,
+"control": 3,
+"mobility": 1
+}
+},
+"Briar": {
+"nom": "Briar",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 3,
+"mobility": 3
+}
+},
+"Caitlyn": {
+"nom": "Caitlyn",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 650,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Camille": {
+"nom": "Camille",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 3
+}
+},
+"Cassiopeia": {
+"nom": "Cassiopeia",
+"roles": [
+"BATTLEMAGE",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Chogath": {
+"nom": "Cho'Gath",
+"roles": [
+"MAGE",
+"SPECIALIST",
+"TANK"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 1
+}
+},
+"Corki": {
+"nom": "Corki",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Darius": {
+"nom": "Darius",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Diana": {
+"nom": "Diana",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AP",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"DrMundo": {
+"nom": "Dr. Mundo",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 1,
+"mobility": 1
+}
+},
+"Draven": {
+"nom": "Draven",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Ekko": {
+"nom": "Ekko",
+"roles": [
+"ASSASSIN",
+"MAGE"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 3
+}
+},
+"Elise": {
+"nom": "Elise",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Evelynn": {
+"nom": "Evelynn",
+"roles": [
+"ASSASSIN",
+"MAGE"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 1,
+"mobility": 2
+}
+},
+"Ezreal": {
+"nom": "Ezreal",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Fiddlesticks": {
+"nom": "Fiddlesticks",
+"roles": [
+"MAGE",
+"SPECIALIST",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 480,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Fiora": {
+"nom": "Fiora",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Fizz": {
+"nom": "Fizz",
+"roles": [
+"ASSASSIN",
+"FIGHTER"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Galio": {
+"nom": "Galio",
+"roles": [
+"MAGE",
+"TANK",
+"WARDEN"
+],
+"degats": "AP",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Gangplank": {
+"nom": "Gangplank",
+"roles": [
+"FIGHTER",
+"SPECIALIST"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Garen": {
+"nom": "Garen",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 1,
+"mobility": 1
+}
+},
+"Gnar": {
+"nom": "Gnar",
+"roles": [
+"FIGHTER",
+"SPECIALIST",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Gragas": {
+"nom": "Gragas",
+"roles": [
+"FIGHTER",
+"MAGE",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Graves": {
+"nom": "Graves",
+"roles": [
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AD",
+"portee": 425,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 2
+}
+},
+"Gwen": {
+"nom": "Gwen",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AP",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 3
+}
+},
+"Hecarim": {
+"nom": "Hecarim",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Heimerdinger": {
+"nom": "Heimerdinger",
+"roles": [
+"MAGE",
+"SPECIALIST",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Hwei": {
+"nom": "Hwei",
+"roles": [
+"ARTILLERY",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Illaoi": {
+"nom": "Illaoi",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 1
+}
+},
+"Irelia": {
+"nom": "Irelia",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 200,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 3
+}
+},
+"Ivern": {
+"nom": "Ivern",
+"roles": [
+"CATCHER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 475,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 3,
+"mobility": 2
+}
+},
+"Janna": {
+"nom": "Janna",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"JarvanIV": {
+"nom": "Jarvan IV",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Jax": {
+"nom": "Jax",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Jayce": {
+"nom": "Jayce",
+"roles": [
+"ARTILLERY",
+"FIGHTER",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Jhin": {
+"nom": "Jhin",
+"roles": [
+"CATCHER",
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Jinx": {
+"nom": "Jinx",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"KSante": {
+"nom": "K'Sante",
+"roles": [
+"FIGHTER",
+"SKIRMISHER",
+"TANK",
+"WARDEN"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Kaisa": {
+"nom": "Kai'Sa",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Kalista": {
+"nom": "Kalista",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Karma": {
+"nom": "Karma",
+"roles": [
+"BURST",
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Karthus": {
+"nom": "Karthus",
+"roles": [
+"BATTLEMAGE",
+"MAGE"
+],
+"degats": "AP",
+"portee": 450,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Kassadin": {
+"nom": "Kassadin",
+"roles": [
+"ASSASSIN",
+"MAGE"
+],
+"degats": "AP",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 3
+}
+},
+"Katarina": {
+"nom": "Katarina",
+"roles": [
+"ASSASSIN",
+"MAGE"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Kayle": {
+"nom": "Kayle",
+"roles": [
+"MAGE",
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Kayn": {
+"nom": "Kayn",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Kennen": {
+"nom": "Kennen",
+"roles": [
+"MAGE",
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Khazix": {
+"nom": "Kha'Zix",
+"roles": [
+"ASSASSIN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Kindred": {
+"nom": "Kindred",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Kled": {
+"nom": "Kled",
+"roles": [
+"FIGHTER",
+"SKIRMISHER",
+"TANK"
+],
+"degats": "AD",
+"portee": 250,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 2
+}
+},
+"KogMaw": {
+"nom": "Kog'Maw",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Leblanc": {
+"nom": "LeBlanc",
+"roles": [
+"ASSASSIN",
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"LeeSin": {
+"nom": "Lee Sin",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 3
+}
+},
+"Leona": {
+"nom": "Leona",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Lillia": {
+"nom": "Lillia",
+"roles": [
+"FIGHTER",
+"MAGE",
+"SKIRMISHER"
+],
+"degats": "AP",
+"portee": 325,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Lissandra": {
+"nom": "Lissandra",
+"roles": [
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 2
+}
+},
+"Lucian": {
+"nom": "Lucian",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Lulu": {
+"nom": "Lulu",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Lux": {
+"nom": "Lux",
+"roles": [
+"ARTILLERY",
+"BURST",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Malphite": {
+"nom": "Malphite",
+"roles": [
+"MAGE",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Malzahar": {
+"nom": "Malzahar",
+"roles": [
+"ASSASSIN",
+"BATTLEMAGE",
+"MAGE"
+],
+"degats": "AP",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Maokai": {
+"nom": "Maokai",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"MasterYi": {
+"nom": "Master Yi",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Mel": {
+"nom": "Mel",
+"roles": [
+"ARTILLERY",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Milio": {
+"nom": "Milio",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"MissFortune": {
+"nom": "Miss Fortune",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"MonkeyKing": {
+"nom": "Wukong",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Mordekaiser": {
+"nom": "Mordekaiser",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"MAGE"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 1
+}
+},
+"Morgana": {
+"nom": "Morgana",
+"roles": [
+"CATCHER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 450,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Naafiri": {
+"nom": "Naafiri",
+"roles": [
+"ASSASSIN",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Nami": {
+"nom": "Nami",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Nasus": {
+"nom": "Nasus",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 1
+}
+},
+"Nautilus": {
+"nom": "Nautilus",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Neeko": {
+"nom": "Neeko",
+"roles": [
+"BURST",
+"CATCHER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Nidalee": {
+"nom": "Nidalee",
+"roles": [
+"ASSASSIN",
+"MAGE",
+"SPECIALIST"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Nilah": {
+"nom": "Nilah",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 225,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Nocturne": {
+"nom": "Nocturne",
+"roles": [
+"ASSASSIN",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Nunu": {
+"nom": "Nunu & Willump",
+"roles": [
+"MAGE",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 2,
+"mobility": 1
+}
+},
+"Olaf": {
+"nom": "Olaf",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Orianna": {
+"nom": "Orianna",
+"roles": [
+"BURST",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Ornn": {
+"nom": "Ornn",
+"roles": [
+"FIGHTER",
+"TANK",
+"VANGUARD"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Pantheon": {
+"nom": "Pantheon",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Poppy": {
+"nom": "Poppy",
+"roles": [
+"FIGHTER",
+"TANK",
+"WARDEN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Pyke": {
+"nom": "Pyke",
+"roles": [
+"ASSASSIN",
+"CATCHER",
+"SUPPORT"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 3,
+"mobility": 3
+}
+},
+"Qiyana": {
+"nom": "Qiyana",
+"roles": [
+"ASSASSIN",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Quinn": {
+"nom": "Quinn",
+"roles": [
+"ASSASSIN",
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AD",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Rakan": {
+"nom": "Rakan",
+"roles": [
+"CATCHER",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 300,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 2,
+"control": 3,
+"mobility": 3
+}
+},
+"Rammus": {
+"nom": "Rammus",
+"roles": [
+"FIGHTER",
+"TANK",
+"VANGUARD"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"RekSai": {
+"nom": "Rek'Sai",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Rell": {
+"nom": "Rell",
+"roles": [
+"SUPPORT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Renata": {
+"nom": "Renata Glasc",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Renekton": {
+"nom": "Renekton",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Rengar": {
+"nom": "Rengar",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Riven": {
+"nom": "Riven",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 3
+}
+},
+"Rumble": {
+"nom": "Rumble",
+"roles": [
+"BATTLEMAGE",
+"FIGHTER",
+"MAGE"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Ryze": {
+"nom": "Ryze",
+"roles": [
+"BATTLEMAGE",
+"FIGHTER",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Samira": {
+"nom": "Samira",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 3
+}
+},
+"Sejuani": {
+"nom": "Sejuani",
+"roles": [
+"FIGHTER",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 3,
+"mobility": 2
+}
+},
+"Senna": {
+"nom": "Senna",
+"roles": [
+"ENCHANTER",
+"MARKSMAN",
+"SUPPORT"
+],
+"degats": "AD",
+"portee": 600,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Seraphine": {
+"nom": "Seraphine",
+"roles": [
+"BURST",
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Sett": {
+"nom": "Sett",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Shaco": {
+"nom": "Shaco",
+"roles": [
+"ASSASSIN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Shen": {
+"nom": "Shen",
+"roles": [
+"TANK",
+"WARDEN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 2
+}
+},
+"Shyvana": {
+"nom": "Shyvana",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"MAGE"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 1,
+"mobility": 2
+}
+},
+"Singed": {
+"nom": "Singed",
+"roles": [
+"MAGE",
+"SPECIALIST",
+"TANK"
+],
+"degats": "AP",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 2
+}
+},
+"Sion": {
+"nom": "Sion",
+"roles": [
+"FIGHTER",
+"TANK",
+"VANGUARD"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 1
+}
+},
+"Sivir": {
+"nom": "Sivir",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Skarner": {
+"nom": "Skarner",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK",
+"VANGUARD"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Smolder": {
+"nom": "Smolder",
+"roles": [
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 1
+}
+},
+"Sona": {
+"nom": "Sona",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Soraka": {
+"nom": "Soraka",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Swain": {
+"nom": "Swain",
+"roles": [
+"BATTLEMAGE",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Sylas": {
+"nom": "Sylas",
+"roles": [
+"ASSASSIN",
+"BURST",
+"MAGE",
+"SKIRMISHER"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 1,
+"mobility": 3
+}
+},
+"Syndra": {
+"nom": "Syndra",
+"roles": [
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"TahmKench": {
+"nom": "Tahm Kench",
+"roles": [
+"SUPPORT",
+"TANK",
+"WARDEN"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 1
+}
+},
+"Taliyah": {
+"nom": "Taliyah",
+"roles": [
+"BATTLEMAGE",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Talon": {
+"nom": "Talon",
+"roles": [
+"ASSASSIN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Taric": {
+"nom": "Taric",
+"roles": [
+"ENCHANTER",
+"SUPPORT",
+"TANK",
+"WARDEN"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 1,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Teemo": {
+"nom": "Teemo",
+"roles": [
+"MAGE",
+"MARKSMAN",
+"SPECIALIST"
+],
+"degats": "AP",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Thresh": {
+"nom": "Thresh",
+"roles": [
+"CATCHER",
+"SUPPORT",
+"TANK"
+],
+"degats": "AD",
+"portee": 450,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 2,
+"control": 3,
+"mobility": 1
+}
+},
+"Tristana": {
+"nom": "Tristana",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Trundle": {
+"nom": "Trundle",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 1,
+"mobility": 1
+}
+},
+"Tryndamere": {
+"nom": "Tryndamere",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 2
+}
+},
+"TwistedFate": {
+"nom": "Twisted Fate",
+"roles": [
+"BURST",
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Twitch": {
+"nom": "Twitch",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Udyr": {
+"nom": "Udyr",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 2
+}
+},
+"Urgot": {
+"nom": "Urgot",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 350,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Varus": {
+"nom": "Varus",
+"roles": [
+"ARTILLERY",
+"MAGE",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 575,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Vayne": {
+"nom": "Vayne",
+"roles": [
+"ASSASSIN",
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Veigar": {
+"nom": "Veigar",
+"roles": [
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+},
+"Velkoz": {
+"nom": "Vel'Koz",
+"roles": [
+"ARTILLERY",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Vex": {
+"nom": "Vex",
+"roles": [
+"BURST",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Vi": {
+"nom": "Vi",
+"roles": [
+"ASSASSIN",
+"DIVER",
+"FIGHTER"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 3,
+"mobility": 2
+}
+},
+"Viego": {
+"nom": "Viego",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 200,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Viktor": {
+"nom": "Viktor",
+"roles": [
+"BATTLEMAGE",
+"MAGE"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"Vladimir": {
+"nom": "Vladimir",
+"roles": [
+"BATTLEMAGE",
+"FIGHTER",
+"MAGE"
+],
+"degats": "AP",
+"portee": 450,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 1,
+"mobility": 1
+}
+},
+"Volibear": {
+"nom": "Volibear",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 150,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 2,
+"mobility": 2
+}
+},
+"Warwick": {
+"nom": "Warwick",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Xayah": {
+"nom": "Xayah",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 2,
+"control": 3,
+"mobility": 1
+}
+},
+"Xerath": {
+"nom": "Xerath",
+"roles": [
+"ARTILLERY",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 525,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 1
+}
+},
+"XinZhao": {
+"nom": "Xin Zhao",
+"roles": [
+"DIVER",
+"FIGHTER",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 2
+}
+},
+"Yasuo": {
+"nom": "Yasuo",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Yone": {
+"nom": "Yone",
+"roles": [
+"ASSASSIN",
+"FIGHTER",
+"SKIRMISHER"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Yorick": {
+"nom": "Yorick",
+"roles": [
+"FIGHTER",
+"JUGGERNAUT",
+"TANK"
+],
+"degats": "AD",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 2,
+"control": 2,
+"mobility": 1
+}
+},
+"Yunara": {
+"nom": "Yunara",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 575,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 2
+}
+},
+"Yuumi": {
+"nom": "Yuumi",
+"roles": [
+"ENCHANTER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 425,
+"melee": false,
+"notes": {
+"damage": 1,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Zac": {
+"nom": "Zac",
+"roles": [
+"FIGHTER",
+"TANK",
+"VANGUARD"
+],
+"degats": "AP",
+"portee": 175,
+"melee": true,
+"notes": {
+"damage": 2,
+"toughness": 3,
+"control": 3,
+"mobility": 2
+}
+},
+"Zed": {
+"nom": "Zed",
+"roles": [
+"ASSASSIN"
+],
+"degats": "AD",
+"portee": 125,
+"melee": true,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 1,
+"mobility": 3
+}
+},
+"Zeri": {
+"nom": "Zeri",
+"roles": [
+"MARKSMAN"
+],
+"degats": "AD",
+"portee": 500,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 3
+}
+},
+"Ziggs": {
+"nom": "Ziggs",
+"roles": [
+"ARTILLERY",
+"MAGE"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Zilean": {
+"nom": "Zilean",
+"roles": [
+"MAGE",
+"SPECIALIST",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 2,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Zoe": {
+"nom": "Zoe",
+"roles": [
+"BURST",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 550,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 2,
+"mobility": 2
+}
+},
+"Zyra": {
+"nom": "Zyra",
+"roles": [
+"CATCHER",
+"MAGE",
+"SUPPORT"
+],
+"degats": "AP",
+"portee": 575,
+"melee": false,
+"notes": {
+"damage": 3,
+"toughness": 1,
+"control": 3,
+"mobility": 1
+}
+}
+}
+}

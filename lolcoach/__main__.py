@@ -18,8 +18,8 @@ from .debrief import generer
 from .enregistreur import Enregistreur
 from .etat import Etat, depuis_json
 from .moteur import Moteur
+from .regles import URGENT, Conseil, accompli
 from .reglages import RACINE, Reglages, charger
-from .suivi import Suivi
 
 ABSENCES_AVANT_FIN = 5  # lectures vides d'affilée avant de considérer la partie finie
 MODES = ("CLASSIC", "PRACTICETOOL")
@@ -38,22 +38,6 @@ def _hors_profil(e: Etat) -> str | None:
     return None
 
 
-def _pied(e: Etat, s: Suivi) -> str:
-    """La ligne du bas de la fenêtre : l'horloge, les deux prochains objectifs, les sorts ennemis notés."""
-    o = s.saison["objectifs"]
-    drake = "Elder" if s.elder else "Drake"
-    morceaux = [_temps(e.t), f"{drake} en vie" if s.drake_dispo(e.t) else f"{drake} {_temps(s.prochain_drake - e.t)}"]
-    if e.t < o["grubs"]:
-        morceaux.append(f"Grubs {_temps(o['grubs'] - e.t)}")
-    elif e.t < o["herald"] and not s.herald_pris:
-        morceaux.append(f"Herald {_temps(o['herald'] - e.t)}")
-    else:
-        morceaux.append("Baron en vie" if s.baron_dispo(e.t) else f"Baron {_temps(s.prochain_baron - e.t)}")
-    for m in sorted(s.sorts.values(), key=lambda m: m.retour)[:2]:
-        morceaux.append(f"{m.sort} {m.champion} {_temps(max(0.0, m.retour - e.t))}")
-    return " · ".join(morceaux)
-
-
 class Coach:
     def __init__(self, client: Client, reglages: Reglages, voix, fenetre, intervalle: float, une_partie: bool,
                  dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False):
@@ -70,6 +54,7 @@ class Coach:
         self._stop = threading.Event()
         self._moteur: Moteur | None = None
         self._enregistreur: Enregistreur | None = None
+        self._affiches: dict[str, tuple[Conseil, float]] = {}  # bulles à l'écran : conseil et heure
 
     def arreter(self) -> None:
         self._stop.set()
@@ -140,10 +125,18 @@ class Coach:
             for c in dits[:2]:  # au plus deux phrases par lecture, les plus urgentes
                 self.voix.dire(c.texte(niveau))
         if self.fenetre:
-            if dits:
-                c = dits[0]
-                self.fenetre.conseil(c.fait, c.action if niveau == "coach" else "", c.priorite)
-            self.fenetre.pied(_pied(etat, self._moteur.suivi))
+            suivi = self._moteur.suivi
+            # Une bulle s'en va dès que le joueur a fait ce qu'elle demandait.
+            for cle, (conseil, dit_a) in list(self._affiches.items()):
+                if accompli(conseil, dit_a, etat, suivi) or etat.t - dit_a > 30:
+                    del self._affiches[cle]
+                    self.fenetre.retirer(cle)
+            for c in dits:
+                self._affiches[c.cle] = (c, etat.t)
+                self.fenetre.conseil(c.cle, c.fait, c.action if niveau == "coach" else "", c.priorite == URGENT)
+            self.fenetre.minuteurs([
+                (f"{m.sort} {m.champion}", m.retour - etat.t) for m in sorted(suivi.sorts.values(), key=lambda m: m.retour)
+            ])
 
     def _terminer(self) -> None:
         assert self._enregistreur is not None
@@ -152,6 +145,9 @@ class Coach:
             self.touches.desactiver()
         self.rapport = generer(self._enregistreur.chemin, self.reglages, self.dossier / "rapports")
         self._moteur = self._enregistreur = None
+        self._affiches.clear()
+        if self.fenetre:
+            self.fenetre.minuteurs([])
         print(f"Partie terminée. Débrief : {self.rapport}")
         if self.fenetre:
             self.fenetre.message("Partie terminée", "Le débrief est prêt.")
@@ -164,7 +160,7 @@ def main() -> None:
     arguments.add_argument("--simulation", action="store_true", help="joue la partie de démonstration")
     arguments.add_argument("--vitesse", type=float, default=10.0, help="accélération de la simulation (défaut : 10)")
     arguments.add_argument("--muet", action="store_true", help="sans la voix")
-    arguments.add_argument("--sans-fenetre", action="store_true", help="sans la mini fenêtre")
+    arguments.add_argument("--sans-fenetre", action="store_true", help="sans la messagerie en jeu")
     arguments.add_argument("--debrief", metavar="FICHIER", help="refait le rapport d'une partie enregistrée")
     arguments.add_argument("--maj-donnees", action="store_true", help="télécharge les prix des objets du dernier patch")
     options = arguments.parse_args()
@@ -204,9 +200,12 @@ def main() -> None:
 
         voix = Voix(reglages.voix)
     if reglages.fenetre.get("active", True) and not options.sans_fenetre:
-        from .fenetre import Fenetre
+        try:
+            from .fenetre import Fenetre
 
-        fenetre = Fenetre(reglages.fenetre)
+            fenetre = Fenetre(reglages.fenetre)
+        except ImportError:
+            print("Messagerie en jeu désactivée. Pour l'avoir : python -m pip install -r requirements.txt")
     touches = None
     if reglages.sorts.get("actif", True):
         from .touches import Touches
@@ -224,7 +223,7 @@ def main() -> None:
     fil = None
     try:
         if fenetre:
-            # tkinter exige le fil principal : le coach tourne à côté.
+            # L'interface exige le fil principal : le coach tourne à côté.
             fil = threading.Thread(target=coach.tourner, daemon=True)
             fil.start()
             fenetre.lancer()

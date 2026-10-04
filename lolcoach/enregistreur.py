@@ -24,7 +24,7 @@ def _alleger(brut: dict, apres_id: int) -> dict:
         },
         "allPlayers": [
             {
-                **{k: j.get(k) for k in ("riotIdGameName", "summonerName", "riotId", "championName", "team",
+                **{k: j.get(k) for k in ("riotIdGameName", "summonerName", "riotId", "championName", "rawChampionName", "team",
                                          "position", "level", "isDead", "respawnTimer", "scores")},
                 "items": [{k: o.get(k) for k in ("itemID", "displayName", "price", "count")}
                           for o in j.get("items", [])],

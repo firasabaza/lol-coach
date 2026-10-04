@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from .etat import Etat
 from .reglages import Reglages
-from .regles import REGLES, Conseil
+from . import regles, strategie
+from .regles import Conseil
 from .suivi import Suivi
 
 
@@ -18,7 +19,7 @@ class Moteur:
         """Les conseils nouveaux pour cette lecture, du plus urgent au moins urgent."""
         self.suivi.maj(etat)
         nouveaux: list[Conseil] = []
-        for regle in REGLES:
+        for regle in regles.REGLES + strategie.REGLES:
             for conseil in regle(etat, self.suivi, self.reglages):
                 dit = self._dits.get(conseil.cle)
                 if dit is not None and (conseil.repeter_apres is None or etat.t - dit < conseil.repeter_apres):

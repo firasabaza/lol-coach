@@ -8,6 +8,7 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 
+from .compo import est
 from .etat import PINK, ROLES_BOT, Etat
 from .reglages import Reglages
 from .suivi import Suivi, lire_structure
@@ -65,7 +66,7 @@ def accompli(conseil: Conseil, dit_a: float, e: Etat, s: Suivi) -> bool:
     cle = conseil.cle
     if cle.startswith("pv-"):
         return e.pv > 0.6 or s.dernier_achat > dit_a
-    if cle.startswith(("or-", "canon-")) or cle.endswith("-reset"):
+    if cle.startswith(("or-", "canon-", "finir-")) or cle.endswith("-reset"):
         return s.dernier_achat > dit_a
     if cle == "vision":
         return s.derniere_vision > dit_a
@@ -278,7 +279,7 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             "crabes", INFO, "Crabes dans quelques secondes.",
             "Leur jungler sort de son clear par la rivière : pas de push sans vision.",
         )
-    if jg.niveau >= 6:
+    if jg.niveau >= 6 and not est(jg, "ultis_engage"):
         yield Conseil(
             "jungler-6", TEMPO, "Leur jungler est niveau 6.",
             "Gank avec ulti possible : reste du côté de ta vision.",
@@ -372,9 +373,12 @@ def avantage(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if not any(e.t - s.morts_ennemies.get(j.nom, e.t) <= 3 for j in duo_mort):
         return
     if len(duo_mort) == 2:
+        drake_proche = s.prochain_drake - e.t <= 120
         yield Conseil(
             f"duo-mort-{sum(j.morts for j in duo_mort)}", TEMPO, "Leur botlane est morte.",
-            "Crash la vague, prends les plaques, puis back.",
+            "Crash la vague et enchaîne sur le drake : pas de back."
+            if drake_proche
+            else "Crash la vague, prends les plaques, puis back.",
         )
     elif duo_mort[0].reapparition >= 12:
         j = duo_mort[0]

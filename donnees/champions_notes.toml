@@ -1,0 +1,71 @@
+# Ce que les données de classe (donnees/champions.json) ne disent pas.
+# Listes tenues à la main, à compléter au fil des parties. Les noms sont les noms internes
+# du jeu : Kaisa, MissFortune, KogMaw, JarvanIV, MonkeyKing (Wukong), DrMundo...
+
+# Soignent beaucoup, eux-mêmes ou leurs alliés : l'anti-soin est rentable.
+soins = ["Soraka", "Yuumi", "Sona", "Nami", "Milio", "Senna", "Taric", "Aatrox", "Vladimir", "DrMundo", "Swain",
+         "Sylas", "Warwick", "Briar", "Fiddlesticks", "Illaoi", "Olaf", "Kayn", "Zac", "Fiora", "Viego", "Darius",
+         "Nasus", "Maokai"]
+
+# Te sortent du combat à coup sûr s'ils te touchent : Ceinture de mercure avant les combats à cinq.
+suppressions = ["Malzahar", "Warwick", "Skarner", "Mordekaiser", "Lissandra", "Zed"]
+
+# Longs contrôles ciblés : avec trois ou plus en face, Sandales de Mercure ou Ceinture de mercure.
+controles = ["Morgana", "Ashe", "Leona", "Amumu", "Sejuani", "Rammus", "Lillia", "Zoe", "Nautilus", "TwistedFate",
+             "Veigar", "Maokai", "Rell", "Thresh", "Blitzcrank", "Lux", "Neeko", "Elise", "Vi"]
+
+# Attrapent à distance en lane : rester derrière ses sbires.
+accroches = ["Blitzcrank", "Thresh", "Nautilus", "Pyke", "Morgana", "Lux", "Neeko", "Zyra", "Swain"]
+
+# Entrent au contact et enchaînent : la lane se joue sur leurs niveaux 2, 3 et 6.
+engages = ["Leona", "Alistar", "Rell", "Rakan", "Nautilus", "Braum", "Pantheon", "Sett", "Maokai", "Amumu", "Poppy"]
+
+# Ulti qui engage de loin dès le niveau 6.
+ultis_engage = ["Leona", "Nautilus", "Malphite", "Amumu", "Sejuani", "Rell", "Zac", "Vi", "JarvanIV", "Ashe",
+                "Hecarim", "Nocturne", "Rammus", "Skarner", "Lissandra", "Diana", "Annie", "Fiddlesticks", "Galio",
+                "Gragas", "Maokai", "Ornn", "Rakan", "MonkeyKing", "Lillia", "Varus", "Neeko", "Sett", "Kennen"]
+
+# Junglers qui gankent fort dès leur premier passage.
+ganks_precoces = ["LeeSin", "XinZhao", "JarvanIV", "Elise", "RekSai", "Shaco", "Pantheon", "Volibear", "Nunu", "Zac",
+                  "Rammus", "Warwick", "Vi", "Twitch", "Nidalee"]
+
+# ADC qui gagnent avec le temps : la lane se joue pour le farm.
+scaling = ["Jinx", "KogMaw", "Vayne", "Aphelios", "Twitch", "Kaisa", "Smolder", "Zeri", "Sivir", "Senna", "Yunara"]
+
+# ADC qui doivent prendre l'avantage en lane.
+dominants = ["Draven", "Caitlyn", "Lucian", "Kalista", "MissFortune", "Tristana", "Samira", "Jhin", "Ashe", "Varus"]
+
+# Chemins d'items types, par famille d'ADC (identifiants Data Dragon). Ce sont des repères par
+# archétype, pas des statistiques du patch : corrige-les si la méta bouge.
+[chemins.crit]
+objets = [3032, 3031, 3046]   # Flèches des Yun Tal, Lame d'infini, Danseur fantôme
+champions = ["Jinx", "Tristana", "Aphelios", "Caitlyn", "Zeri", "Yunara", "Ashe", "Twitch"]
+
+[chemins.lanceur]
+objets = [3508, 6675, 3031]   # Faux spectrale, Tremblelame navori, Lame d'infini
+champions = ["Lucian", "Xayah", "Sivir"]
+
+[chemins.on_hit]
+objets = [6672, 3124, 3302]   # Tueur de krakens, Lame enragée de Guinsoo, Terminus
+champions = ["Vayne", "KogMaw", "Kalista", "Varus"]
+
+[chemins.letalite]
+objets = [6676, 3031, 3036]   # Percepteur, Lame d'infini, Salutations de Dominik
+champions = ["Jhin", "MissFortune", "Draven", "Samira"]
+
+[chemins.kaisa]
+objets = [6672, 3124, 3115]   # Tueur de krakens, Lame enragée de Guinsoo, Dent de Nashor
+champions = ["Kaisa"]
+
+# Objets d'adaptation, par fonction.
+[adaptation]
+ceinture = 3140       # Ceinture de mercure
+anti_soin = 3123      # Marque du bourreau
+anti_soin_fini = 3033 # Rappel mortel
+anti_tank = 3036      # Salutations de Dominik
+survie = 3026         # Ange gardien
+anti_ap = 3156        # Gueule de Malmortius
+vol_de_vie = 3072     # Soif-de-sang
+bottes_ad = 3047      # Coques en acier
+bottes_cc = 3111      # Sandales de Mercure
+trinket_bleu = 3363   # Altération divinatoire
