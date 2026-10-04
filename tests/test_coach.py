@@ -97,6 +97,7 @@ class PartieSimulee(unittest.TestCase):
     def test_les_moments_cles_sont_vus_au_bon_moment(self):
         attendus = {
             "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 120, "jungler-vu-200": 200,
+            "jungler-fenetre-200": 230, "jungler-vu-372": 372,
             "drake-300-60": 240, "drake-300-30": 270, "grubs": 420, "jungler-6": 500,
             "tour-bot-prise": 700, "mort-or-1": 760, "fin-de-lane": 840, "herald": 840,
             "avantage": 1100, "baron-1200-60": 1140, "baron-1200-30": 1170,
@@ -132,6 +133,47 @@ class PartieSimulee(unittest.TestCase):
         self.assertIn("debut", cles)
         self.assertEqual(conseils[0][1].fait, "Coach connecté.")
         self.assertNotIn("tour-bot-prise", cles)  # la tour est tombée avant qu'on arrive
+
+
+class JunglerAdverse(unittest.TestCase):
+    """Chaque indice de position donné par le jeu : kill, objectif, tour, réapparition."""
+
+    def lieu_apres(self, evenement: dict) -> tuple[float, str, str] | None:
+        brut = simulateur.partie(100)
+        brut["events"]["Events"] = [{"EventID": 0, "EventTime": 90.0, **evenement}]
+        suivi = Suivi(REGLAGES)
+        suivi.maj(depuis_json(brut))
+        return suivi.jungler_vu
+
+    def test_objectifs_et_tours(self):
+        lee = "Lee Sin ennemi"
+        self.assertEqual(self.lieu_apres({"EventName": "DragonKill", "KillerName": lee}), (90, "bot", "objectif"))
+        self.assertEqual(self.lieu_apres({"EventName": "HeraldKill", "KillerName": lee}), (90, "top", "objectif"))
+        self.assertEqual(
+            self.lieu_apres({"EventName": "TurretKilled", "TurretKilled": "Turret_T1_L_03_A", "KillerName": lee}),
+            (90, "top", "tour"),
+        )
+        self.assertEqual(
+            self.lieu_apres({"EventName": "InhibKilled", "InhibKilled": "Barracks_T1_C1", "Assisters": [lee]}),
+            (90, "mid", "tour"),
+        )
+        self.assertIsNone(self.lieu_apres({"EventName": "DragonKill", "KillerName": "Vi allié"}))
+
+    def test_kill_place_le_jungler_la_ou_joue_la_victime(self):
+        kill = {"EventName": "ChampionKill", "KillerName": "Lee Sin ennemi", "VictimName": "Ahri allié"}
+        self.assertEqual(self.lieu_apres(kill), (90, "mid", "kill"))
+
+    def test_retour_en_jeu_apres_une_mort(self):
+        moteur = Moteur(REGLAGES)
+        dits = []
+        for t, mort in ((300, False), (301, True), (302, True), (303, False)):
+            brut = simulateur.partie(t)
+            lee = next(j for j in brut["allPlayers"] if j["championName"] == "Lee Sin")
+            lee["isDead"], lee["respawnTimer"] = mort, 20.0 if mort else 0.0
+            dits += [c.cle for c in moteur.lire(depuis_json(brut))]
+        self.assertEqual(moteur.suivi.jungler_vu, (303, "base", "retour"))
+        self.assertIn("jungler-mort-0", dits)
+        self.assertIn("jungler-vu-303", dits)
 
 
 class Niveaux(unittest.TestCase):

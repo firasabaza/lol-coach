@@ -261,23 +261,46 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         )
         return
 
-    if s.jungler_vu and any(ev.nom == "ChampionKill" and jg.nom in ev.participants for ev in s.nouveaux):
-        t_vu, cote = s.jungler_vu
-        if cote == "top":
-            action = (
-                "Il est loin : drake possible, ping ton jungler."
-                if s.drake_dispo(e.t)
-                else f"Tu as {j['traversee_carte']} secondes : joue agressif ou prends la vision rivière."
-            )
-            yield Conseil(f"jungler-vu-{int(t_vu)}", TEMPO, "Leur jungler vient d'apparaître en top.", action)
-        elif cote == "mid":
+    lane = s.en_lane(e)
+    if s.jungler_vu:
+        t_vu, cote, indice = s.jungler_vu
+        cle = f"jungler-vu-{int(t_vu)}"
+        traversee = j["traversee_carte"]
+        if not s.jungler_vu_ce_tour:
+            # Il s'était montré en haut : une fois le temps de traverser écoulé, la fenêtre se referme.
+            if lane and cote == "top" and traversee <= e.t - t_vu < traversee + 20:
+                yield Conseil(
+                    f"jungler-fenetre-{int(t_vu)}", TEMPO, f"Leur jungler était top il y a {duree(traversee)}.",
+                    "Ta fenêtre est finie, il a eu le temps de descendre. "
+                    "Avancé : recule. Sous tour : c'est le moment de back.",
+                )
+        elif cote == "top" and s.drake_dispo(e.t):
             yield Conseil(
-                f"jungler-vu-{int(t_vu)}", INFO, "Leur jungler vient d'apparaître mid.",
-                "Il peut descendre vite : reste prudent.",
+                cle, TEMPO, "Leur jungler vient d'apparaître en top.",
+                "Il est loin : drake possible, ping ton jungler.",
+            )
+        elif cote == "top" and lane:
+            yield Conseil(
+                cle, TEMPO, "Leur jungler vient d'apparaître en top.",
+                f"Tu es safe {traversee} secondes : joue agressif ou prends la vision rivière.",
+            )
+        elif cote == "mid" and lane:
+            yield Conseil(
+                cle, TEMPO, "Leur jungler vient d'apparaître mid.", "Il peut descendre vite. Avancé : recule."
+            )
+        elif cote == "bot" and indice == "objectif" and lane:
+            yield Conseil(
+                cle, URGENT, "Leur jungler vient de prendre le drake, il est côté bot.",
+                "Avancé : recule, gank probable. Sous tour : c'est le moment de back.",
+            )
+        elif cote == "base" and lane:
+            yield Conseil(
+                cle, INFO, "Leur jungler est de retour en jeu.",
+                f"Compte {j['base_vers_bot']} secondes avant qu'il puisse être bot.",
             )
 
     sans_nouvelle = e.t - s.jungler_nouvelle
-    if s.en_lane(e) and sans_nouvelle >= c.seuils.jungler_inconnu and e.t - s.derniere_vision >= 60:
+    if lane and sans_nouvelle >= c.seuils.jungler_inconnu and e.t - s.derniere_vision >= 60:
         depuis = "plus de 3 minutes" if sans_nouvelle > 180 else duree(round(sans_nouvelle / 15) * 15)
         yield Conseil(
             "jungler-inconnu", INFO, f"Leur jungler n'a pas été vu depuis {depuis}.",

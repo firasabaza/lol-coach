@@ -19,6 +19,7 @@ respawn_buff = 300
 gank_niveau_3 = 130          # estime : 3 camps puis gank, autour de 2:10
 fin_premier_clear = 175      # estime : full clear terminé vers le spawn des crabes
 traversee_carte = 30         # estime : temps pour passer d'un côté de la carte à l'autre
+base_vers_bot = 25           # estime : temps pour rejoindre la botlane depuis la fontaine
 
 [objectifs]
 drake = 300                  # verifie

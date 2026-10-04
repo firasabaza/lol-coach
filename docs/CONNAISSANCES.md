@@ -95,13 +95,21 @@ niveau 3 vers 2:10, sortie de full clear vers 2:55. Ensuite : retour de base ave
 **Règles du coach.**
 - 2:05 → rappel de la fenêtre de gank niveau 3.
 - 2:55 → crabes, le jungler sort de son clear.
-- Jungler adverse impliqué dans un kill → on sait où il est ; s'il est en haut, fenêtre en bot.
-- Jungler adverse mort → fenêtre pour drake ou vision.
+- Indice de position à chaque kill, objectif ou tour où il participe :
+  - en top (kill, Herald, Baron, tour top) → « Tu es safe 30 secondes » ;
+  - 30 secondes plus tard, sans nouvel indice → « Ta fenêtre est finie. Avancé : recule. Sous
+    tour : c'est le moment de back. » ;
+  - mid → « Il peut descendre vite » ;
+  - drake pris par lui → il est côté bot, gank probable.
+- Jungler adverse mort → fenêtre pour drake ou vision ; à sa réapparition, 25 secondes avant
+  qu'il puisse être bot.
 - Jungler adverse niveau 6 → alerte.
 - Aucune nouvelle depuis `jungler_inconnu` secondes en phase de lane → prudence.
 
-**Limite.** Sans la minimap, le coach ne voit pas le jungler se déplacer. Il sait où il a été vu
-(kills), son niveau, son stuff, s'il est mort, et les fenêtres de l'horloge.
+**Limite.** Le coach ne regarde pas la minimap : il ne voit pas le jungler apparaître ni clear
+ses camps. Il sait où il s'est montré par un kill, un objectif ou une tour, son niveau, son
+stuff, s'il est mort, et les fenêtres de l'horloge. Entre deux indices, il raisonne sur le temps
+de trajet.
 
 ## 6. Niveaux
 

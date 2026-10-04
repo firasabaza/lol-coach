@@ -47,15 +47,18 @@ Firas, ADC. Scénario type :
 - Profil support, puis les autres rôles (un fichier de règles par rôle)
 - Prix et recettes d'items via Data Dragon : « Lame d'infini achetable »
 - Type de partie via l'API du client (classée, perso, bots) et niveau différent par file
-- Lecture de la minimap par capture d'écran : position du jungler, état des waves. C'est la
-  brique la plus proche de ce que Riot appelle « altering your field of intelligence » : à
-  rediscuter avant de la brancher en partie classée.
+- Revue de la minimap sur replay, pour le débrief : à chaque mort ou gank subi, le jungler
+  était-il visible sur la carte avant, et depuis combien de temps.
+- Lecture de l'état des waves à l'écran.
 - Voix neuronale (plus naturelle), débrief commenté par un LLM
 - Matchups : conseils spécifiques par champion
 
 ## Non
 
 - Lire la mémoire du jeu, injecter des entrées, automatiser une action
+- Détecter en direct les ennemis sur la minimap contre de vrais joueurs (demandé le 2026-10-04,
+  non construit : Riot range ça avec les zoom hacks, « altering your field of intelligence »).
+  À la place, le jungler est suivi par déduction à partir de l'API.
 - Distribuer l'outil
 
 ## Stack

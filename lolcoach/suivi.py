@@ -63,7 +63,10 @@ class Suivi:
         self.derniere_vision = 120.0  # pas de rappel avant que le premier ward ait un sens
         self._vision = 0.0
 
-        self.jungler_vu: tuple[float, str] | None = None  # (heure, "top" | "mid" | "bot" | "inconnu")
+        # (heure, "top" | "mid" | "bot" | "base" | "inconnu", "kill" | "objectif" | "tour" | "retour")
+        self.jungler_vu: tuple[float, str, str] | None = None
+        self.jungler_vu_ce_tour = False
+        self._jungler_mort = False
         self.jungler_nouvelle = float(saison["jungle"]["fin_premier_clear"])
 
         self.pv: deque[float] = deque(maxlen=5)
@@ -79,6 +82,7 @@ class Suivi:
 
     def maj(self, e: Etat) -> None:
         self.lectures += 1
+        self.jungler_vu_ce_tour = False
 
         self.nouveaux = [ev for ev in e.evenements if ev.id > self._dernier_id]
         for ev in self.nouveaux:
@@ -88,6 +92,7 @@ class Suivi:
         if self.premiere and e.t > 90:
             # Connexion en cours de partie : on rattrape l'historique sans le commenter.
             self.nouveaux = []
+            self.jungler_vu_ce_tour = False
 
         valeur = e.moi.valeur_objets
         if self._valeur is not None and valeur > self._valeur:
@@ -107,8 +112,14 @@ class Suivi:
         self._vision = e.moi.vision
 
         jungler = e.jungler_ennemi
-        if jungler and jungler.mort:
-            self.jungler_nouvelle = e.t
+        if jungler:
+            if jungler.mort:
+                self.jungler_nouvelle = e.t
+            elif self._jungler_mort:
+                self.jungler_vu = (e.t, "base", "retour")
+                self.jungler_vu_ce_tour = True
+                self.jungler_nouvelle = e.t
+            self._jungler_mort = jungler.mort
 
         self.pv.append(e.pv)
         self.mort_ce_tour = e.moi.mort and self._vivant
@@ -120,7 +131,11 @@ class Suivi:
         o = self.saison["objectifs"]
         jungler = e.jungler_ennemi
         if jungler and jungler.nom in ev.participants:
-            self.jungler_nouvelle = ev.t  # un kill ou un objectif : on sait où il était
+            self.jungler_nouvelle = ev.t  # un kill, un objectif ou une tour : on sait où il était
+            lieu = self._lieu(ev, e, jungler.nom)
+            if lieu:
+                self.jungler_vu = (ev.t, *lieu)
+                self.jungler_vu_ce_tour = True
 
         if ev.nom == "DragonKill":
             tueur = e.joueur(ev.tueur)
@@ -141,8 +156,22 @@ class Suivi:
             self.herald_pris = True
         elif ev.nom == "TurretKilled":
             self.tours_tombees.add(ev.cible)
-        elif ev.nom == "ChampionKill" and jungler and jungler.nom in ev.participants:
-            self.jungler_vu = (ev.t, self._cote(ev, e, jungler.nom))
+
+    @classmethod
+    def _lieu(cls, ev: Evenement, e: Etat, jungler: str) -> tuple[str, str] | None:
+        """Où un événement place le jungler adverse : (côté de la carte, nature de l'indice)."""
+        if ev.nom == "ChampionKill":
+            return cls._cote(ev, e, jungler), "kill"
+        if ev.nom == "DragonKill":
+            return "bot", "objectif"
+        if ev.nom in ("HeraldKill", "BaronKill"):
+            return "top", "objectif"
+        if ev.nom in ("TurretKilled", "InhibKilled"):
+            # Turret_T2_R_03_A, Barracks_T2_R1 : le troisième morceau commence par la lane.
+            morceaux = ev.cible.split("_")
+            lane = {"L": "top", "C": "mid", "R": "bot"}.get(morceaux[2][:1]) if len(morceaux) > 2 else None
+            return (lane, "tour") if lane else None
+        return None
 
     @staticmethod
     def _cote(ev: Evenement, e: Etat, jungler: str) -> str:
