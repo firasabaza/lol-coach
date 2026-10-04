@@ -219,6 +219,50 @@ class Compositions(unittest.TestCase):
         self.assertEqual(genre("debut"), "info")
 
 
+class LectureAdverse(unittest.TestCase):
+    """Ce que le coach tire des choix et des achats de l'équipe d'en face."""
+
+    def test_sort_cle_runes_et_sorts_d_invocateur(self):
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(59)))
+        dit = next(c for c in moteur.lire(depuis_json(simulateur.partie(60))) if c.cle == "lecture-adverse")
+        self.assertIn("Lame du zénith de Leona : 12 secondes de recharge", dit.action)
+        self.assertIn("Caitlyn joue Jeu de jambes", dit.action)
+        self.assertEqual(dit.texte("faits"), "")
+
+    def test_objet_defensif_achete_en_face(self):
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(899)))
+        brut = simulateur.partie(900)
+        syndra = next(j for j in brut["allPlayers"] if j["championName"] == "Syndra")
+        syndra["items"].append({"itemID": 3157, "displayName": "Sablier de Zhonya", "price": 0, "count": 1})
+        dits = {c.cle: c for c in moteur.lire(depuis_json(brut))}
+        self.assertEqual(dits["objet-Syndra ennemie-3157"].fait, "Syndra a son Sablier de Zhonya.")
+        self.assertNotIn("objet-Syndra ennemie-3157", {c.cle for c in moteur.lire(depuis_json(brut))})  # dit une fois
+
+    def test_ace_et_inhibiteur(self):
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(1250)))
+        brut = simulateur.partie(1251)
+        brut["events"]["Events"] += [
+            {"EventID": 90, "EventName": "Ace", "EventTime": 1251.0, "Acer": "Joueur", "AcingTeam": "ORDER"},
+            {"EventID": 91, "EventName": "InhibKilled", "EventTime": 1251.0, "InhibKilled": "Barracks_T2_R1",
+             "KillerName": "Lee Sin ennemi", "Assisters": []},
+        ]
+        dits = {c.cle: c for c in moteur.lire(depuis_json(brut))}
+        self.assertEqual((dits["ace-90"].fait, dits["ace-90"].action), ("Ace pour vous.", "Baron tout de suite, puis siège."))
+        self.assertEqual(dits["inhibiteur-91"].fait, "Inhibiteur perdu.")
+
+    def test_deux_niveaux_de_retard(self):
+        brut = simulateur.partie(300)
+        next(j for j in brut["allPlayers"] if j["championName"] == "Caitlyn")["level"] = 7
+        cles = [c.cle for c in Moteur(REGLAGES).lire(depuis_json(brut))]
+        self.assertIn("debut", cles)  # connexion en cours de partie : seul l'accueil est dit
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(299)))
+        self.assertIn("niveaux-retard", [c.cle for c in moteur.lire(depuis_json(brut))])
+
+
 class VraiePartie(unittest.TestCase):
     """Ce que la première vraie partie (outil d'entraînement, patch 26.19) a appris sur l'API du jeu."""
 

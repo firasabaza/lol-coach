@@ -44,9 +44,20 @@ def mettre_a_jour(objets: Path = OBJETS, champions: Path = CHAMPIONS) -> str:
     }
     objets.write_text(json.dumps({"patch": patch, "objets": table}, ensure_ascii=False, indent=0), encoding="utf-8")
 
+    # Noms français et temps de recharge des sorts : un seul fichier pour tous les champions.
+    complets = {cle.lower(): c for cle, c in _lire(f"{DDRAGON}/cdn/{patch}/data/fr_FR/championFull.json")["data"].items()}
+
+    def sorts(cle: str) -> dict:
+        return {
+            lettre: {"nom": sort["name"], "recharge": sort["cooldown"][0]}
+            for lettre, sort in zip("QWER", complets.get(cle.lower(), {}).get("spells", []))
+        }
+
+    runes: dict[str, str] = {}
     fiches = {
         cle: {
             "id": c["id"],
+            "sorts": sorts(cle),
             "nom": c["name"],
             "roles": c.get("roles", []),
             "degats": "AP" if c.get("adaptiveType") == "MAGIC_DAMAGE" else "AD",
@@ -56,7 +67,13 @@ def mettre_a_jour(objets: Path = OBJETS, champions: Path = CHAMPIONS) -> str:
         }
         for cle, c in sorted(_lire(MERAKI).items())
     }
-    champions.write_text(json.dumps({"patch": patch, "champions": fiches}, ensure_ascii=False, indent=0), encoding="utf-8")
+    arbres = _lire(f"{DDRAGON}/cdn/{patch}/data/fr_FR/runesReforged.json")
+    for arbre in arbres:
+        for rune in arbre["slots"][0]["runes"]:
+            runes[str(rune["id"])] = rune["name"]
+    champions.write_text(
+        json.dumps({"patch": patch, "champions": fiches, "runes": runes}, ensure_ascii=False, indent=0), encoding="utf-8"
+    )
     return patch
 
 
@@ -75,8 +92,14 @@ def objets() -> dict[int, dict]:
 
 @cache
 def champions() -> dict[str, dict]:
-    """Clé du champion (« Kaisa ») -> {nom, roles, degats, portee, melee, notes}. Vide si le cache manque."""
+    """Clé du champion (« Kaisa ») -> {id, nom, roles, degats, portee, melee, notes, sorts}. Vide si le cache manque."""
     return _cache(CHAMPIONS, "champions")
+
+
+@cache
+def runes() -> dict[int, str]:
+    """Identifiant d'une rune principale -> son nom français."""
+    return {int(i): nom for i, nom in _cache(CHAMPIONS, "runes").items()}
 
 
 @cache

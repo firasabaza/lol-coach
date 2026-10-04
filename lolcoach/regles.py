@@ -378,7 +378,7 @@ def avantage(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             f"duo-mort-{sum(j.morts for j in duo_mort)}", TEMPO, "Leur botlane est morte.",
             "Crash la vague et enchaîne sur le drake : pas de back."
             if drake_proche
-            else "Crash la vague, prends les plaques, puis back.",
+            else "Crash la vague et tape la tour, 120 gold la plaque, puis back.",
         )
     elif duo_mort[0].reapparition >= 12:
         j = duo_mort[0]

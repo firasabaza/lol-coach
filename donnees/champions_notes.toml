@@ -69,3 +69,72 @@ vol_de_vie = 3072     # Soif-de-sang
 bottes_ad = 3047      # Coques en acier
 bottes_cc = 3111      # Sandales de Mercure
 trinket_bleu = 3363   # Altération divinatoire
+
+# Le sort avec lequel un support attrape, immobilise ou protège : le coach annonce son temps de
+# recharge au niveau 1 (lu dans les données du patch), parce que c'est la fenêtre pour trader.
+[sorts_cles]
+Blitzcrank = "Q"
+Thresh = "Q"
+Nautilus = "Q"
+Pyke = "Q"
+Morgana = "Q"
+Lux = "Q"
+Leona = "E"
+Alistar = "W"
+Rell = "W"
+Rakan = "W"
+Braum = "Q"
+Neeko = "E"
+Zyra = "E"
+Swain = "E"
+Pantheon = "W"
+Maokai = "W"
+Poppy = "E"
+Bard = "Q"
+Senna = "W"
+Karma = "W"
+Seraphine = "E"
+Nami = "Q"
+Soraka = "E"
+Lulu = "W"
+Janna = "Q"
+Xerath = "E"
+Velkoz = "E"
+Brand = "Q"
+Zilean = "Q"
+Taric = "E"
+TahmKench = "Q"
+Renata = "Q"
+
+# Rune principale d'un adversaire de lane -> ce qu'elle change. {nom} : le champion, {rune} : la rune.
+[runes]
+8005 = "{nom} joue {rune} : la troisième auto d'affilée amplifie les dégâts. Pas de trade long."
+9923 = "{nom} joue {rune} : trois autos partent d'un coup. Ne prends pas le trade court."
+8008 = "{nom} joue {rune} : les combats qui durent sont perdus pour toi. Trade court, puis recule."
+8021 = "{nom} joue {rune} : du soin à chaque déplacement. Le poke seul ne gagnera pas la lane."
+8112 = "{nom} joue {rune} : trois coups et ça explose. Ne prends pas le troisième."
+8128 = "{nom} joue {rune} : sous la moitié de tes PV, tu nourris cette rune. Back plus tôt."
+8439 = "{nom} joue {rune} : juste après l'engage, tout est encaissé. Attends trois secondes avant de taper."
+8465 = "{nom} joue {rune} : votre premier all-in sera absorbé. Faites sortir le bouclier, puis réengagez."
+8351 = "{nom} joue {rune} : son contrôle ralentit longtemps. Garde tes distances."
+8229 = "{nom} joue {rune} : chaque sort touché fait mal. Bouge après chaque last hit."
+8214 = "{nom} joue {rune} : du harcèlement à chaque auto. Rends les coups ou sors de portée."
+8369 = "{nom} joue {rune} : frappe en premier, la rune perd son bonus."
+
+# Sort d'invocateur d'un adversaire de lane -> ce qu'il change.
+[sorts_ennemis]
+SummonerDot = "Ignite chez {nom} : leurs all-in tuent dès le niveau 2. Garde plus de la moitié de tes PV."
+SummonerExhaust = "Exhaust chez {nom} : ton all-in sera coupé net. Fais-le sortir d'abord, puis réengage."
+SummonerBoost = "Purge chez {nom} : un seul contrôle ne suffira pas pour le kill."
+
+# Objet qu'un ennemi vient d'acheter -> « constat | conseil ». {nom} : le champion.
+[objets_ennemis]
+3026 = "{nom} a un Ange gardien. | Pas en première cible : garde tes sorts pour après la résurrection."
+3157 = "{nom} a son Sablier de Zhonya. | Ne lance pas tout dessus : attends la fin de la stase."
+3102 = "{nom} a un Voile de la banshee. | Faites sauter le bouclier avec un petit sort avant le contrôle."
+3814 = "{nom} a un Manteau de la nuit. | Faites sauter le bouclier avec un petit sort avant le contrôle."
+3140 = "{nom} a une Ceinture de mercure. | Votre contrôle ne tiendra pas : ne comptez pas dessus pour le kill."
+3139 = "{nom} a un Cimeterre mercuriel. | Votre contrôle ne tiendra pas : ne comptez pas dessus pour le kill."
+3075 = "{nom} a une Cotte épineuse. | Tes autos te blessent et ton vol de vie est réduit : dernière cible."
+3143 = "{nom} a un Présage de Randuin. | Tes critiques font moins mal dessus : Salutations de Dominik."
+3110 = "{nom} a un Cœur gelé. | Ta vitesse d'attaque baisse à proximité : tape une autre cible ou garde tes distances."

@@ -3,6 +3,24 @@
 "champions": {
 "Aatrox": {
 "id": 266,
+"sorts": {
+"Q": {
+"nom": "Épée des Darkin",
+"recharge": 14
+},
+"W": {
+"nom": "Chaînes infernales",
+"recharge": 18
+},
+"E": {
+"nom": "Ruée obscure",
+"recharge": 9
+},
+"R": {
+"nom": "Fossoyeur des mondes",
+"recharge": 120
+}
+},
 "nom": "Aatrox",
 "roles": [
 "FIGHTER",
@@ -21,6 +39,24 @@
 },
 "Ahri": {
 "id": 103,
+"sorts": {
+"Q": {
+"nom": "Orbe d'illusion",
+"recharge": 7
+},
+"W": {
+"nom": "Lucioles",
+"recharge": 9
+},
+"E": {
+"nom": "Charme",
+"recharge": 12
+},
+"R": {
+"nom": "Assaut spirituel",
+"recharge": 140
+}
+},
 "nom": "Ahri",
 "roles": [
 "ASSASSIN",
@@ -39,6 +75,24 @@
 },
 "Akali": {
 "id": 84,
+"sorts": {
+"Q": {
+"nom": "Vague de kunais",
+"recharge": 1.5
+},
+"W": {
+"nom": "Linceul nébuleux",
+"recharge": 20
+},
+"E": {
+"nom": "Lancer acrobatique",
+"recharge": 16
+},
+"R": {
+"nom": "Maîtrise absolue",
+"recharge": 120
+}
+},
 "nom": "Akali",
 "roles": [
 "ASSASSIN"
@@ -55,6 +109,24 @@
 },
 "Akshan": {
 "id": 166,
+"sorts": {
+"Q": {
+"nom": "Vengerang",
+"recharge": 9
+},
+"W": {
+"nom": "Cavalier seul",
+"recharge": 18
+},
+"E": {
+"nom": "Envolée héroïque",
+"recharge": 18
+},
+"R": {
+"nom": "Bien mérité !",
+"recharge": 100
+}
+},
 "nom": "Akshan",
 "roles": [
 "ASSASSIN",
@@ -72,6 +144,24 @@
 },
 "Alistar": {
 "id": 12,
+"sorts": {
+"Q": {
+"nom": "Atomisation",
+"recharge": 14
+},
+"W": {
+"nom": "Coup de tête",
+"recharge": 14
+},
+"E": {
+"nom": "Piétinement",
+"recharge": 12
+},
+"R": {
+"nom": "Volonté de fer",
+"recharge": 120
+}
+},
 "nom": "Alistar",
 "roles": [
 "SUPPORT",
@@ -90,6 +180,24 @@
 },
 "Ambessa": {
 "id": 799,
+"sorts": {
+"Q": {
+"nom": "Frappe fourbe / Frappe fracassante",
+"recharge": 14
+},
+"W": {
+"nom": "Égide dévastatrice",
+"recharge": 18
+},
+"E": {
+"nom": "Lacération",
+"recharge": 13
+},
+"R": {
+"nom": "Exécution publique",
+"recharge": 130
+}
+},
 "nom": "Ambessa",
 "roles": [
 "ASSASSIN",
@@ -109,6 +217,24 @@
 },
 "Amumu": {
 "id": 32,
+"sorts": {
+"Q": {
+"nom": "Jet de bandelette",
+"recharge": 3
+},
+"W": {
+"nom": "Désespoir",
+"recharge": 1
+},
+"E": {
+"nom": "Colère",
+"recharge": 9
+},
+"R": {
+"nom": "Malédiction d'Amumu",
+"recharge": 150
+}
+},
 "nom": "Amumu",
 "roles": [
 "SUPPORT",
@@ -127,6 +253,24 @@
 },
 "Anivia": {
 "id": 34,
+"sorts": {
+"Q": {
+"nom": "Lance de glace",
+"recharge": 11
+},
+"W": {
+"nom": "Cristallisation",
+"recharge": 17
+},
+"E": {
+"nom": "Gelure",
+"recharge": 4
+},
+"R": {
+"nom": "Tempête glaciale",
+"recharge": 4
+}
+},
 "nom": "Anivia",
 "roles": [
 "BATTLEMAGE",
@@ -145,6 +289,24 @@
 },
 "Annie": {
 "id": 1,
+"sorts": {
+"Q": {
+"nom": "Désintégration",
+"recharge": 4
+},
+"W": {
+"nom": "Incinération",
+"recharge": 7
+},
+"E": {
+"nom": "Bouclier en fusion",
+"recharge": 10
+},
+"R": {
+"nom": "Invocation : Tibbers",
+"recharge": 130
+}
+},
 "nom": "Annie",
 "roles": [
 "BURST",
@@ -163,6 +325,24 @@
 },
 "Aphelios": {
 "id": 523,
+"sorts": {
+"Q": {
+"nom": "Compétences d'arme",
+"recharge": 9
+},
+"W": {
+"nom": "Phase",
+"recharge": 0.8
+},
+"E": {
+"nom": "Système de file d'armes",
+"recharge": 0
+},
+"R": {
+"nom": "Veille au clair de lune",
+"recharge": 120
+}
+},
 "nom": "Aphelios",
 "roles": [
 "MARKSMAN"
@@ -179,6 +359,24 @@
 },
 "Ashe": {
 "id": 22,
+"sorts": {
+"Q": {
+"nom": "Concentration du ranger",
+"recharge": 0
+},
+"W": {
+"nom": "Salve",
+"recharge": 18
+},
+"E": {
+"nom": "Rapace",
+"recharge": 5
+},
+"R": {
+"nom": "Flèche de cristal enchantée",
+"recharge": 100
+}
+},
 "nom": "Ashe",
 "roles": [
 "MARKSMAN",
@@ -196,6 +394,24 @@
 },
 "AurelionSol": {
 "id": 136,
+"sorts": {
+"Q": {
+"nom": "Souffle de lumière",
+"recharge": 3
+},
+"W": {
+"nom": "Vol astral",
+"recharge": 22
+},
+"E": {
+"nom": "Trou noir",
+"recharge": 12
+},
+"R": {
+"nom": "Étoile finale/Apocalypse",
+"recharge": 120
+}
+},
 "nom": "Aurelion Sol",
 "roles": [
 "BATTLEMAGE",
@@ -213,6 +429,24 @@
 },
 "Aurora": {
 "id": 893,
+"sorts": {
+"Q": {
+"nom": "Maléfice",
+"recharge": 9
+},
+"W": {
+"nom": "Derrière le voile",
+"recharge": 22
+},
+"E": {
+"nom": "Sortilège",
+"recharge": 15
+},
+"R": {
+"nom": "Entre les mondes",
+"recharge": 140
+}
+},
 "nom": "Aurora",
 "roles": [
 "ASSASSIN",
@@ -231,6 +465,24 @@
 },
 "Azir": {
 "id": 268,
+"sorts": {
+"Q": {
+"nom": "Sables conquérants",
+"recharge": 14
+},
+"W": {
+"nom": "Dresse-toi !",
+"recharge": 1.5
+},
+"E": {
+"nom": "Sables mouvants",
+"recharge": 22
+},
+"R": {
+"nom": "Partition impériale",
+"recharge": 120
+}
+},
 "nom": "Azir",
 "roles": [
 "MAGE",
@@ -249,6 +501,24 @@
 },
 "Bard": {
 "id": 432,
+"sorts": {
+"Q": {
+"nom": "Lien cosmique",
+"recharge": 11
+},
+"W": {
+"nom": "Don du gardien",
+"recharge": 0
+},
+"E": {
+"nom": "Route magique",
+"recharge": 22
+},
+"R": {
+"nom": "Destin tempéré",
+"recharge": 110
+}
+},
 "nom": "Bard",
 "roles": [
 "CATCHER",
@@ -267,6 +537,24 @@
 },
 "Belveth": {
 "id": 200,
+"sorts": {
+"Q": {
+"nom": "Charge du Néant",
+"recharge": 4
+},
+"W": {
+"nom": "Projection cinglante",
+"recharge": 12
+},
+"E": {
+"nom": "Maelström impérial",
+"recharge": 24
+},
+"R": {
+"nom": "Banquet infini",
+"recharge": 1
+}
+},
 "nom": "Bel'Veth",
 "roles": [
 "FIGHTER",
@@ -284,6 +572,24 @@
 },
 "Blitzcrank": {
 "id": 53,
+"sorts": {
+"Q": {
+"nom": "Grappin propulsé",
+"recharge": 20
+},
+"W": {
+"nom": "Surcharge",
+"recharge": 15
+},
+"E": {
+"nom": "Poing d'acier",
+"recharge": 7
+},
+"R": {
+"nom": "Champ de stase",
+"recharge": 60
+}
+},
 "nom": "Blitzcrank",
 "roles": [
 "CATCHER",
@@ -302,6 +608,24 @@
 },
 "Brand": {
 "id": 63,
+"sorts": {
+"Q": {
+"nom": "Brûlure",
+"recharge": 8
+},
+"W": {
+"nom": "Colonne de flammes",
+"recharge": 10
+},
+"E": {
+"nom": "Conflagration",
+"recharge": 13
+},
+"R": {
+"nom": "Pyrolyse",
+"recharge": 100
+}
+},
 "nom": "Brand",
 "roles": [
 "BURST",
@@ -320,6 +644,24 @@
 },
 "Braum": {
 "id": 201,
+"sorts": {
+"Q": {
+"nom": "Morsure de l'hiver",
+"recharge": 8
+},
+"W": {
+"nom": "Bouclier humain",
+"recharge": 12
+},
+"E": {
+"nom": "Incassable",
+"recharge": 16
+},
+"R": {
+"nom": "Fissure glaciale",
+"recharge": 130
+}
+},
 "nom": "Braum",
 "roles": [
 "SUPPORT",
@@ -338,6 +680,24 @@
 },
 "Briar": {
 "id": 233,
+"sorts": {
+"Q": {
+"nom": "À table !",
+"recharge": 13
+},
+"W": {
+"nom": "Folie sanguinaire / Juste un croc",
+"recharge": 14
+},
+"E": {
+"nom": "Cri sanglant",
+"recharge": 16
+},
+"R": {
+"nom": "Vol mortel",
+"recharge": 120
+}
+},
 "nom": "Briar",
 "roles": [
 "ASSASSIN",
@@ -356,6 +716,24 @@
 },
 "Caitlyn": {
 "id": 51,
+"sorts": {
+"Q": {
+"nom": "Pacificateur de Piltover",
+"recharge": 10
+},
+"W": {
+"nom": "Piège-yordle",
+"recharge": 0.5
+},
+"E": {
+"nom": "Filet de calibre 90",
+"recharge": 16
+},
+"R": {
+"nom": "Tir chirurgical",
+"recharge": 90
+}
+},
 "nom": "Caitlyn",
 "roles": [
 "MARKSMAN"
@@ -372,6 +750,24 @@
 },
 "Camille": {
 "id": 164,
+"sorts": {
+"Q": {
+"nom": "Protocole de précision",
+"recharge": 9
+},
+"W": {
+"nom": "Balayage tactique",
+"recharge": 12
+},
+"E": {
+"nom": "Grappin",
+"recharge": 16
+},
+"R": {
+"nom": "Ultimatum Hextech",
+"recharge": 140
+}
+},
 "nom": "Camille",
 "roles": [
 "ASSASSIN",
@@ -390,6 +786,24 @@
 },
 "Cassiopeia": {
 "id": 69,
+"sorts": {
+"Q": {
+"nom": "Bombe nocive",
+"recharge": 3.5
+},
+"W": {
+"nom": "Miasmes",
+"recharge": 24
+},
+"E": {
+"nom": "Morsure fatale",
+"recharge": 0.75
+},
+"R": {
+"nom": "Regard de la Méduse",
+"recharge": 120
+}
+},
 "nom": "Cassiopeia",
 "roles": [
 "BATTLEMAGE",
@@ -407,6 +821,24 @@
 },
 "Chogath": {
 "id": 31,
+"sorts": {
+"Q": {
+"nom": "Rupture",
+"recharge": 6
+},
+"W": {
+"nom": "Cri sauvage",
+"recharge": 11
+},
+"E": {
+"nom": "Piques vorpales",
+"recharge": 8
+},
+"R": {
+"nom": "Festin",
+"recharge": 80
+}
+},
 "nom": "Cho'Gath",
 "roles": [
 "MAGE",
@@ -425,6 +857,24 @@
 },
 "Corki": {
 "id": 42,
+"sorts": {
+"Q": {
+"nom": "Bombe au phosphore",
+"recharge": 9
+},
+"W": {
+"nom": "Valkyrie",
+"recharge": 20
+},
+"E": {
+"nom": "Gatling",
+"recharge": 12
+},
+"R": {
+"nom": "Barrage de projectiles",
+"recharge": 2
+}
+},
 "nom": "Corki",
 "roles": [
 "MAGE",
@@ -442,6 +892,24 @@
 },
 "Darius": {
 "id": 122,
+"sorts": {
+"Q": {
+"nom": "Décimation",
+"recharge": 9
+},
+"W": {
+"nom": "Estropiaison",
+"recharge": 5
+},
+"E": {
+"nom": "Crampon",
+"recharge": 26
+},
+"R": {
+"nom": "Guillotine noxienne",
+"recharge": 120
+}
+},
 "nom": "Darius",
 "roles": [
 "FIGHTER",
@@ -460,6 +928,24 @@
 },
 "Diana": {
 "id": 131,
+"sorts": {
+"Q": {
+"nom": "Croissant lunaire",
+"recharge": 8
+},
+"W": {
+"nom": "Corps célestes",
+"recharge": 15
+},
+"E": {
+"nom": "Rush lunaire",
+"recharge": 22
+},
+"R": {
+"nom": "Attraction lunaire",
+"recharge": 100
+}
+},
 "nom": "Diana",
 "roles": [
 "ASSASSIN",
@@ -478,6 +964,24 @@
 },
 "DrMundo": {
 "id": 36,
+"sorts": {
+"Q": {
+"nom": "Scie souillée",
+"recharge": 4
+},
+"W": {
+"nom": "Défibrillateur",
+"recharge": 17
+},
+"E": {
+"nom": "Contusion",
+"recharge": 9
+},
+"R": {
+"nom": "Dosage maximal",
+"recharge": 120
+}
+},
 "nom": "Dr. Mundo",
 "roles": [
 "FIGHTER",
@@ -496,6 +1000,24 @@
 },
 "Draven": {
 "id": 119,
+"sorts": {
+"Q": {
+"nom": "Hache tournoyante",
+"recharge": 12
+},
+"W": {
+"nom": "Pulsion sanguinaire",
+"recharge": 12
+},
+"E": {
+"nom": "Division",
+"recharge": 16
+},
+"R": {
+"nom": "Volée mortelle",
+"recharge": 100
+}
+},
 "nom": "Draven",
 "roles": [
 "MARKSMAN"
@@ -512,6 +1034,24 @@
 },
 "Ekko": {
 "id": 245,
+"sorts": {
+"Q": {
+"nom": "Rétrobang",
+"recharge": 9
+},
+"W": {
+"nom": "Convergence parallèle",
+"recharge": 22
+},
+"E": {
+"nom": "Rush déphasé",
+"recharge": 9
+},
+"R": {
+"nom": "Chronofracture",
+"recharge": 110
+}
+},
 "nom": "Ekko",
 "roles": [
 "ASSASSIN",
@@ -529,6 +1069,24 @@
 },
 "Elise": {
 "id": 60,
+"sorts": {
+"Q": {
+"nom": "Neurotoxine/Morsure venimeuse",
+"recharge": 6
+},
+"W": {
+"nom": "Araignée explosive/Frénésie symbiotique",
+"recharge": 12
+},
+"E": {
+"nom": "Cocon/Suspension",
+"recharge": 12
+},
+"R": {
+"nom": "Forme arachnéenne",
+"recharge": 3
+}
+},
 "nom": "Elise",
 "roles": [
 "ASSASSIN",
@@ -547,6 +1105,24 @@
 },
 "Evelynn": {
 "id": 28,
+"sorts": {
+"Q": {
+"nom": "Piques de haine",
+"recharge": 4
+},
+"W": {
+"nom": "Séduction",
+"recharge": 15
+},
+"E": {
+"nom": "Coup de fouet",
+"recharge": 8
+},
+"R": {
+"nom": "Faiseuse de veuves",
+"recharge": 120
+}
+},
 "nom": "Evelynn",
 "roles": [
 "ASSASSIN",
@@ -564,6 +1140,24 @@
 },
 "Ezreal": {
 "id": 81,
+"sorts": {
+"Q": {
+"nom": "Tir mystique",
+"recharge": 5.5
+},
+"W": {
+"nom": "Flux essentiel",
+"recharge": 8
+},
+"E": {
+"nom": "Transfert arcanique",
+"recharge": 26
+},
+"R": {
+"nom": "Arc térébrant",
+"recharge": 120
+}
+},
 "nom": "Ezreal",
 "roles": [
 "MAGE",
@@ -581,6 +1175,24 @@
 },
 "Fiddlesticks": {
 "id": 9,
+"sorts": {
+"Q": {
+"nom": "Terreur",
+"recharge": 15
+},
+"W": {
+"nom": "Moisson fructueuse",
+"recharge": 10
+},
+"E": {
+"nom": "Fauchaison",
+"recharge": 10
+},
+"R": {
+"nom": "Rafale de corbeaux",
+"recharge": 140
+}
+},
 "nom": "Fiddlesticks",
 "roles": [
 "MAGE",
@@ -599,6 +1211,24 @@
 },
 "Fiora": {
 "id": 114,
+"sorts": {
+"Q": {
+"nom": "Fente",
+"recharge": 13
+},
+"W": {
+"nom": "Riposte",
+"recharge": 24
+},
+"E": {
+"nom": "Botte secrète",
+"recharge": 11
+},
+"R": {
+"nom": "Défi suprême",
+"recharge": 110
+}
+},
 "nom": "Fiora",
 "roles": [
 "ASSASSIN",
@@ -617,6 +1247,24 @@
 },
 "Fizz": {
 "id": 105,
+"sorts": {
+"Q": {
+"nom": "Frappe de l'oursin",
+"recharge": 8
+},
+"W": {
+"nom": "Trident marin",
+"recharge": 7
+},
+"E": {
+"nom": "Joueur/Filou",
+"recharge": 16
+},
+"R": {
+"nom": "Pêche au gros",
+"recharge": 120
+}
+},
 "nom": "Fizz",
 "roles": [
 "ASSASSIN",
@@ -634,6 +1282,24 @@
 },
 "Galio": {
 "id": 3,
+"sorts": {
+"Q": {
+"nom": "Vents de guerre",
+"recharge": 11
+},
+"W": {
+"nom": "Bouclier de Durand",
+"recharge": 18
+},
+"E": {
+"nom": "Horion de la justice",
+"recharge": 11
+},
+"R": {
+"nom": "Entrée héroïque",
+"recharge": 180
+}
+},
 "nom": "Galio",
 "roles": [
 "MAGE",
@@ -652,6 +1318,24 @@
 },
 "Gangplank": {
 "id": 41,
+"sorts": {
+"Q": {
+"nom": "Pourparlers",
+"recharge": 4.5
+},
+"W": {
+"nom": "Guérison du scorbut",
+"recharge": 22
+},
+"E": {
+"nom": "Baril de poudre",
+"recharge": 0
+},
+"R": {
+"nom": "Tir de barrage",
+"recharge": 160
+}
+},
 "nom": "Gangplank",
 "roles": [
 "FIGHTER",
@@ -669,6 +1353,24 @@
 },
 "Garen": {
 "id": 86,
+"sorts": {
+"Q": {
+"nom": "Coup décisif",
+"recharge": 8
+},
+"W": {
+"nom": "Courage",
+"recharge": 22
+},
+"E": {
+"nom": "Jugement",
+"recharge": 9
+},
+"R": {
+"nom": "Justice de Demacia",
+"recharge": 120
+}
+},
 "nom": "Garen",
 "roles": [
 "FIGHTER",
@@ -687,6 +1389,24 @@
 },
 "Gnar": {
 "id": 150,
+"sorts": {
+"Q": {
+"nom": "Jet de boomerang/Jet de rocher",
+"recharge": 16
+},
+"W": {
+"nom": "Agitation/Beigne",
+"recharge": 7
+},
+"E": {
+"nom": "Rebond/Aplatissement",
+"recharge": 22
+},
+"R": {
+"nom": "GNAR !",
+"recharge": 90
+}
+},
 "nom": "Gnar",
 "roles": [
 "FIGHTER",
@@ -705,6 +1425,24 @@
 },
 "Gragas": {
 "id": 79,
+"sorts": {
+"Q": {
+"nom": "Fût roulant",
+"recharge": 10
+},
+"W": {
+"nom": "Rage d'ivrogne",
+"recharge": 5
+},
+"E": {
+"nom": "Coup de bidon",
+"recharge": 14
+},
+"R": {
+"nom": "Fût explosif",
+"recharge": 100
+}
+},
 "nom": "Gragas",
 "roles": [
 "FIGHTER",
@@ -723,6 +1461,24 @@
 },
 "Graves": {
 "id": 104,
+"sorts": {
+"Q": {
+"nom": "Terminus",
+"recharge": 13
+},
+"W": {
+"nom": "Écran de fumée",
+"recharge": 26
+},
+"E": {
+"nom": "Ruée vers l'or",
+"recharge": 16
+},
+"R": {
+"nom": "Dégâts collatéraux",
+"recharge": 100
+}
+},
 "nom": "Graves",
 "roles": [
 "MARKSMAN",
@@ -740,6 +1496,24 @@
 },
 "Gwen": {
 "id": 887,
+"sorts": {
+"Q": {
+"nom": "Tchac, tchac !",
+"recharge": 6.5
+},
+"W": {
+"nom": "Brume sacrée",
+"recharge": 22
+},
+"E": {
+"nom": "Élan incisif",
+"recharge": 13
+},
+"R": {
+"nom": "Piqûre",
+"recharge": 120
+}
+},
 "nom": "Gwen",
 "roles": [
 "ASSASSIN",
@@ -758,6 +1532,24 @@
 },
 "Hecarim": {
 "id": 120,
+"sorts": {
+"Q": {
+"nom": "Carnage",
+"recharge": 4
+},
+"W": {
+"nom": "Essence de la peur",
+"recharge": 14
+},
+"E": {
+"nom": "Charge dévastatrice",
+"recharge": 20
+},
+"R": {
+"nom": "Légion des ombres",
+"recharge": 140
+}
+},
 "nom": "Hecarim",
 "roles": [
 "DIVER",
@@ -776,6 +1568,24 @@
 },
 "Heimerdinger": {
 "id": 74,
+"sorts": {
+"Q": {
+"nom": "Tourelle H-28G Évolution",
+"recharge": 1
+},
+"W": {
+"nom": "Micro-roquettes Hextech",
+"recharge": 11
+},
+"E": {
+"nom": "Grenade électro-tempête CH-2",
+"recharge": 11
+},
+"R": {
+"nom": "AMÉLIORATION !",
+"recharge": 100
+}
+},
 "nom": "Heimerdinger",
 "roles": [
 "MAGE",
@@ -794,6 +1604,24 @@
 },
 "Hwei": {
 "id": 910,
+"sorts": {
+"Q": {
+"nom": "Sujet : Désastres",
+"recharge": 10
+},
+"W": {
+"nom": "Sujet : Sérénités",
+"recharge": 18
+},
+"E": {
+"nom": "Sujet : Tourments",
+"recharge": 12
+},
+"R": {
+"nom": "Vision de désespoir",
+"recharge": 120
+}
+},
 "nom": "Hwei",
 "roles": [
 "ARTILLERY",
@@ -812,6 +1640,24 @@
 },
 "Illaoi": {
 "id": 420,
+"sorts": {
+"Q": {
+"nom": "Coup de tentacule",
+"recharge": 10
+},
+"W": {
+"nom": "Âpre leçon",
+"recharge": 4
+},
+"E": {
+"nom": "Épreuve de l'esprit",
+"recharge": 16
+},
+"R": {
+"nom": "Acte de foi",
+"recharge": 120
+}
+},
 "nom": "Illaoi",
 "roles": [
 "FIGHTER",
@@ -830,6 +1676,24 @@
 },
 "Irelia": {
 "id": 39,
+"sorts": {
+"Q": {
+"nom": "Rush fatal",
+"recharge": 10
+},
+"W": {
+"nom": "Danse de défi",
+"recharge": 20
+},
+"E": {
+"nom": "Duo parfait",
+"recharge": 16
+},
+"R": {
+"nom": "Pointe de l'avant-garde",
+"recharge": 125
+}
+},
 "nom": "Irelia",
 "roles": [
 "ASSASSIN",
@@ -848,6 +1712,24 @@
 },
 "Ivern": {
 "id": 427,
+"sorts": {
+"Q": {
+"nom": "Enracinement",
+"recharge": 14
+},
+"W": {
+"nom": "Main verte",
+"recharge": 0.5
+},
+"E": {
+"nom": "Graine à retardement",
+"recharge": 11
+},
+"R": {
+"nom": "Marguerite !",
+"recharge": 140
+}
+},
 "nom": "Ivern",
 "roles": [
 "CATCHER",
@@ -866,6 +1748,24 @@
 },
 "Janna": {
 "id": 40,
+"sorts": {
+"Q": {
+"nom": "Vent hurlant",
+"recharge": 14
+},
+"W": {
+"nom": "Alizé",
+"recharge": 8
+},
+"E": {
+"nom": "Œil du cyclone",
+"recharge": 16
+},
+"R": {
+"nom": "Mousson",
+"recharge": 130
+}
+},
 "nom": "Janna",
 "roles": [
 "ENCHANTER",
@@ -884,6 +1784,24 @@
 },
 "JarvanIV": {
 "id": 59,
+"sorts": {
+"Q": {
+"nom": "Frappe du dragon",
+"recharge": 10
+},
+"W": {
+"nom": "Égide dorée",
+"recharge": 9
+},
+"E": {
+"nom": "Étendard demacien",
+"recharge": 12
+},
+"R": {
+"nom": "Cataclysme",
+"recharge": 120
+}
+},
 "nom": "Jarvan IV",
 "roles": [
 "DIVER",
@@ -902,6 +1820,24 @@
 },
 "Jax": {
 "id": 24,
+"sorts": {
+"Q": {
+"nom": "Frappe bondissante",
+"recharge": 8
+},
+"W": {
+"nom": "Élargissement",
+"recharge": 7
+},
+"E": {
+"nom": "Contre-attaque",
+"recharge": 17
+},
+"R": {
+"nom": "Maître d'armes",
+"recharge": 110
+}
+},
 "nom": "Jax",
 "roles": [
 "ASSASSIN",
@@ -920,6 +1856,24 @@
 },
 "Jayce": {
 "id": 126,
+"sorts": {
+"Q": {
+"nom": "Direction le ciel ! / Orbe électrique",
+"recharge": 16
+},
+"W": {
+"nom": "Champ électrique / Hypercharge",
+"recharge": 10
+},
+"E": {
+"nom": "Coup foudroyant / Portail d'accélération",
+"recharge": 20
+},
+"R": {
+"nom": "Canon Mercury / Marteau Mercury",
+"recharge": 6
+}
+},
 "nom": "Jayce",
 "roles": [
 "ARTILLERY",
@@ -938,6 +1892,24 @@
 },
 "Jhin": {
 "id": 202,
+"sorts": {
+"Q": {
+"nom": "Grenade dansante",
+"recharge": 7
+},
+"W": {
+"nom": "Floraison mortelle",
+"recharge": 12
+},
+"E": {
+"nom": "Public captif",
+"recharge": 2
+},
+"R": {
+"nom": "Rappel de rideau",
+"recharge": 120
+}
+},
 "nom": "Jhin",
 "roles": [
 "CATCHER",
@@ -956,6 +1928,24 @@
 },
 "Jinx": {
 "id": 222,
+"sorts": {
+"Q": {
+"nom": "Flip flap !",
+"recharge": 0.9
+},
+"W": {
+"nom": "Zap !",
+"recharge": 8
+},
+"E": {
+"nom": "Pyromâcheurs !",
+"recharge": 24
+},
+"R": {
+"nom": "Super roquette de la mort !",
+"recharge": 85
+}
+},
 "nom": "Jinx",
 "roles": [
 "MARKSMAN"
@@ -972,6 +1962,24 @@
 },
 "KSante": {
 "id": 897,
+"sorts": {
+"Q": {
+"nom": "Coups de ntofo",
+"recharge": 3.5
+},
+"W": {
+"nom": "Pour Nazumah !",
+"recharge": 14
+},
+"E": {
+"nom": "Jeu de jambes",
+"recharge": 10
+},
+"R": {
+"nom": "Grand jeu",
+"recharge": 120
+}
+},
 "nom": "K'Sante",
 "roles": [
 "FIGHTER",
@@ -991,6 +1999,24 @@
 },
 "Kaisa": {
 "id": 145,
+"sorts": {
+"Q": {
+"nom": "Pluie d'Icathia",
+"recharge": 10
+},
+"W": {
+"nom": "Rayon du Néant",
+"recharge": 20
+},
+"E": {
+"nom": "Surpresseur",
+"recharge": 16
+},
+"R": {
+"nom": "Instinct meurtrier",
+"recharge": 130
+}
+},
 "nom": "Kai'Sa",
 "roles": [
 "MAGE",
@@ -1008,6 +2034,24 @@
 },
 "Kalista": {
 "id": 429,
+"sorts": {
+"Q": {
+"nom": "Perforation",
+"recharge": 9
+},
+"W": {
+"nom": "Sentinelle",
+"recharge": 30
+},
+"E": {
+"nom": "Extirpation",
+"recharge": 0
+},
+"R": {
+"nom": "Appel du destin",
+"recharge": 160
+}
+},
 "nom": "Kalista",
 "roles": [
 "MARKSMAN"
@@ -1024,6 +2068,24 @@
 },
 "Karma": {
 "id": 43,
+"sorts": {
+"Q": {
+"nom": "Flamme intérieure",
+"recharge": 9
+},
+"W": {
+"nom": "Volonté concentrée",
+"recharge": 12
+},
+"E": {
+"nom": "Exaltation",
+"recharge": 10
+},
+"R": {
+"nom": "Mantra",
+"recharge": 40
+}
+},
 "nom": "Karma",
 "roles": [
 "BURST",
@@ -1043,6 +2105,24 @@
 },
 "Karthus": {
 "id": 30,
+"sorts": {
+"Q": {
+"nom": "Dévastation",
+"recharge": 0
+},
+"W": {
+"nom": "Mur de douleur",
+"recharge": 15
+},
+"E": {
+"nom": "Souillure",
+"recharge": 0.5
+},
+"R": {
+"nom": "Requiem",
+"recharge": 200
+}
+},
 "nom": "Karthus",
 "roles": [
 "BATTLEMAGE",
@@ -1060,6 +2140,24 @@
 },
 "Kassadin": {
 "id": 38,
+"sorts": {
+"Q": {
+"nom": "Orbe du Néant",
+"recharge": 9
+},
+"W": {
+"nom": "Lame éthérée",
+"recharge": 7
+},
+"E": {
+"nom": "Pulsation",
+"recharge": 21
+},
+"R": {
+"nom": "Fissure",
+"recharge": 5
+}
+},
 "nom": "Kassadin",
 "roles": [
 "ASSASSIN",
@@ -1077,6 +2175,24 @@
 },
 "Katarina": {
 "id": 55,
+"sorts": {
+"Q": {
+"nom": "Lame rebondissante",
+"recharge": 11
+},
+"W": {
+"nom": "Préparation",
+"recharge": 15
+},
+"E": {
+"nom": "Shunpo",
+"recharge": 12
+},
+"R": {
+"nom": "Lotus mortel",
+"recharge": 75
+}
+},
 "nom": "Katarina",
 "roles": [
 "ASSASSIN",
@@ -1094,6 +2210,24 @@
 },
 "Kayle": {
 "id": 10,
+"sorts": {
+"Q": {
+"nom": "Incandescence",
+"recharge": 12
+},
+"W": {
+"nom": "Bénédiction céleste",
+"recharge": 15
+},
+"E": {
+"nom": "Lame de feu stellaire",
+"recharge": 8
+},
+"R": {
+"nom": "Jugement divin",
+"recharge": 160
+}
+},
 "nom": "Kayle",
 "roles": [
 "MAGE",
@@ -1112,6 +2246,24 @@
 },
 "Kayn": {
 "id": 141,
+"sorts": {
+"Q": {
+"nom": "Moisson cruelle",
+"recharge": 7
+},
+"W": {
+"nom": "Entaille sombre",
+"recharge": 13
+},
+"E": {
+"nom": "Passe-muraille",
+"recharge": 21
+},
+"R": {
+"nom": "Intrusion obscure",
+"recharge": 120
+}
+},
 "nom": "Kayn",
 "roles": [
 "ASSASSIN",
@@ -1130,6 +2282,24 @@
 },
 "Kennen": {
 "id": 85,
+"sorts": {
+"Q": {
+"nom": "Shuriken foudroyant",
+"recharge": 7
+},
+"W": {
+"nom": "Surtension",
+"recharge": 13
+},
+"E": {
+"nom": "Rush foudroyant",
+"recharge": 10
+},
+"R": {
+"nom": "Maelström",
+"recharge": 120
+}
+},
 "nom": "Kennen",
 "roles": [
 "MAGE",
@@ -1148,6 +2318,24 @@
 },
 "Khazix": {
 "id": 121,
+"sorts": {
+"Q": {
+"nom": "Goût de la peur",
+"recharge": 4
+},
+"W": {
+"nom": "Pique du Néant",
+"recharge": 9
+},
+"E": {
+"nom": "Bond",
+"recharge": 20
+},
+"R": {
+"nom": "Assaut du Néant",
+"recharge": 100
+}
+},
 "nom": "Kha'Zix",
 "roles": [
 "ASSASSIN"
@@ -1164,6 +2352,24 @@
 },
 "Kindred": {
 "id": 203,
+"sorts": {
+"Q": {
+"nom": "Danse des flèches",
+"recharge": 9
+},
+"W": {
+"nom": "Frénésie de Loup",
+"recharge": 18
+},
+"E": {
+"nom": "Terreur mortelle",
+"recharge": 14
+},
+"R": {
+"nom": "Repos d'Agneau",
+"recharge": 160
+}
+},
 "nom": "Kindred",
 "roles": [
 "MARKSMAN"
@@ -1180,6 +2386,24 @@
 },
 "Kled": {
 "id": 240,
+"sorts": {
+"Q": {
+"nom": "Piège à ours en laisse",
+"recharge": 11
+},
+"W": {
+"nom": "Penchant pour la violence",
+"recharge": 13
+},
+"E": {
+"nom": "Joute",
+"recharge": 13
+},
+"R": {
+"nom": "Chaaaaaaaargez !!!",
+"recharge": 140
+}
+},
 "nom": "Kled",
 "roles": [
 "FIGHTER",
@@ -1198,6 +2422,24 @@
 },
 "KogMaw": {
 "id": 96,
+"sorts": {
+"Q": {
+"nom": "Bave caustique",
+"recharge": 7
+},
+"W": {
+"nom": "Barrage bio-arcanique",
+"recharge": 17
+},
+"E": {
+"nom": "Limon du Néant",
+"recharge": 12
+},
+"R": {
+"nom": "Artillerie vivante",
+"recharge": 2
+}
+},
 "nom": "Kog'Maw",
 "roles": [
 "MAGE",
@@ -1215,6 +2457,24 @@
 },
 "Leblanc": {
 "id": 7,
+"sorts": {
+"Q": {
+"nom": "Sceau de malveillance",
+"recharge": 6
+},
+"W": {
+"nom": "Distorsion",
+"recharge": 15
+},
+"E": {
+"nom": "Chaînes éthérées",
+"recharge": 14
+},
+"R": {
+"nom": "Imitation",
+"recharge": 45
+}
+},
 "nom": "LeBlanc",
 "roles": [
 "ASSASSIN",
@@ -1233,6 +2493,24 @@
 },
 "LeeSin": {
 "id": 64,
+"sorts": {
+"Q": {
+"nom": "Onde sonore/Coup résonant",
+"recharge": 10
+},
+"W": {
+"nom": "Rempart/Force d'âme",
+"recharge": 7
+},
+"E": {
+"nom": "Trombe/Fracture",
+"recharge": 8
+},
+"R": {
+"nom": "Rage du dragon",
+"recharge": 110
+}
+},
 "nom": "Lee Sin",
 "roles": [
 "ASSASSIN",
@@ -1251,6 +2529,24 @@
 },
 "Leona": {
 "id": 89,
+"sorts": {
+"Q": {
+"nom": "Bouclier de l'aube",
+"recharge": 5
+},
+"W": {
+"nom": "Éclipse",
+"recharge": 14
+},
+"E": {
+"nom": "Lame du zénith",
+"recharge": 12
+},
+"R": {
+"nom": "Éruption solaire",
+"recharge": 90
+}
+},
 "nom": "Leona",
 "roles": [
 "SUPPORT",
@@ -1269,6 +2565,24 @@
 },
 "Lillia": {
 "id": 876,
+"sorts": {
+"Q": {
+"nom": "Frappe fleurie",
+"recharge": 6
+},
+"W": {
+"nom": "Attention, désolée !",
+"recharge": 14
+},
+"E": {
+"nom": "Graine tournoyante",
+"recharge": 12
+},
+"R": {
+"nom": "Douce berceuse",
+"recharge": 150
+}
+},
 "nom": "Lillia",
 "roles": [
 "FIGHTER",
@@ -1287,6 +2601,24 @@
 },
 "Lissandra": {
 "id": 127,
+"sorts": {
+"Q": {
+"nom": "Éclat de glace",
+"recharge": 7
+},
+"W": {
+"nom": "Cercle de givre",
+"recharge": 10
+},
+"E": {
+"nom": "Chemin glacial",
+"recharge": 24
+},
+"R": {
+"nom": "Tombeau polaire",
+"recharge": 120
+}
+},
 "nom": "Lissandra",
 "roles": [
 "BURST",
@@ -1304,6 +2636,24 @@
 },
 "Lucian": {
 "id": 236,
+"sorts": {
+"Q": {
+"nom": "Lumière perforante",
+"recharge": 9
+},
+"W": {
+"nom": "Flamboiement",
+"recharge": 14
+},
+"E": {
+"nom": "Poursuite inlassable",
+"recharge": 16
+},
+"R": {
+"nom": "Déluge de balles",
+"recharge": 110
+}
+},
 "nom": "Lucian",
 "roles": [
 "ASSASSIN",
@@ -1321,6 +2671,24 @@
 },
 "Lulu": {
 "id": 117,
+"sorts": {
+"Q": {
+"nom": "Duo éclatant",
+"recharge": 7
+},
+"W": {
+"nom": "Fantaisie",
+"recharge": 18
+},
+"E": {
+"nom": "Pix à la rescousse !",
+"recharge": 10
+},
+"R": {
+"nom": "Croissance prodigieuse",
+"recharge": 120
+}
+},
 "nom": "Lulu",
 "roles": [
 "ENCHANTER",
@@ -1339,6 +2707,24 @@
 },
 "Lux": {
 "id": 99,
+"sorts": {
+"Q": {
+"nom": "Entrave de lumière",
+"recharge": 10
+},
+"W": {
+"nom": "Barrière prismatique",
+"recharge": 12
+},
+"E": {
+"nom": "Anomalie radieuse",
+"recharge": 10
+},
+"R": {
+"nom": "Éclat final",
+"recharge": 60
+}
+},
 "nom": "Lux",
 "roles": [
 "ARTILLERY",
@@ -1358,6 +2744,24 @@
 },
 "Malphite": {
 "id": 54,
+"sorts": {
+"Q": {
+"nom": "Éclat sismique",
+"recharge": 8
+},
+"W": {
+"nom": "Coup de tonnerre",
+"recharge": 10
+},
+"E": {
+"nom": "Choc au sol",
+"recharge": 7
+},
+"R": {
+"nom": "Force indomptable",
+"recharge": 130
+}
+},
 "nom": "Malphite",
 "roles": [
 "MAGE",
@@ -1376,6 +2780,24 @@
 },
 "Malzahar": {
 "id": 90,
+"sorts": {
+"Q": {
+"nom": "Appel du Néant",
+"recharge": 6
+},
+"W": {
+"nom": "Nuée du Néant",
+"recharge": 8
+},
+"E": {
+"nom": "Visions maléfiques",
+"recharge": 11
+},
+"R": {
+"nom": "Poigne du Néant",
+"recharge": 140
+}
+},
 "nom": "Malzahar",
 "roles": [
 "ASSASSIN",
@@ -1394,6 +2816,24 @@
 },
 "Maokai": {
 "id": 57,
+"sorts": {
+"Q": {
+"nom": "Coup de ronces",
+"recharge": 7
+},
+"W": {
+"nom": "Croissance torturée",
+"recharge": 14
+},
+"E": {
+"nom": "Jet d'arbrisseau",
+"recharge": 18
+},
+"R": {
+"nom": "Emprise de la nature",
+"recharge": 130
+}
+},
 "nom": "Maokai",
 "roles": [
 "SUPPORT",
@@ -1412,6 +2852,24 @@
 },
 "MasterYi": {
 "id": 11,
+"sorts": {
+"Q": {
+"nom": "Assaut éclair",
+"recharge": 20
+},
+"W": {
+"nom": "Méditation",
+"recharge": 10
+},
+"E": {
+"nom": "Style Wuju",
+"recharge": 14
+},
+"R": {
+"nom": "Highlander",
+"recharge": 85
+}
+},
 "nom": "Master Yi",
 "roles": [
 "ASSASSIN",
@@ -1430,6 +2888,24 @@
 },
 "Mel": {
 "id": 800,
+"sorts": {
+"Q": {
+"nom": "Salve radieuse",
+"recharge": 10
+},
+"W": {
+"nom": "Réfutation",
+"recharge": 38
+},
+"E": {
+"nom": "Piège solaire",
+"recharge": 11
+},
+"R": {
+"nom": "Éclipse dorée",
+"recharge": 120
+}
+},
 "nom": "Mel",
 "roles": [
 "ARTILLERY",
@@ -1448,6 +2924,24 @@
 },
 "Milio": {
 "id": 902,
+"sorts": {
+"Q": {
+"nom": "Ultra méga boule de feu",
+"recharge": 10
+},
+"W": {
+"nom": "Feu de camp",
+"recharge": 29
+},
+"E": {
+"nom": "Chaud devant !",
+"recharge": 0.5
+},
+"R": {
+"nom": "Flammes vitales",
+"recharge": 160
+}
+},
 "nom": "Milio",
 "roles": [
 "ENCHANTER",
@@ -1466,6 +2960,24 @@
 },
 "MissFortune": {
 "id": 21,
+"sorts": {
+"Q": {
+"nom": "Doublé",
+"recharge": 7
+},
+"W": {
+"nom": "Fanfaronne",
+"recharge": 12
+},
+"E": {
+"nom": "Pluie de balles",
+"recharge": 18
+},
+"R": {
+"nom": "Barrage de plomb",
+"recharge": 120
+}
+},
 "nom": "Miss Fortune",
 "roles": [
 "MAGE",
@@ -1483,6 +2995,24 @@
 },
 "MonkeyKing": {
 "id": 62,
+"sorts": {
+"Q": {
+"nom": "Écrasement",
+"recharge": 8
+},
+"W": {
+"nom": "Guerrier espiègle",
+"recharge": 22
+},
+"E": {
+"nom": "Nimbus",
+"recharge": 10
+},
+"R": {
+"nom": "Cyclone",
+"recharge": 130
+}
+},
 "nom": "Wukong",
 "roles": [
 "DIVER",
@@ -1501,6 +3031,24 @@
 },
 "Mordekaiser": {
 "id": 82,
+"sorts": {
+"Q": {
+"nom": "Oblitération",
+"recharge": 8
+},
+"W": {
+"nom": "Indestructible",
+"recharge": 12
+},
+"E": {
+"nom": "Emprise funeste",
+"recharge": 16
+},
+"R": {
+"nom": "Royaume des morts",
+"recharge": 140
+}
+},
 "nom": "Mordekaiser",
 "roles": [
 "FIGHTER",
@@ -1519,6 +3067,24 @@
 },
 "Morgana": {
 "id": 25,
+"sorts": {
+"Q": {
+"nom": "Entrave sombre",
+"recharge": 10
+},
+"W": {
+"nom": "Tourment ténébreux",
+"recharge": 12
+},
+"E": {
+"nom": "Bouclier noir",
+"recharge": 26
+},
+"R": {
+"nom": "Chaînes spirituelles",
+"recharge": 120
+}
+},
 "nom": "Morgana",
 "roles": [
 "CATCHER",
@@ -1537,6 +3103,24 @@
 },
 "Naafiri": {
 "id": 950,
+"sorts": {
+"Q": {
+"nom": "Dagues des Darkin",
+"recharge": 9
+},
+"W": {
+"nom": "Appel de la meute",
+"recharge": 26
+},
+"E": {
+"nom": "Éviscération",
+"recharge": 11
+},
+"R": {
+"nom": "Hallali",
+"recharge": 110
+}
+},
 "nom": "Naafiri",
 "roles": [
 "ASSASSIN",
@@ -1554,6 +3138,24 @@
 },
 "Nami": {
 "id": 267,
+"sorts": {
+"Q": {
+"nom": "Prison aqueuse",
+"recharge": 12
+},
+"W": {
+"nom": "Flux et reflux",
+"recharge": 10
+},
+"E": {
+"nom": "Bénédiction de l'Aquamancienne",
+"recharge": 11
+},
+"R": {
+"nom": "Raz-de-marée",
+"recharge": 120
+}
+},
 "nom": "Nami",
 "roles": [
 "ENCHANTER",
@@ -1572,6 +3174,24 @@
 },
 "Nasus": {
 "id": 75,
+"sorts": {
+"Q": {
+"nom": "Buveuse d'âmes",
+"recharge": 7.5
+},
+"W": {
+"nom": "Flétrissement",
+"recharge": 15
+},
+"E": {
+"nom": "Esprit enflammé",
+"recharge": 12
+},
+"R": {
+"nom": "Fureur des sables",
+"recharge": 120
+}
+},
 "nom": "Nasus",
 "roles": [
 "FIGHTER",
@@ -1590,6 +3210,24 @@
 },
 "Nautilus": {
 "id": 111,
+"sorts": {
+"Q": {
+"nom": "Abordage",
+"recharge": 14
+},
+"W": {
+"nom": "Colère du titan",
+"recharge": 12
+},
+"E": {
+"nom": "Répliques",
+"recharge": 7
+},
+"R": {
+"nom": "Grenade ASM",
+"recharge": 120
+}
+},
 "nom": "Nautilus",
 "roles": [
 "SUPPORT",
@@ -1608,6 +3246,24 @@
 },
 "Neeko": {
 "id": 518,
+"sorts": {
+"Q": {
+"nom": "Explosion florale",
+"recharge": 9
+},
+"W": {
+"nom": "Métaclonage",
+"recharge": 16
+},
+"E": {
+"nom": "Spirale épineuse",
+"recharge": 12
+},
+"R": {
+"nom": "Floraison renversante",
+"recharge": 120
+}
+},
 "nom": "Neeko",
 "roles": [
 "BURST",
@@ -1627,6 +3283,24 @@
 },
 "Nidalee": {
 "id": 76,
+"sorts": {
+"Q": {
+"nom": "Javelot / Mise à terre",
+"recharge": 6
+},
+"W": {
+"nom": "Guérilla / Bond",
+"recharge": 13
+},
+"E": {
+"nom": "Charge primale / Taillade",
+"recharge": 12
+},
+"R": {
+"nom": "Aspect du Couguar",
+"recharge": 3
+}
+},
 "nom": "Nidalee",
 "roles": [
 "ASSASSIN",
@@ -1645,6 +3319,24 @@
 },
 "Nilah": {
 "id": 895,
+"sorts": {
+"Q": {
+"nom": "Lame fluide",
+"recharge": 4
+},
+"W": {
+"nom": "Voile de liesse",
+"recharge": 26
+},
+"E": {
+"nom": "Torrent",
+"recharge": 0.5
+},
+"R": {
+"nom": "Apothéose",
+"recharge": 110
+}
+},
 "nom": "Nilah",
 "roles": [
 "ASSASSIN",
@@ -1663,6 +3355,24 @@
 },
 "Nocturne": {
 "id": 56,
+"sorts": {
+"Q": {
+"nom": "Crépuscule",
+"recharge": 8
+},
+"W": {
+"nom": "Linceul des ténèbres",
+"recharge": 20
+},
+"E": {
+"nom": "Horreur indicible",
+"recharge": 15
+},
+"R": {
+"nom": "Paranoïa",
+"recharge": 160
+}
+},
 "nom": "Nocturne",
 "roles": [
 "ASSASSIN",
@@ -1680,6 +3390,24 @@
 },
 "Nunu": {
 "id": 20,
+"sorts": {
+"Q": {
+"nom": "Voracité",
+"recharge": 13
+},
+"W": {
+"nom": "Boule de neige géante !",
+"recharge": 14
+},
+"E": {
+"nom": "Rafale de boules de neige",
+"recharge": 14
+},
+"R": {
+"nom": "Zéro absolu",
+"recharge": 110
+}
+},
 "nom": "Nunu & Willump",
 "roles": [
 "MAGE",
@@ -1698,6 +3426,24 @@
 },
 "Olaf": {
 "id": 2,
+"sorts": {
+"Q": {
+"nom": "Déchireuse",
+"recharge": 9
+},
+"W": {
+"nom": "Force décuplée",
+"recharge": 16
+},
+"E": {
+"nom": "Frappe sauvage",
+"recharge": 11
+},
+"R": {
+"nom": "Ragnarok",
+"recharge": 100
+}
+},
 "nom": "Olaf",
 "roles": [
 "DIVER",
@@ -1716,6 +3462,24 @@
 },
 "Orianna": {
 "id": 61,
+"sorts": {
+"Q": {
+"nom": "Ordre : Attaque",
+"recharge": 7
+},
+"W": {
+"nom": "Ordre : Dissonance",
+"recharge": 7
+},
+"E": {
+"nom": "Ordre : Protection",
+"recharge": 9
+},
+"R": {
+"nom": "Ordre : Onde de choc",
+"recharge": 110
+}
+},
 "nom": "Orianna",
 "roles": [
 "BURST",
@@ -1734,6 +3498,24 @@
 },
 "Ornn": {
 "id": 516,
+"sorts": {
+"Q": {
+"nom": "Fracture magmatique",
+"recharge": 9
+},
+"W": {
+"nom": "Fournaise",
+"recharge": 12
+},
+"E": {
+"nom": "Ruée ardente",
+"recharge": 14
+},
+"R": {
+"nom": "Appel du dieu de la forge",
+"recharge": 140
+}
+},
 "nom": "Ornn",
 "roles": [
 "FIGHTER",
@@ -1752,6 +3534,24 @@
 },
 "Pantheon": {
 "id": 80,
+"sorts": {
+"Q": {
+"nom": "Lance astrale",
+"recharge": 11
+},
+"W": {
+"nom": "Assaut martial",
+"recharge": 13
+},
+"E": {
+"nom": "Égide impénétrable",
+"recharge": 22
+},
+"R": {
+"nom": "Météore",
+"recharge": 180
+}
+},
 "nom": "Pantheon",
 "roles": [
 "ASSASSIN",
@@ -1770,6 +3570,24 @@
 },
 "Poppy": {
 "id": 78,
+"sorts": {
+"Q": {
+"nom": "Commotion",
+"recharge": 8
+},
+"W": {
+"nom": "Présence immuable",
+"recharge": 20
+},
+"E": {
+"nom": "Charge héroïque",
+"recharge": 14
+},
+"R": {
+"nom": "Verdict de la gardienne",
+"recharge": 140
+}
+},
 "nom": "Poppy",
 "roles": [
 "FIGHTER",
@@ -1788,6 +3606,24 @@
 },
 "Pyke": {
 "id": 555,
+"sorts": {
+"Q": {
+"nom": "Harponnage",
+"recharge": 10
+},
+"W": {
+"nom": "Plongée spectrale",
+"recharge": 14
+},
+"E": {
+"nom": "Ressac fantôme",
+"recharge": 15
+},
+"R": {
+"nom": "Exécution abyssale",
+"recharge": 100
+}
+},
 "nom": "Pyke",
 "roles": [
 "ASSASSIN",
@@ -1806,6 +3642,24 @@
 },
 "Qiyana": {
 "id": 246,
+"sorts": {
+"Q": {
+"nom": "Courroux élémentaire/Lame d'Ixtal",
+"recharge": 7
+},
+"W": {
+"nom": "Terraforce",
+"recharge": 7
+},
+"E": {
+"nom": "Audace",
+"recharge": 11
+},
+"R": {
+"nom": "Tour de force suprême",
+"recharge": 120
+}
+},
 "nom": "Qiyana",
 "roles": [
 "ASSASSIN",
@@ -1823,6 +3677,24 @@
 },
 "Quinn": {
 "id": 133,
+"sorts": {
+"Q": {
+"nom": "Assaut aveuglant",
+"recharge": 11
+},
+"W": {
+"nom": "Œil d'aigle",
+"recharge": 50
+},
+"E": {
+"nom": "Salto",
+"recharge": 12
+},
+"R": {
+"nom": "En territoire ennemi",
+"recharge": 3
+}
+},
 "nom": "Quinn",
 "roles": [
 "ASSASSIN",
@@ -1841,6 +3713,24 @@
 },
 "Rakan": {
 "id": 497,
+"sorts": {
+"Q": {
+"nom": "Rémige rayonnante",
+"recharge": 11
+},
+"W": {
+"nom": "Entrée triomphale",
+"recharge": 14
+},
+"E": {
+"nom": "Valse guerrière",
+"recharge": 0
+},
+"R": {
+"nom": "Danse ultime",
+"recharge": 130
+}
+},
 "nom": "Rakan",
 "roles": [
 "CATCHER",
@@ -1858,6 +3748,24 @@
 },
 "Rammus": {
 "id": 33,
+"sorts": {
+"Q": {
+"nom": "Démolisseur",
+"recharge": 12
+},
+"W": {
+"nom": "Boule défensive",
+"recharge": 7
+},
+"E": {
+"nom": "Provocation frénétique",
+"recharge": 12
+},
+"R": {
+"nom": "Frappe ascendante",
+"recharge": 120
+}
+},
 "nom": "Rammus",
 "roles": [
 "FIGHTER",
@@ -1876,6 +3784,24 @@
 },
 "RekSai": {
 "id": 421,
+"sorts": {
+"Q": {
+"nom": "Courroux de la reine/Sondeur explosif",
+"recharge": 4
+},
+"W": {
+"nom": "Enfouissement/Jaillissement",
+"recharge": 4
+},
+"E": {
+"nom": "Morsure féroce/Tunnel",
+"recharge": 6
+},
+"R": {
+"nom": "Rush du Néant",
+"recharge": 120
+}
+},
 "nom": "Rek'Sai",
 "roles": [
 "DIVER",
@@ -1894,6 +3820,24 @@
 },
 "Rell": {
 "id": 526,
+"sorts": {
+"Q": {
+"nom": "Frappe dislocatrice",
+"recharge": 11
+},
+"W": {
+"nom": "Ferromancie : Descendre en piqué",
+"recharge": 10
+},
+"E": {
+"nom": "Joute endiablée",
+"recharge": 14
+},
+"R": {
+"nom": "Tempête magnétique",
+"recharge": 120
+}
+},
 "nom": "Rell",
 "roles": [
 "SUPPORT",
@@ -1912,6 +3856,24 @@
 },
 "Renata": {
 "id": 888,
+"sorts": {
+"Q": {
+"nom": "Poignée de main",
+"recharge": 16
+},
+"W": {
+"nom": "Patronage",
+"recharge": 28
+},
+"E": {
+"nom": "Programme de fidélité",
+"recharge": 14
+},
+"R": {
+"nom": "Prise de contrôle hostile",
+"recharge": 150
+}
+},
 "nom": "Renata Glasc",
 "roles": [
 "ENCHANTER",
@@ -1930,6 +3892,24 @@
 },
 "Renekton": {
 "id": 58,
+"sorts": {
+"Q": {
+"nom": "Destruction des faibles",
+"recharge": 7
+},
+"W": {
+"nom": "Prédateur impitoyable",
+"recharge": 16
+},
+"E": {
+"nom": "Tranche et coupe",
+"recharge": 16
+},
+"R": {
+"nom": "Dominus",
+"recharge": 120
+}
+},
 "nom": "Renekton",
 "roles": [
 "DIVER",
@@ -1948,6 +3928,24 @@
 },
 "Rengar": {
 "id": 107,
+"sorts": {
+"Q": {
+"nom": "Esprit sauvage",
+"recharge": 0.25
+},
+"W": {
+"nom": "Rugissement",
+"recharge": 0.25
+},
+"E": {
+"nom": "Bolas",
+"recharge": 0.25
+},
+"R": {
+"nom": "Chasseur-né",
+"recharge": 100
+}
+},
 "nom": "Rengar",
 "roles": [
 "ASSASSIN",
@@ -1966,6 +3964,24 @@
 },
 "Riven": {
 "id": 92,
+"sorts": {
+"Q": {
+"nom": "Ailes brisées",
+"recharge": 13
+},
+"W": {
+"nom": "Décharge de ki",
+"recharge": 11
+},
+"E": {
+"nom": "Bravoure",
+"recharge": 10
+},
+"R": {
+"nom": "Lame de l'exilée",
+"recharge": 120
+}
+},
 "nom": "Riven",
 "roles": [
 "ASSASSIN",
@@ -1984,6 +4000,24 @@
 },
 "Rumble": {
 "id": 68,
+"sorts": {
+"Q": {
+"nom": "Lance-flammes",
+"recharge": 10
+},
+"W": {
+"nom": "Bouclier recyclé",
+"recharge": 6
+},
+"E": {
+"nom": "Harpon électrique",
+"recharge": 0.5
+},
+"R": {
+"nom": "Éradication",
+"recharge": 130
+}
+},
 "nom": "Rumble",
 "roles": [
 "BATTLEMAGE",
@@ -2002,6 +4036,24 @@
 },
 "Ryze": {
 "id": 13,
+"sorts": {
+"Q": {
+"nom": "Court-circuit",
+"recharge": 5
+},
+"W": {
+"nom": "Prison runique",
+"recharge": 11
+},
+"E": {
+"nom": "Flux envoûtant",
+"recharge": 3.5
+},
+"R": {
+"nom": "Portail transdimensionnel",
+"recharge": 180
+}
+},
 "nom": "Ryze",
 "roles": [
 "BATTLEMAGE",
@@ -2020,6 +4072,24 @@
 },
 "Samira": {
 "id": 360,
+"sorts": {
+"Q": {
+"nom": "Panache",
+"recharge": 6
+},
+"W": {
+"nom": "Tourbillon de lame",
+"recharge": 30
+},
+"E": {
+"nom": "Charge sauvage",
+"recharge": 20
+},
+"R": {
+"nom": "Gâchette infernale",
+"recharge": 5
+}
+},
 "nom": "Samira",
 "roles": [
 "ASSASSIN",
@@ -2037,6 +4107,24 @@
 },
 "Sejuani": {
 "id": 113,
+"sorts": {
+"Q": {
+"nom": "Assaut arctique",
+"recharge": 18
+},
+"W": {
+"nom": "Colère de l'hiver",
+"recharge": 9
+},
+"E": {
+"nom": "Permafrost",
+"recharge": 1.5
+},
+"R": {
+"nom": "Prison de glace",
+"recharge": 120
+}
+},
 "nom": "Sejuani",
 "roles": [
 "FIGHTER",
@@ -2055,6 +4143,24 @@
 },
 "Senna": {
 "id": 235,
+"sorts": {
+"Q": {
+"nom": "Ombre perforante",
+"recharge": 15
+},
+"W": {
+"nom": "Dernière étreinte",
+"recharge": 11
+},
+"E": {
+"nom": "Malédiction de la Brume noire",
+"recharge": 26
+},
+"R": {
+"nom": "Ténèbres aveuglantes",
+"recharge": 140
+}
+},
 "nom": "Senna",
 "roles": [
 "ENCHANTER",
@@ -2073,6 +4179,24 @@
 },
 "Seraphine": {
 "id": 147,
+"sorts": {
+"Q": {
+"nom": "Note aiguë",
+"recharge": 8
+},
+"W": {
+"nom": "Son ambiophonique",
+"recharge": 22
+},
+"E": {
+"nom": "Battement",
+"recharge": 11
+},
+"R": {
+"nom": "Bis",
+"recharge": 160
+}
+},
 "nom": "Seraphine",
 "roles": [
 "BURST",
@@ -2092,6 +4216,24 @@
 },
 "Sett": {
 "id": 875,
+"sorts": {
+"Q": {
+"nom": "Rogne",
+"recharge": 9
+},
+"W": {
+"nom": "Coup cathartique",
+"recharge": 18
+},
+"E": {
+"nom": "Casse-tête",
+"recharge": 16
+},
+"R": {
+"nom": "Le Clou du spectacle",
+"recharge": 120
+}
+},
 "nom": "Sett",
 "roles": [
 "FIGHTER",
@@ -2110,6 +4252,24 @@
 },
 "Shaco": {
 "id": 35,
+"sorts": {
+"Q": {
+"nom": "Tromperie",
+"recharge": 13
+},
+"W": {
+"nom": "Boîte surprise",
+"recharge": 15
+},
+"E": {
+"nom": "Poison double",
+"recharge": 8
+},
+"R": {
+"nom": "Hallucination",
+"recharge": 100
+}
+},
 "nom": "Shaco",
 "roles": [
 "ASSASSIN"
@@ -2126,6 +4286,24 @@
 },
 "Shen": {
 "id": 98,
+"sorts": {
+"Q": {
+"nom": "Assaut crépusculaire",
+"recharge": 8
+},
+"W": {
+"nom": "Refuge spirituel",
+"recharge": 16
+},
+"E": {
+"nom": "Rush des ombres",
+"recharge": 18
+},
+"R": {
+"nom": "Soutien indéfectible",
+"recharge": 200
+}
+},
 "nom": "Shen",
 "roles": [
 "TANK",
@@ -2143,6 +4321,24 @@
 },
 "Shyvana": {
 "id": 102,
+"sorts": {
+"Q": {
+"nom": "Frappe enflammée",
+"recharge": 10
+},
+"W": {
+"nom": "Égide de feu",
+"recharge": 13
+},
+"E": {
+"nom": "Éruption",
+"recharge": 12
+},
+"R": {
+"nom": "Vol du dragon",
+"recharge": 0
+}
+},
 "nom": "Shyvana",
 "roles": [
 "FIGHTER",
@@ -2161,6 +4357,24 @@
 },
 "Singed": {
 "id": 27,
+"sorts": {
+"Q": {
+"nom": "Piste empoisonnée",
+"recharge": 0
+},
+"W": {
+"nom": "Attrape-mouche",
+"recharge": 17
+},
+"E": {
+"nom": "Projection",
+"recharge": 10
+},
+"R": {
+"nom": "Potion de démence",
+"recharge": 100
+}
+},
 "nom": "Singed",
 "roles": [
 "MAGE",
@@ -2179,6 +4393,24 @@
 },
 "Sion": {
 "id": 14,
+"sorts": {
+"Q": {
+"nom": "Fracas meurtrier",
+"recharge": 10
+},
+"W": {
+"nom": "Feu intérieur",
+"recharge": 15
+},
+"E": {
+"nom": "Cri du tueur",
+"recharge": 12
+},
+"R": {
+"nom": "Assaut inarrêtable",
+"recharge": 140
+}
+},
 "nom": "Sion",
 "roles": [
 "FIGHTER",
@@ -2197,6 +4429,24 @@
 },
 "Sivir": {
 "id": 15,
+"sorts": {
+"Q": {
+"nom": "Lame boomerang",
+"recharge": 10
+},
+"W": {
+"nom": "Ricochet",
+"recharge": 12
+},
+"E": {
+"nom": "Bouclier magique",
+"recharge": 24
+},
+"R": {
+"nom": "En chasse",
+"recharge": 120
+}
+},
 "nom": "Sivir",
 "roles": [
 "MARKSMAN"
@@ -2213,6 +4463,24 @@
 },
 "Skarner": {
 "id": 72,
+"sorts": {
+"Q": {
+"nom": "Terre brisée/Soulèvement",
+"recharge": 8
+},
+"W": {
+"nom": "Bastion sismique",
+"recharge": 10
+},
+"E": {
+"nom": "Impact d'Ixtal",
+"recharge": 22
+},
+"R": {
+"nom": "Empalement",
+"recharge": 120
+}
+},
 "nom": "Skarner",
 "roles": [
 "FIGHTER",
@@ -2232,6 +4500,24 @@
 },
 "Smolder": {
 "id": 901,
+"sorts": {
+"Q": {
+"nom": "Boule de feu draconique",
+"recharge": 5.5
+},
+"W": {
+"nom": "Atchoum !",
+"recharge": 14
+},
+"E": {
+"nom": "Flap, flap, flap !",
+"recharge": 24
+},
+"R": {
+"nom": "MAMAAAN !",
+"recharge": 120
+}
+},
 "nom": "Smolder",
 "roles": [
 "MAGE",
@@ -2249,6 +4535,24 @@
 },
 "Sona": {
 "id": 37,
+"sorts": {
+"Q": {
+"nom": "Hymne à la bravoure",
+"recharge": 8
+},
+"W": {
+"nom": "Aria de persévérance",
+"recharge": 10
+},
+"E": {
+"nom": "Mélodie de vélocité",
+"recharge": 14
+},
+"R": {
+"nom": "Crescendo",
+"recharge": 140
+}
+},
 "nom": "Sona",
 "roles": [
 "ENCHANTER",
@@ -2267,6 +4571,24 @@
 },
 "Soraka": {
 "id": 16,
+"sorts": {
+"Q": {
+"nom": "Appel de l'étoile",
+"recharge": 8
+},
+"W": {
+"nom": "Infusion astrale",
+"recharge": 6
+},
+"E": {
+"nom": "Équinoxe",
+"recharge": 20
+},
+"R": {
+"nom": "Souhait",
+"recharge": 150
+}
+},
 "nom": "Soraka",
 "roles": [
 "ENCHANTER",
@@ -2285,6 +4607,24 @@
 },
 "Swain": {
 "id": 50,
+"sorts": {
+"Q": {
+"nom": "Poigne mortifère",
+"recharge": 7
+},
+"W": {
+"nom": "Œil de l'empire",
+"recharge": 22
+},
+"E": {
+"nom": "Capture",
+"recharge": 12
+},
+"R": {
+"nom": "Incarnation démoniaque",
+"recharge": 120
+}
+},
 "nom": "Swain",
 "roles": [
 "BATTLEMAGE",
@@ -2303,6 +4643,24 @@
 },
 "Sylas": {
 "id": 517,
+"sorts": {
+"Q": {
+"nom": "Croix du forçat",
+"recharge": 10
+},
+"W": {
+"nom": "Régicide",
+"recharge": 12
+},
+"E": {
+"nom": "Évasion / Enlèvement",
+"recharge": 13
+},
+"R": {
+"nom": "Détournement",
+"recharge": 80
+}
+},
 "nom": "Sylas",
 "roles": [
 "ASSASSIN",
@@ -2322,6 +4680,24 @@
 },
 "Syndra": {
 "id": 134,
+"sorts": {
+"Q": {
+"nom": "Sphère noire",
+"recharge": 7
+},
+"W": {
+"nom": "Force de la volonté",
+"recharge": 13
+},
+"E": {
+"nom": "Dispersion des faibles",
+"recharge": 15
+},
+"R": {
+"nom": "Déchaînement de puissance",
+"recharge": 120
+}
+},
 "nom": "Syndra",
 "roles": [
 "BURST",
@@ -2339,6 +4715,24 @@
 },
 "TahmKench": {
 "id": 223,
+"sorts": {
+"Q": {
+"nom": "Coup de langue",
+"recharge": 7
+},
+"W": {
+"nom": "Plongée abyssale",
+"recharge": 21
+},
+"E": {
+"nom": "Peau épaisse",
+"recharge": 3
+},
+"R": {
+"nom": "Dévoration",
+"recharge": 0
+}
+},
 "nom": "Tahm Kench",
 "roles": [
 "SUPPORT",
@@ -2357,6 +4751,24 @@
 },
 "Taliyah": {
 "id": 163,
+"sorts": {
+"Q": {
+"nom": "Rafale filée",
+"recharge": 7
+},
+"W": {
+"nom": "Poussée sismique",
+"recharge": 14
+},
+"E": {
+"nom": "Défilage tellurique",
+"recharge": 14
+},
+"R": {
+"nom": "Mur de la tisseuse",
+"recharge": 180
+}
+},
 "nom": "Taliyah",
 "roles": [
 "BATTLEMAGE",
@@ -2375,6 +4787,24 @@
 },
 "Talon": {
 "id": 91,
+"sorts": {
+"Q": {
+"nom": "Diplomatie noxienne",
+"recharge": 8
+},
+"W": {
+"nom": "Ratissage",
+"recharge": 9
+},
+"E": {
+"nom": "Voie de l'assassin",
+"recharge": 0
+},
+"R": {
+"nom": "Assaut ténébreux",
+"recharge": 100
+}
+},
 "nom": "Talon",
 "roles": [
 "ASSASSIN"
@@ -2391,6 +4821,24 @@
 },
 "Taric": {
 "id": 44,
+"sorts": {
+"Q": {
+"nom": "Bénédiction stellaire",
+"recharge": 3
+},
+"W": {
+"nom": "Bastion",
+"recharge": 15
+},
+"E": {
+"nom": "Éblouissement",
+"recharge": 16
+},
+"R": {
+"nom": "Lumière cosmique",
+"recharge": 180
+}
+},
 "nom": "Taric",
 "roles": [
 "ENCHANTER",
@@ -2410,6 +4858,24 @@
 },
 "Teemo": {
 "id": 17,
+"sorts": {
+"Q": {
+"nom": "Fléchette aveuglante",
+"recharge": 7
+},
+"W": {
+"nom": "Vélocité",
+"recharge": 14
+},
+"E": {
+"nom": "Tir toxique",
+"recharge": 0
+},
+"R": {
+"nom": "Piège nocif",
+"recharge": 0.25
+}
+},
 "nom": "Teemo",
 "roles": [
 "MAGE",
@@ -2428,6 +4894,24 @@
 },
 "Thresh": {
 "id": 412,
+"sorts": {
+"Q": {
+"nom": "Peine capitale",
+"recharge": 19
+},
+"W": {
+"nom": "Lien des ténèbres",
+"recharge": 21
+},
+"E": {
+"nom": "Fauchage",
+"recharge": 13
+},
+"R": {
+"nom": "La cage",
+"recharge": 120
+}
+},
 "nom": "Thresh",
 "roles": [
 "CATCHER",
@@ -2446,6 +4930,24 @@
 },
 "Tristana": {
 "id": 18,
+"sorts": {
+"Q": {
+"nom": "Tir rapide",
+"recharge": 20
+},
+"W": {
+"nom": "Saut roquette",
+"recharge": 22
+},
+"E": {
+"nom": "Charge explosive",
+"recharge": 16
+},
+"R": {
+"nom": "Tir à impact",
+"recharge": 100
+}
+},
 "nom": "Tristana",
 "roles": [
 "ASSASSIN",
@@ -2463,6 +4965,24 @@
 },
 "Trundle": {
 "id": 48,
+"sorts": {
+"Q": {
+"nom": "Morsure",
+"recharge": 3.5
+},
+"W": {
+"nom": "Royaume gelé",
+"recharge": 18
+},
+"E": {
+"nom": "Montagne de glace",
+"recharge": 21
+},
+"R": {
+"nom": "Soumission",
+"recharge": 120
+}
+},
 "nom": "Trundle",
 "roles": [
 "FIGHTER",
@@ -2481,6 +5001,24 @@
 },
 "Tryndamere": {
 "id": 23,
+"sorts": {
+"Q": {
+"nom": "Soif de sang",
+"recharge": 12
+},
+"W": {
+"nom": "Moquerie",
+"recharge": 14
+},
+"E": {
+"nom": "Balafre",
+"recharge": 12
+},
+"R": {
+"nom": "Rage inépuisable",
+"recharge": 120
+}
+},
 "nom": "Tryndamere",
 "roles": [
 "ASSASSIN",
@@ -2499,6 +5037,24 @@
 },
 "TwistedFate": {
 "id": 4,
+"sorts": {
+"Q": {
+"nom": "Atouts",
+"recharge": 6
+},
+"W": {
+"nom": "Bonne pioche",
+"recharge": 6
+},
+"E": {
+"nom": "Paquet",
+"recharge": 0
+},
+"R": {
+"nom": "Destinée",
+"recharge": 170
+}
+},
 "nom": "Twisted Fate",
 "roles": [
 "BURST",
@@ -2517,6 +5073,24 @@
 },
 "Twitch": {
 "id": 29,
+"sorts": {
+"Q": {
+"nom": "Embuscade",
+"recharge": 16
+},
+"W": {
+"nom": "Dose de venin",
+"recharge": 13
+},
+"E": {
+"nom": "Contamination",
+"recharge": 12
+},
+"R": {
+"nom": "Panique",
+"recharge": 90
+}
+},
 "nom": "Twitch",
 "roles": [
 "ASSASSIN",
@@ -2534,6 +5108,24 @@
 },
 "Udyr": {
 "id": 77,
+"sorts": {
+"Q": {
+"nom": "Griffe sauvage",
+"recharge": 6
+},
+"W": {
+"nom": "Cape de fer",
+"recharge": 6
+},
+"E": {
+"nom": "Piétinement flamboyant",
+"recharge": 6
+},
+"R": {
+"nom": "Tempête spirituelle",
+"recharge": 6
+}
+},
 "nom": "Udyr",
 "roles": [
 "FIGHTER",
@@ -2552,6 +5144,24 @@
 },
 "Urgot": {
 "id": 6,
+"sorts": {
+"Q": {
+"nom": "Torpille corrosive",
+"recharge": 10
+},
+"W": {
+"nom": "Géhenne",
+"recharge": 12
+},
+"E": {
+"nom": "Mépris",
+"recharge": 16
+},
+"R": {
+"nom": "Règne de la terreur",
+"recharge": 100
+}
+},
 "nom": "Urgot",
 "roles": [
 "FIGHTER",
@@ -2570,6 +5180,24 @@
 },
 "Varus": {
 "id": 110,
+"sorts": {
+"Q": {
+"nom": "Flèche perforante",
+"recharge": 16
+},
+"W": {
+"nom": "Carquois meurtri",
+"recharge": 40
+},
+"E": {
+"nom": "Pluie de flèches",
+"recharge": 18
+},
+"R": {
+"nom": "Chaîne corruptrice",
+"recharge": 100
+}
+},
 "nom": "Varus",
 "roles": [
 "ARTILLERY",
@@ -2588,6 +5216,24 @@
 },
 "Vayne": {
 "id": 67,
+"sorts": {
+"Q": {
+"nom": "Roulade",
+"recharge": 6
+},
+"W": {
+"nom": "Carreaux d'argent",
+"recharge": 0
+},
+"E": {
+"nom": "Condamnation",
+"recharge": 20
+},
+"R": {
+"nom": "Combat ultime",
+"recharge": 100
+}
+},
 "nom": "Vayne",
 "roles": [
 "ASSASSIN",
@@ -2605,6 +5251,24 @@
 },
 "Veigar": {
 "id": 45,
+"sorts": {
+"Q": {
+"nom": "Coup malin",
+"recharge": 6
+},
+"W": {
+"nom": "Matière noire",
+"recharge": 0
+},
+"E": {
+"nom": "Profanation",
+"recharge": 20
+},
+"R": {
+"nom": "Explosion primordiale",
+"recharge": 120
+}
+},
 "nom": "Veigar",
 "roles": [
 "BURST",
@@ -2622,6 +5286,24 @@
 },
 "Velkoz": {
 "id": 161,
+"sorts": {
+"Q": {
+"nom": "Fission du plasma",
+"recharge": 7
+},
+"W": {
+"nom": "Ouverture de faille",
+"recharge": 1.5
+},
+"E": {
+"nom": "Dislocation tectonique",
+"recharge": 12
+},
+"R": {
+"nom": "Désintégrateur de formes de vie",
+"recharge": 100
+}
+},
 "nom": "Vel'Koz",
 "roles": [
 "ARTILLERY",
@@ -2640,6 +5322,24 @@
 },
 "Vex": {
 "id": 711,
+"sorts": {
+"Q": {
+"nom": "Mistral perdant",
+"recharge": 8
+},
+"W": {
+"nom": "Lâchez-moi !",
+"recharge": 16
+},
+"E": {
+"nom": "Ténèbres imminentes",
+"recharge": 12
+},
+"R": {
+"nom": "Déferlement d'Ombre",
+"recharge": 140
+}
+},
 "nom": "Vex",
 "roles": [
 "BURST",
@@ -2657,6 +5357,24 @@
 },
 "Vi": {
 "id": 254,
+"sorts": {
+"Q": {
+"nom": "Brise-coffre",
+"recharge": 12
+},
+"W": {
+"nom": "Coups fracassants",
+"recharge": 0
+},
+"E": {
+"nom": "Force implacable",
+"recharge": 1
+},
+"R": {
+"nom": "Mise en demeure",
+"recharge": 140
+}
+},
 "nom": "Vi",
 "roles": [
 "ASSASSIN",
@@ -2675,6 +5393,24 @@
 },
 "Viego": {
 "id": 234,
+"sorts": {
+"Q": {
+"nom": "Lame du roi déchu",
+"recharge": 5
+},
+"W": {
+"nom": "Gueule spectrale",
+"recharge": 8
+},
+"E": {
+"nom": "Chemin tourmenté",
+"recharge": 14
+},
+"R": {
+"nom": "Cœur brisé",
+"recharge": 120
+}
+},
 "nom": "Viego",
 "roles": [
 "ASSASSIN",
@@ -2693,6 +5429,24 @@
 },
 "Viktor": {
 "id": 112,
+"sorts": {
+"Q": {
+"nom": "Siphonnage",
+"recharge": 9
+},
+"W": {
+"nom": "Champ gravitationnel",
+"recharge": 17
+},
+"E": {
+"nom": "Rayon Hextech",
+"recharge": 12
+},
+"R": {
+"nom": "Tempête arcanique",
+"recharge": 120
+}
+},
 "nom": "Viktor",
 "roles": [
 "BATTLEMAGE",
@@ -2710,6 +5464,24 @@
 },
 "Vladimir": {
 "id": 8,
+"sorts": {
+"Q": {
+"nom": "Transfusion",
+"recharge": 9
+},
+"W": {
+"nom": "Bain de sang",
+"recharge": 28
+},
+"E": {
+"nom": "Vagues de sang",
+"recharge": 13
+},
+"R": {
+"nom": "Peste sanguine",
+"recharge": 120
+}
+},
 "nom": "Vladimir",
 "roles": [
 "BATTLEMAGE",
@@ -2728,6 +5500,24 @@
 },
 "Volibear": {
 "id": 106,
+"sorts": {
+"Q": {
+"nom": "Coup fulgurant",
+"recharge": 12
+},
+"W": {
+"nom": "Folie mutilatrice",
+"recharge": 5
+},
+"E": {
+"nom": "Foudroiement",
+"recharge": 16
+},
+"R": {
+"nom": "Tempête incarnée",
+"recharge": 160
+}
+},
 "nom": "Volibear",
 "roles": [
 "FIGHTER",
@@ -2746,6 +5536,24 @@
 },
 "Warwick": {
 "id": 19,
+"sorts": {
+"Q": {
+"nom": "Dents de la bête",
+"recharge": 8
+},
+"W": {
+"nom": "Traque sanguinaire",
+"recharge": 80
+},
+"E": {
+"nom": "Hurlement bestial",
+"recharge": 15
+},
+"R": {
+"nom": "Contrainte infinie",
+"recharge": 110
+}
+},
 "nom": "Warwick",
 "roles": [
 "DIVER",
@@ -2764,6 +5572,24 @@
 },
 "Xayah": {
 "id": 498,
+"sorts": {
+"Q": {
+"nom": "Dagues jumelles",
+"recharge": 10
+},
+"W": {
+"nom": "Plumage mortel",
+"recharge": 18
+},
+"E": {
+"nom": "Appel des lames",
+"recharge": 12
+},
+"R": {
+"nom": "Rafale de plumes",
+"recharge": 140
+}
+},
 "nom": "Xayah",
 "roles": [
 "MARKSMAN"
@@ -2780,6 +5606,24 @@
 },
 "Xerath": {
 "id": 101,
+"sorts": {
+"Q": {
+"nom": "Rayon arcanique",
+"recharge": 9
+},
+"W": {
+"nom": "Œil de la destruction",
+"recharge": 14
+},
+"E": {
+"nom": "Orbe d'électrocution",
+"recharge": 13
+},
+"R": {
+"nom": "Rite arcanique",
+"recharge": 130
+}
+},
 "nom": "Xerath",
 "roles": [
 "ARTILLERY",
@@ -2798,6 +5642,24 @@
 },
 "XinZhao": {
 "id": 5,
+"sorts": {
+"Q": {
+"nom": "Frappe des trois serres",
+"recharge": 7
+},
+"W": {
+"nom": "Vent et foudre",
+"recharge": 12
+},
+"E": {
+"nom": "Charge audacieuse",
+"recharge": 11
+},
+"R": {
+"nom": "Garde circulaire",
+"recharge": 120
+}
+},
 "nom": "Xin Zhao",
 "roles": [
 "DIVER",
@@ -2816,6 +5678,24 @@
 },
 "Yasuo": {
 "id": 157,
+"sorts": {
+"Q": {
+"nom": "Tempête d'acier",
+"recharge": 4
+},
+"W": {
+"nom": "Mur de vent",
+"recharge": 25
+},
+"E": {
+"nom": "Cercle tranchant",
+"recharge": 0.5
+},
+"R": {
+"nom": "Dernier soupir",
+"recharge": 70
+}
+},
 "nom": "Yasuo",
 "roles": [
 "ASSASSIN",
@@ -2834,6 +5714,24 @@
 },
 "Yone": {
 "id": 777,
+"sorts": {
+"Q": {
+"nom": "Acier mortel",
+"recharge": 4
+},
+"W": {
+"nom": "Fendoir spirituel",
+"recharge": 14
+},
+"E": {
+"nom": "Libération spirituelle",
+"recharge": 22
+},
+"R": {
+"nom": "Destin scellé",
+"recharge": 120
+}
+},
 "nom": "Yone",
 "roles": [
 "ASSASSIN",
@@ -2852,6 +5750,24 @@
 },
 "Yorick": {
 "id": 83,
+"sorts": {
+"Q": {
+"nom": "Derniers sacrements",
+"recharge": 6
+},
+"W": {
+"nom": "Sombre cortège",
+"recharge": 20
+},
+"E": {
+"nom": "Brume endeuillée",
+"recharge": 12
+},
+"R": {
+"nom": "Élégie des Îles",
+"recharge": 160
+}
+},
 "nom": "Yorick",
 "roles": [
 "FIGHTER",
@@ -2870,6 +5786,24 @@
 },
 "Yunara": {
 "id": 804,
+"sorts": {
+"Q": {
+"nom": "Déchaînement spirituel",
+"recharge": 0
+},
+"W": {
+"nom": "Arc du jugement | Arc de la ruine",
+"recharge": 10
+},
+"E": {
+"nom": "Célérité des kanmei | Ombres ineffables",
+"recharge": 9
+},
+"R": {
+"nom": "Transe",
+"recharge": 100
+}
+},
 "nom": "Yunara",
 "roles": [
 "MARKSMAN"
@@ -2886,6 +5820,24 @@
 },
 "Yuumi": {
 "id": 350,
+"sorts": {
+"Q": {
+"nom": "Tête chat-sseuse",
+"recharge": 6.5
+},
+"W": {
+"nom": "Félin pour l'autre !",
+"recharge": 0
+},
+"E": {
+"nom": "Zouuu !",
+"recharge": 10
+},
+"R": {
+"nom": "Chat-pitre final",
+"recharge": 120
+}
+},
 "nom": "Yuumi",
 "roles": [
 "ENCHANTER",
@@ -2904,6 +5856,24 @@
 },
 "Zac": {
 "id": 154,
+"sorts": {
+"Q": {
+"nom": "Étirements",
+"recharge": 14
+},
+"W": {
+"nom": "Matière instable",
+"recharge": 5
+},
+"E": {
+"nom": "Fronde",
+"recharge": 21
+},
+"R": {
+"nom": "Boing !",
+"recharge": 120
+}
+},
 "nom": "Zac",
 "roles": [
 "FIGHTER",
@@ -2922,6 +5892,24 @@
 },
 "Zed": {
 "id": 238,
+"sorts": {
+"Q": {
+"nom": "Shuriken-rasoir",
+"recharge": 6
+},
+"W": {
+"nom": "Ombre vivante",
+"recharge": 20
+},
+"E": {
+"nom": "Taillade des ombres",
+"recharge": 5
+},
+"R": {
+"nom": "Marque de la mort",
+"recharge": 120
+}
+},
 "nom": "Zed",
 "roles": [
 "ASSASSIN"
@@ -2938,6 +5926,24 @@
 },
 "Zeri": {
 "id": 221,
+"sorts": {
+"Q": {
+"nom": "Rafale",
+"recharge": 0
+},
+"W": {
+"nom": "Laser électrocuteur",
+"recharge": 12
+},
+"E": {
+"nom": "Charge ionique",
+"recharge": 24
+},
+"R": {
+"nom": "Éruption électrique",
+"recharge": 80
+}
+},
 "nom": "Zeri",
 "roles": [
 "MARKSMAN"
@@ -2954,6 +5960,24 @@
 },
 "Ziggs": {
 "id": 115,
+"sorts": {
+"Q": {
+"nom": "Bombe rebondissante",
+"recharge": 6
+},
+"W": {
+"nom": "Charge explosive",
+"recharge": 20
+},
+"E": {
+"nom": "Mines Hexplosives",
+"recharge": 16
+},
+"R": {
+"nom": "Méga bombe infernale",
+"recharge": 120
+}
+},
 "nom": "Ziggs",
 "roles": [
 "ARTILLERY",
@@ -2971,6 +5995,24 @@
 },
 "Zilean": {
 "id": 26,
+"sorts": {
+"Q": {
+"nom": "Bombe à retardement",
+"recharge": 10
+},
+"W": {
+"nom": "Retour rapide",
+"recharge": 14
+},
+"E": {
+"nom": "Distorsion temporelle",
+"recharge": 15
+},
+"R": {
+"nom": "Retour temporel",
+"recharge": 120
+}
+},
 "nom": "Zilean",
 "roles": [
 "MAGE",
@@ -2989,6 +6031,24 @@
 },
 "Zoe": {
 "id": 142,
+"sorts": {
+"Q": {
+"nom": "Astro-pong !",
+"recharge": 8.5
+},
+"W": {
+"nom": "Voleuse de sorts",
+"recharge": 0.25
+},
+"E": {
+"nom": "Bulle soporifique",
+"recharge": 18
+},
+"R": {
+"nom": "Bond dimensionnel",
+"recharge": 11
+}
+},
 "nom": "Zoe",
 "roles": [
 "BURST",
@@ -3007,6 +6067,24 @@
 },
 "Zyra": {
 "id": 143,
+"sorts": {
+"Q": {
+"nom": "Épines funestes",
+"recharge": 7
+},
+"W": {
+"nom": "Croissance incontrôlée",
+"recharge": 0
+},
+"E": {
+"nom": "Racines fixatrices",
+"recharge": 11
+},
+"R": {
+"nom": "Ronces étrangleuses",
+"recharge": 110
+}
+},
 "nom": "Zyra",
 "roles": [
 "CATCHER",
@@ -3023,5 +6101,24 @@
 "mobility": 1
 }
 }
+},
+"runes": {
+"8112": "Électrocution",
+"8128": "Moisson noire",
+"9923": "Déluge de lames",
+"8351": "Optimisation glaciale",
+"8360": "Grimoire déchaîné",
+"8369": "Premier coup",
+"8005": "Attaque soutenue",
+"8008": "Tempo mortel",
+"8021": "Jeu de jambes",
+"8010": "Conquérant",
+"8437": "Poigne de l'immortel",
+"8439": "Après-coup",
+"8465": "Gardien",
+"8214": "Invocation d'Aery",
+"8229": "Comète arcanique",
+"8230": "Assaut du maraudeur",
+"8992": "Toucher de feu mortel"
 }
 }

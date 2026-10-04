@@ -258,3 +258,43 @@ Sources ajoutées :
 - [loltheory, Wave management](https://blog.loltheory.gg/wave-management-league-of-legends/)
 - [Meraki Analytics, lolstaticdata](https://github.com/meraki-analytics/lolstaticdata)
 - [Riot Data Dragon](https://ddragon.leagueoflegends.com/api/versions.json)
+
+## 15. Lire l'adversaire
+
+**Principe [consensus].** Une lane se gagne en punissant ce que l'adversaire vient d'utiliser.
+- Le sort avec lequel un support attrape ou immobilise a un long temps de recharge au niveau 1
+  (Grappin de Blitzcrank 20 s, Peine capitale de Thresh 19 s, Abordage de Nautilus 14 s, Lame du
+  zénith de Leona 12 s). Raté ou utilisé, il ouvre une fenêtre pour trader.
+- La rune principale dit comment l'adversaire veut se battre : Déluge de lames gagne le trade
+  court, Tempo mortel le combat long, Après-coup rend un engage intuable pendant trois secondes,
+  Gardien absorbe le premier all-in.
+- Ignite en face : les all-in tuent dès le niveau 2. Exhaust : ton all-in sera coupé, il faut le
+  faire sortir d'abord.
+- Un objet défensif acheté en face change la cible : Ange gardien et Sablier de Zhonya se
+  gardent pour la fin, un bouclier anti-sort se fait sauter avec un petit sort, Cœur gelé et
+  Présage de Randuin réduisent ce que fait un ADC à l'auto.
+
+**Règles du coach.** À 1:00, le sort clé du support adverse avec sa recharge, puis la rune ou le
+sort d'invocateur le plus dangereux de leur botlane. Pendant la partie : une annonce quand un
+ennemi achète un objet défensif de la liste ; « deux niveaux d'avance » pour leur ADC.
+
+**D'où ça vient.** Noms et temps de recharge des sorts, noms des runes : Data Dragon, patch en
+cours. Le choix du sort clé de chaque support, et ce que chaque rune et chaque objet change :
+`donnees/champions_notes.toml`, tenu à la main.
+
+## 16. Tournants de partie
+
+- Ace pour vous : la fin si leurs réapparitions dépassent 35 secondes, sinon Baron, sinon tours
+  et drake. Ace pour eux : défendre à cinq sous les tours.
+- Inhibiteur détruit : les super-sbires poussent seuls, on joue l'objectif du côté opposé.
+  Inhibiteur perdu : quelqu'un nettoie les super-sbires, pas d'objectif à quatre.
+- Leur inhibiteur revient dans 30 secondes : dernière fenêtre pour forcer.
+- À 15 minutes : le plan de combat de ton équipe d'après sa composition (engage, protection,
+  poke, plongée).
+- Tours 2026 **[vérifié]** : cinq plaques à 120 gold, 300 gold pour la première tour, et une
+  charge cristalline qui donne un bonus de dégâts à la première attaque d'un champion.
+
+Sources ajoutées :
+- Wiki officiel : [Turret](https://wiki.leagueoflegends.com/en-us/Turret),
+  [Experience](https://wiki.leagueoflegends.com/en-us/Experience_(champion))
+- [Riot, notes de patch 14.21 (primes)](https://www.leagueoflegends.com/en-us/news/game-updates/patch-14-21-notes/)

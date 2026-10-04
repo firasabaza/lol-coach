@@ -32,6 +32,8 @@ JOUEURS = [
     ("Darius ennemi", "Darius", "CHAOS", "TOP", False),
 ]
 
+RUNES = {"Leona": 8439, "Caitlyn": 8021, "Jinx": 8008}  # Après-coup, Jeu de jambes, Tempo mortel
+
 DORAN = (1055, "Lame de Doran", 450)
 BF = (1038, "B.F. Glaive", 1300)
 EPEE = (1036, "Épée longue", 350)
@@ -135,6 +137,8 @@ def _joueur(nom: str, champion: str, equipe: str, role: str, smite: bool, t: flo
         "level": 1 + bisect_right(NIVEAUX.get(nom, NIVEAUX_DEFAUT), t),
         "position": role,
         "respawnTimer": round(mort[1] + mort[2] - t, 1) if mort else 0.0,
+        "runes": {"keystone": {"id": RUNES.get(champion, 8010)}, "primaryRuneTree": {"id": 8000},
+                  "secondaryRuneTree": {"id": 8100}},
         "riotId": f"{nom}#EUW",
         "riotIdGameName": nom,
         "riotIdTagLine": "EUW",

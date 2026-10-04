@@ -9,9 +9,10 @@ from __future__ import annotations
 from collections.abc import Iterator
 
 from .compo import (
-    POKE, adaptations, bottes, chemin, classe, est, fiche, lire_compo, nom_objet, noms, objets_finis, reste_a_payer,
+    PLONGEURS, POKE, adaptations, bottes, chemin, classe, est, fiche, lire_compo, nom_objet, noms, notes, objets_finis,
+    reste_a_payer,
 )
-from .datadragon import objets
+from .datadragon import objets, runes
 from .etat import PRIX_OBJET_FINI, Etat
 from .reglages import Reglages
 from .regles import INFO, TEMPO, URGENT, Conseil, Regle, duree, or_en_poche
@@ -140,7 +141,7 @@ def pics(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         rang = "premier" if siens == 1 else "deuxième"
         yield Conseil(
             f"adc-pic-{siens}", TEMPO, f"{adc.champion} a fini son {rang} objet avant toi.",
-            "Il gagne les trades jusqu'à ton prochain back : farm à distance.",
+            "Les trades sont perdants jusqu'à ton prochain back : farm à distance.",
         )
 
 
@@ -153,12 +154,12 @@ def menaces(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         if j in plongeurs:
             yield Conseil(
                 f"menace-{j.nom}", URGENT, f"{j.champion} est à {j.kills}/{j.morts}.",
-                "Il te tue en un combo : reste à portée de ton support, jamais seul en side.",
+                "Un combo suffit pour te tuer : reste à portée de ton support, jamais seul en side.",
             )
         else:
             yield Conseil(
                 f"prime-sur-{j.nom}", INFO, f"{j.champion} est à {j.kills}/{j.morts} : grosse prime.",
-                "Le tuer à plusieurs relance ton équipe. Avec le groupe, jamais seul.",
+                "Ce kill, pris à plusieurs, relance ton équipe. Avec le groupe, jamais seul.",
             )
 
     serie = e.moi.kills - s.kills_a_la_mort
@@ -309,7 +310,113 @@ def milieu_de_partie(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     yield Conseil("plan-de-combat", INFO, "", f"Plan de combat : {plan}")
 
 
+def lecture_adverse(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Ce que leur botlane a choisi : le sort clé du support et sa recharge, les runes, les sorts d'invocateur."""
+    if not 60 <= e.t < 100:
+        return
+    table = notes()
+    points: list[str] = []
+    support = e.ennemi("UTILITY")
+    lettres = {cle.lower(): lettre for cle, lettre in table.get("sorts_cles", {}).items()}
+    sort = fiche(support).get("sorts", {}).get(lettres.get(support.cle.lower(), "")) if support else None
+    if sort and sort["recharge"] >= 8:
+        points.append(
+            f"{sort['nom']} de {support.champion} : {sort['recharge']:g} secondes de recharge. "
+            "Dès que ce sort est parti, tu as ce temps pour trader."
+        )
+    duo = [j for j in (e.ennemi("BOTTOM"), support) if j]
+    for j in duo:
+        if modele := table.get("runes", {}).get(str(j.rune)):
+            points.append(modele.format(nom=j.champion, rune=runes().get(j.rune, "sa rune")))
+            break
+    for identifiant, modele in table.get("sorts_ennemis", {}).items():
+        porteurs = [j for j in duo if any(porte.id == identifiant for porte in j.sorts)]
+        if porteurs:
+            points.append(modele.format(nom=noms(porteurs)))
+            break
+    if points:
+        yield Conseil("lecture-adverse", INFO, "", " ".join(points[:2]))
+
+
+def objets_adverses(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Un ennemi vient d'acheter un objet qui change la façon de le combattre."""
+    table = notes().get("objets_ennemis", {})
+    if e.t < 300:
+        return
+    for j in e.ennemis:
+        for objet in j.objets:
+            if modele := table.get(str(objet.id)):
+                fait, _, action = modele.format(nom=j.champion).partition(" | ")
+                yield Conseil(f"objet-{j.nom}-{objet.id}", INFO, fait, action)
+
+
+def tournants(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Ace et inhibiteurs : les moments où la partie peut se finir ou se retourner."""
+    for ev in s.nouveaux:
+        if ev.nom == "Ace" and ev.equipe == e.moi.equipe:
+            retour = max((j.reapparition for j in e.ennemis), default=0)
+            if retour >= 35 or e.t >= 1800:
+                action = "Finissez : tout le monde mid avec la vague, la partie se gagne maintenant."
+            elif s.baron_dispo(e.t):
+                action = "Baron tout de suite, puis siège."
+            else:
+                action = "Tours et drake pendant qu'ils sont morts, puis back ensemble."
+            yield Conseil(f"ace-{ev.id}", URGENT, "Ace pour vous.", action)
+        elif ev.nom == "Ace":
+            yield Conseil(
+                f"ace-{ev.id}", URGENT, "Ace pour eux.",
+                "À la réapparition, défendez à cinq sous vos tours : personne ne sort seul.",
+            )
+        elif ev.nom == "InhibKilled" and (tueur := e.joueur(ev.tueur)):
+            if tueur.equipe == e.moi.equipe:
+                yield Conseil(
+                    f"inhibiteur-{ev.id}", TEMPO, "Inhibiteur détruit.",
+                    "Les super-sbires poussent cette lane tout seuls : jouez l'objectif du côté opposé.",
+                )
+            else:
+                yield Conseil(
+                    f"inhibiteur-{ev.id}", URGENT, "Inhibiteur perdu.",
+                    "Quelqu'un doit nettoyer les super-sbires. Pas de Baron ni de drake à quatre.",
+                )
+        elif ev.nom == "InhibRespawningSoon" and (structure := lire_structure(ev.cible)) and structure[0] != e.moi.equipe:
+            yield Conseil(
+                f"inhibiteur-retour-{ev.id}", TEMPO, "Leur inhibiteur revient dans 30 secondes.",
+                "Dernière fenêtre pour forcer avec les super-sbires.",
+            )
+
+
+def condition_de_victoire(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """À 15 minutes : comment ton équipe gagne ses combats, d'après sa composition."""
+    if not 900 <= e.t < 930:
+        return
+    allies = [j for j in e.allies if j.nom != e.moi.nom]
+    engages = [j for j in allies if classe(j, {"VANGUARD"}) or est(j, "engages")]
+    protecteurs = [j for j in allies if classe(j, {"ENCHANTER", "WARDEN"})]
+    artilleurs = [j for j in allies if classe(j, POKE)]
+    plongeurs = [j for j in allies if classe(j, PLONGEURS)]
+    if engages:
+        plan = f"votre combat part de {noms(engages)}. Reste à portée derrière, et tape dès que le contrôle est parti."
+    elif len(protecteurs) >= 2:
+        plan = f"{noms(protecteurs)} jouent pour toi : tu es la condition de victoire. Combats lents, autour de toi."
+    elif len(artilleurs) >= 2:
+        plan = f"{noms(artilleurs)} usent de loin : assiégez et harcelez avant l'objectif, n'engagez pas."
+    elif len(plongeurs) >= 2:
+        plan = f"{noms(plongeurs)} plongent sur leurs carrys : suis-les, les ennemis regardent ailleurs et tu tapes libre."
+    else:
+        return
+    yield Conseil("condition-de-victoire", INFO, "", f"Votre plan de combat : {plan}")
+
+
+def retard_de_niveau(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    adc = e.ennemi("BOTTOM")
+    if adc and s.en_lane(e) and adc.niveau >= e.moi.niveau + 2:
+        yield Conseil(
+            "niveaux-retard", URGENT, f"{adc.champion} a deux niveaux d'avance.",
+            "Aucun trade : farm sous ta tour jusqu'à combler l'écart.",
+        )
+
+
 REGLES: tuple[Regle, ...] = (
-    plan_de_lane, jungler_precoce, build, objet_finissable, pics, menaces, ultis, etat_de_partie, nombres,
-    grands_objectifs, milieu_de_partie,
+    plan_de_lane, lecture_adverse, jungler_precoce, build, objet_finissable, pics, menaces, ultis, retard_de_niveau,
+    objets_adverses, etat_de_partie, nombres, grands_objectifs, tournants, condition_de_victoire, milieu_de_partie,
 )

@@ -47,6 +47,7 @@ class Joueur:
     objets: tuple[Objet, ...]
     sorts: tuple[Sort, ...]
     arbres: tuple[int, ...]  # identifiants des deux arbres de runes
+    rune: int = 0  # rune principale (identifiant), 0 si inconnue
 
     @property
     def smite(self) -> bool:
@@ -79,6 +80,7 @@ class Evenement:
     victime: str = ""
     assistants: tuple[str, ...] = ()
     cible: str = ""  # nom de la tour ou de l'inhibiteur
+    equipe: str = ""  # équipe qui fait un ace
     type_drake: str = ""
 
     @property
@@ -168,6 +170,7 @@ def _joueur(d: dict) -> Joueur:
             for cle in ("primaryRuneTree", "secondaryRuneTree")
             if isinstance(arbre := (d.get("runes") or {}).get(cle), dict) and arbre.get("id") is not None
         ),
+        rune=int(((d.get("runes") or {}).get("keystone") or {}).get("id") or 0),
     )
 
 
@@ -197,7 +200,8 @@ def _evenement(d: dict, alias: dict[str, str]) -> Evenement:
         tueur=nom(d.get("KillerName", "")),
         victime=nom(d.get("VictimName", "")),
         assistants=tuple(nom(a) for a in d.get("Assisters", [])),
-        cible=d.get("TurretKilled") or d.get("InhibKilled") or "",
+        cible=d.get("TurretKilled") or d.get("InhibKilled") or d.get("InhibRespawningSoon") or d.get("InhibRespawned") or "",
+        equipe=d.get("AcingTeam", ""),
         type_drake=d.get("DragonType", ""),
     )
 
