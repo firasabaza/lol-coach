@@ -28,7 +28,7 @@ def _alleger(brut: dict, apres_id: int) -> dict:
                 "items": [{k: o.get(k) for k in ("itemID", "displayName", "price", "count")}
                           for o in j.get("items", [])],
                 "summonerSpells": {
-                    nom: {"rawDisplayName": sort.get("rawDisplayName", "")}
+                    nom: {"rawDisplayName": sort.get("rawDisplayName", ""), "displayName": sort.get("displayName", "")}
                     for nom, sort in j.get("summonerSpells", {}).items() if isinstance(sort, dict)
                 },
             }

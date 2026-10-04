@@ -27,6 +27,15 @@ coin = "haut-gauche"     # haut-gauche, haut-droite, bas-gauche, bas-droite
 marge = 24
 opacite = 0.88
 
+# Minuteurs des sorts d'invocateur ennemis. Le coach ne voit pas tes pings : quand tu vois partir
+# un sort, appuie sur la touche de cet ennemi, en plus de ton ping. Deux appuis en moins de
+# 10 secondes annulent. Ces touches ne sont prises à Windows que pendant une partie.
+[sorts]
+actif = true
+# Une touche par ennemi, dans l'ordre du tableau des scores : top, jungle, mid, ADC, support.
+flash = ["ctrl+f1", "ctrl+f2", "ctrl+f3", "ctrl+f4", "ctrl+f5"]
+autre = ["shift+f1", "shift+f2", "shift+f3", "shift+f4", "shift+f5"]   # son autre sort
+
 [seuils]
 or_recall = 1300         # de quoi acheter un gros composant
 or_dormant = 2000        # trop d'or non dépensé

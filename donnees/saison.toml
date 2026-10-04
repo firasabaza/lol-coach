@@ -33,5 +33,23 @@ herald_fin = 1185            # verifie : 19:45
 baron = 1200                 # verifie : 20:00
 baron_respawn = 360          # verifie
 
+# Sorts d'invocateur : nom parlé et temps de recharge. Lu dans Data Dragon, patch 16.19.1, le 2026-10-04.
+# Pas de recharge = pas de minuteur (le Châtiment fonctionne par charges).
+[sorts]
+SummonerFlash = { nom = "Flash", recharge = 300 }
+SummonerDot = { nom = "Ignite", recharge = 180 }
+SummonerHeal = { nom = "Heal", recharge = 240 }
+SummonerExhaust = { nom = "Exhaust", recharge = 240 }
+SummonerBarrier = { nom = "Barrière", recharge = 180 }
+SummonerBoost = { nom = "Purge", recharge = 240 }
+SummonerHaste = { nom = "Ghost", recharge = 240 }
+SummonerTeleport = { nom = "TP", recharge = 300 }
+SummonerSmite = { nom = "Smite" }
+
+# Objets qui donnent de la hâte de sorts d'invocateur : identifiant = hâte (Data Dragon, même patch).
+[hate_sorts]
+3158 = 10   # Bottes de lucidité ionienne
+3171 = 20   # Lucidité pourpre
+
 [niveaux]
 sbires_niveau_2_duo = 9      # première vague + 3 mêlées. Les sources divergent (7 ou 9) : à vérifier

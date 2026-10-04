@@ -43,6 +43,12 @@ def duree(secondes: float) -> str:
     return base if reste == 0 else f"{base} {reste}"
 
 
+def heure(t: float) -> str:
+    """Une heure de jeu telle qu'on la dit : « 12 minutes 40 »."""
+    minutes, secondes = divmod(max(0, round(t)), 60)
+    return f"{minutes} minutes {secondes}" if secondes else f"{minutes} minutes"
+
+
 def _or(x: float) -> int:
     return int(x // 50 * 50)
 
@@ -403,4 +409,37 @@ def tours(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         )
 
 
-REGLES: tuple[Regle, ...] = (debut, niveaux, drake, objectifs_haut, recall, vision, jungler, avantage, farm, items, tours)
+def sorts(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Minuteurs des sorts d'invocateur ennemis que le joueur a signalés lui-même."""
+    for genre, objet in s.notes:
+        if isinstance(objet, str):
+            yield Conseil(f"sort-refus-{int(e.t)}-{objet}", INFO, objet, "")
+        elif genre == "annule":
+            yield Conseil(
+                f"sort-annule-{objet.champion}-{objet.sort}-{int(e.t)}", INFO,
+                f"{objet.sort} de {objet.champion} : minuteur annulé.", "",
+            )
+        else:
+            action = (
+                f"Pas de Flash pendant {duree(objet.retour - objet.note_a)} : c'est la fenêtre pour l'attraper."
+                if objet.sort == "Flash"
+                else ""
+            )
+            yield Conseil(
+                f"sort-note-{objet.champion}-{objet.sort}-{int(objet.note_a)}", INFO,
+                f"{objet.sort} de {objet.champion} noté, retour à {heure(objet.retour)}.", action,
+            )
+
+    for m in s.sorts.values():
+        reste = m.retour - e.t
+        cle = f"{m.champion}-{m.sort}-{int(m.note_a)}"
+        if 5 < reste <= 30:
+            action = "Dernière fenêtre pour l'attraper." if m.sort == "Flash" else ""
+            yield Conseil(f"sort-bientot-{cle}", TEMPO, f"{m.sort} de {m.champion} dans {duree(round(reste / 5) * 5)}.", action)
+        elif reste <= 0:
+            yield Conseil(f"sort-retour-{cle}", INFO, f"{m.sort} de {m.champion} de nouveau disponible.", "")
+
+
+REGLES: tuple[Regle, ...] = (
+    debut, niveaux, drake, objectifs_haut, recall, vision, jungler, avantage, farm, items, tours, sorts,
+)

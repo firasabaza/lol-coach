@@ -31,6 +31,7 @@ class Reglages:
     seuils: Seuils = field(default_factory=Seuils)
     voix: dict = field(default_factory=dict)
     fenetre: dict = field(default_factory=dict)
+    sorts: dict = field(default_factory=dict)
 
 
 def _lire(chemin: Path) -> dict:
@@ -61,4 +62,5 @@ def charger(racine: Path = RACINE) -> Reglages:
         seuils=Seuils(**lus),
         voix=config.get("voix", {}),
         fenetre=config.get("fenetre", {}),
+        sorts=config.get("sorts", {}),
     )

@@ -39,7 +39,7 @@ def _hors_profil(e: Etat) -> str | None:
 
 
 def _pied(e: Etat, s: Suivi) -> str:
-    """La ligne du bas de la fenêtre : l'horloge et les deux prochains objectifs."""
+    """La ligne du bas de la fenêtre : l'horloge, les deux prochains objectifs, les sorts ennemis notés."""
     o = s.saison["objectifs"]
     drake = "Elder" if s.elder else "Drake"
     morceaux = [_temps(e.t), f"{drake} en vie" if s.drake_dispo(e.t) else f"{drake} {_temps(s.prochain_drake - e.t)}"]
@@ -49,16 +49,19 @@ def _pied(e: Etat, s: Suivi) -> str:
         morceaux.append(f"Herald {_temps(o['herald'] - e.t)}")
     else:
         morceaux.append("Baron en vie" if s.baron_dispo(e.t) else f"Baron {_temps(s.prochain_baron - e.t)}")
+    for m in sorted(s.sorts.values(), key=lambda m: m.retour)[:2]:
+        morceaux.append(f"{m.sort} {m.champion} {_temps(max(0.0, m.retour - e.t))}")
     return " · ".join(morceaux)
 
 
 class Coach:
     def __init__(self, client: Client, reglages: Reglages, voix, fenetre, intervalle: float, une_partie: bool,
-                 dossier: Path = RACINE):
+                 dossier: Path = RACINE, touches=None):
         self.client = client
         self.reglages = reglages
         self.voix = voix
         self.fenetre = fenetre
+        self.touches = touches
         self.intervalle = intervalle
         self.une_partie = une_partie
         self.dossier = dossier
@@ -117,7 +120,14 @@ class Coach:
             self._moteur = Moteur(self.reglages)
             self._enregistreur = Enregistreur(self.dossier / "parties", etat.moi.champion)
             print(f"Partie détectée : {etat.moi.champion}, niveau « {self.reglages.niveau} ».")
+            if self.touches:
+                refuses = self.touches.activer()
+                if refuses:
+                    print(f"Raccourcis déjà pris par un autre programme, donc inactifs : {', '.join(refuses)}.")
         assert self._enregistreur is not None
+        if self.touches:
+            for numero, quoi in self.touches.appuis():
+                self._moteur.suivi.noter_sort(etat, numero, quoi)
         conseils = self._moteur.lire(etat)
         self._enregistreur.ecrire(brut)
 
@@ -137,6 +147,8 @@ class Coach:
     def _terminer(self) -> None:
         assert self._enregistreur is not None
         self._enregistreur.fermer()
+        if self.touches:
+            self.touches.desactiver()
         self.rapport = generer(self._enregistreur.chemin, self.reglages, self.dossier / "rapports")
         self._moteur = self._enregistreur = None
         print(f"Partie terminée. Débrief : {self.rapport}")
@@ -188,8 +200,16 @@ def main() -> None:
         from .fenetre import Fenetre
 
         fenetre = Fenetre(reglages.fenetre)
+    touches = None
+    if reglages.sorts.get("actif", True):
+        from .touches import Touches
 
-    coach = Coach(client, reglages, voix, fenetre, intervalle, une_partie=options.simulation)
+        try:
+            touches = Touches(reglages.sorts)
+        except ValueError as erreur:
+            sys.exit(f"Réglages invalides : {erreur}")
+
+    coach = Coach(client, reglages, voix, fenetre, intervalle, une_partie=options.simulation, touches=touches)
     fil = None
     try:
         if fenetre:

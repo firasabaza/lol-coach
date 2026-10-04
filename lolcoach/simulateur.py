@@ -121,7 +121,7 @@ def _palier(paliers: list[tuple[float, list]], t: float) -> list:
 def _joueur(nom: str, champion: str, equipe: str, role: str, smite: bool, t: float) -> dict:
     mort = next((m for m in MORTS if m[0] == nom and m[1] <= t < m[1] + m[2]), None)
     evenements = [e for e in EVENEMENTS if e["EventName"] == "ChampionKill" and e["EventTime"] <= t]
-    sort_d = "SummonerSmite" if smite else "SummonerHeal"
+    sort_d, nom_d = ("SummonerSmite", "Châtiment") if smite else ("SummonerDot", "Embrasement")
     return {
         "championName": champion,
         "isBot": False,
@@ -148,7 +148,7 @@ def _joueur(nom: str, champion: str, equipe: str, role: str, smite: bool, t: flo
         "summonerSpells": {
             "summonerSpellOne": {"displayName": "Saut éclair",
                                  "rawDisplayName": "GeneratedTip_SummonerSpell_SummonerFlash_DisplayName"},
-            "summonerSpellTwo": {"displayName": sort_d,
+            "summonerSpellTwo": {"displayName": nom_d,
                                  "rawDisplayName": f"GeneratedTip_SummonerSpell_{sort_d}_DisplayName"},
         },
         "team": equipe,

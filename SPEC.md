@@ -41,14 +41,18 @@ Firas, ADC. Scénario type :
 - [x] Mini fenêtre au premier plan (dernier conseil + timers)
 - [x] Enregistrement de la partie + débrief HTML
 - [x] Tests automatiques sur une partie simulée
+- [x] Suivi du jungler adverse par déduction (kills, objectifs, tours, réapparition)
+- [x] Minuteurs des sorts d'invocateur ennemis, déclenchés par une touche du joueur
 
 ## Plus tard
 
 - Profil support, puis les autres rôles (un fichier de règles par rôle)
 - Prix et recettes d'items via Data Dragon : « Lame d'infini achetable »
 - Type de partie via l'API du client (classée, perso, bots) et niveau différent par file
-- Revue de la minimap sur replay, pour le débrief : à chaque mort ou gank subi, le jungler
-  était-il visible sur la carte avant, et depuis combien de temps.
+- **Prochain chantier, validé le 2026-10-04 :** revue de la minimap sur replay, pour le débrief.
+  À chaque mort ou gank subi, le jungler était-il visible sur la carte avant, et depuis combien
+  de temps. Demande de la lecture d'image (numpy, OpenCV) et des captures d'un vrai replay pour
+  caler la position de la minimap et la reconnaissance des icônes.
 - Lecture de l'état des waves à l'écran.
 - Voix neuronale (plus naturelle), débrief commenté par un LLM
 - Matchups : conseils spécifiques par champion

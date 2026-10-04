@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import contextlib
+import ctypes
 import io
 import tempfile
 import threading
@@ -174,6 +175,75 @@ class JunglerAdverse(unittest.TestCase):
         self.assertEqual(moteur.suivi.jungler_vu, (303, "base", "retour"))
         self.assertIn("jungler-mort-0", dits)
         self.assertIn("jungler-vu-303", dits)
+
+
+class SortsEnnemis(unittest.TestCase):
+    """Minuteurs des sorts d'invocateur que le joueur signale lui-même."""
+
+    def setUp(self):
+        self.moteur = Moteur(REGLAGES)
+        self.moteur.lire(depuis_json(simulateur.partie(599)))
+
+    def lire(self, t: int, brut: dict | None = None) -> list[str]:
+        return [c.texte("coach") for c in self.moteur.lire(depuis_json(brut or simulateur.partie(t)))]
+
+    def test_flash_du_support(self):
+        self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(600)), 5, "flash")
+        self.assertIn(
+            "Flash de Leona noté, retour à 15 minutes. "
+            "Pas de Flash pendant 5 minutes : c'est la fenêtre pour l'attraper.",
+            self.lire(600),
+        )
+        self.assertEqual(self.moteur.suivi.sorts[("Leona ennemie", "SummonerFlash")].retour, 900)
+        self.assertIn("Flash de Leona dans 30 secondes. Dernière fenêtre pour l'attraper.", self.lire(870))
+        self.assertIn("Flash de Leona de nouveau disponible.", self.lire(900))
+        self.lire(906)
+        self.assertEqual(self.moteur.suivi.sorts, {})
+
+    def test_autre_sort_et_ordre_du_tableau(self):
+        etat = depuis_json(simulateur.partie(600))
+        self.moteur.suivi.noter_sort(etat, 4, "autre")
+        self.assertIn("Ignite de Caitlyn noté, retour à 13 minutes.", self.lire(600))
+        self.assertEqual([etat.ennemi_numero(n).champion for n in range(1, 6)],
+                         ["Darius", "Lee Sin", "Syndra", "Caitlyn", "Leona"])
+
+    def test_bottes_de_lucidite(self):
+        brut = simulateur.partie(600)
+        leona = next(j for j in brut["allPlayers"] if j["championName"] == "Leona")
+        leona["items"].append({"itemID": 3158, "displayName": "Bottes de lucidité ionienne", "price": 900, "count": 1})
+        self.moteur.suivi.noter_sort(depuis_json(brut), 5, "flash")
+        retour = self.moteur.suivi.sorts[("Leona ennemie", "SummonerFlash")].retour
+        self.assertAlmostEqual(retour, 600 + 300 * 100 / 110)
+
+    def test_double_appui_annule(self):
+        self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(600)), 5, "flash")
+        self.lire(600)
+        self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(604)), 5, "flash")
+        self.assertIn("Flash de Leona : minuteur annulé.", self.lire(604))
+        self.assertEqual(self.moteur.suivi.sorts, {})
+
+    def test_pas_de_minuteur_pour_le_smite(self):
+        self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(600)), 2, "autre")
+        self.assertIn("Pas de minuteur pour Smite.", self.lire(600))
+        self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(601)), 9, "flash")
+        self.assertIn("Pas d'ennemi numéro 9.", self.lire(601))
+
+    def test_raccourcis(self):
+        from lolcoach.touches import Touches, lire_raccourci
+
+        self.assertEqual(lire_raccourci("ctrl+f1"), (0x4002, 0x70))
+        self.assertEqual(lire_raccourci("Shift + F5"), (0x4004, 0x74))
+        self.assertEqual(lire_raccourci("alt+num5"), (0x4001, 0x65))
+        with self.assertRaises(ValueError):
+            lire_raccourci("ctrl+espace")
+
+        touches = Touches({"flash": ["ctrl+alt+shift+f13", "ctrl+alt+shift+f14"], "autre": ["ctrl+alt+shift+f15"]})
+        self.assertEqual(touches.activer(), [])  # Windows accepte les trois raccourcis
+        # Ce que Windows envoie quand le raccourci numéro 1 puis le numéro 2 sont pressés.
+        for numero in (1, 2):
+            ctypes.windll.user32.PostThreadMessageW(touches._fil, 0x0312, numero, 0)
+        touches.desactiver()
+        self.assertEqual(touches.appuis(), [(2, "flash"), (1, "autre")])
 
 
 class Niveaux(unittest.TestCase):

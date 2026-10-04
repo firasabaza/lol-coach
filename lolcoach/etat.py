@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
 PINK = 2055
+ROLES = ("TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY")  # l'ordre du tableau des scores
 ROLES_BOT = ("BOTTOM", "UTILITY")
+# « GeneratedTip_SummonerSpell_SummonerFlash_DisplayName » -> « SummonerFlash »
+_ID_SORT = re.compile(r"^.*SummonerSpell_(.+?)_DisplayName$")
 
 
 @dataclass(frozen=True)
@@ -14,6 +18,12 @@ class Objet:
     nom: str
     prix: int
     nombre: int
+
+
+@dataclass(frozen=True)
+class Sort:
+    id: str  # identifiant du jeu : "SummonerFlash", "SummonerDot"...
+    nom: str  # nom affiché par le jeu, dans la langue du client
 
 
 @dataclass(frozen=True)
@@ -31,7 +41,11 @@ class Joueur:
     cs: int
     vision: float
     objets: tuple[Objet, ...]
-    smite: bool
+    sorts: tuple[Sort, ...]
+
+    @property
+    def smite(self) -> bool:
+        return any("Smite" in s.id for s in self.sorts)
 
     @property
     def valeur_objets(self) -> int:
@@ -85,6 +99,16 @@ class Etat:
     def ennemi(self, role: str) -> Joueur | None:
         return next((j for j in self.ennemis if j.role == role), None)
 
+    def ennemi_numero(self, numero: int) -> Joueur | None:
+        """L'ennemi de la ligne `numero` (1 à 5) du tableau des scores."""
+        ennemis = self.ennemis
+        if not 1 <= numero <= len(ROLES):
+            return None
+        if all(j.role for j in ennemis):
+            return self.ennemi(ROLES[numero - 1])
+        # Partie perso sans rôles : le jeu liste les joueurs dans l'ordre du tableau.
+        return ennemis[numero - 1] if numero <= len(ennemis) else None
+
     @property
     def jungler_ennemi(self) -> Joueur | None:
         # En partie perso le rôle est parfois vide : le Châtiment ne ment pas.
@@ -115,7 +139,10 @@ def _joueur(d: dict) -> Joueur:
             Objet(int(o.get("itemID", 0)), o.get("displayName", ""), int(o.get("price", 0)), int(o.get("count", 1)))
             for o in d.get("items", [])
         ),
-        smite=any("Smite" in s.get("rawDisplayName", "") for s in sorts.values() if isinstance(s, dict)),
+        sorts=tuple(
+            Sort(_ID_SORT.sub(r"\1", s.get("rawDisplayName", "")), s.get("displayName", ""))
+            for s in sorts.values() if isinstance(s, dict)
+        ),
     )
 
 

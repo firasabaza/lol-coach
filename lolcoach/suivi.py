@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from bisect import bisect_right
 from collections import deque
+from dataclasses import dataclass
 
 from .etat import ROLES_BOT, Etat, Evenement
 from .reglages import Reglages
@@ -31,6 +32,16 @@ def vagues_canon_bot(saison: dict, jusqua: float = 3600.0) -> list[float]:
             depuis_canon = 0
         t += _palier(s["intervalles"], t)
     return arrivees
+
+
+@dataclass(frozen=True)
+class Minuteur:
+    """Un sort d'invocateur ennemi que le joueur a vu partir."""
+
+    champion: str
+    sort: str  # nom parlé : « Flash », « Ignite »
+    note_a: float
+    retour: float
 
 
 def tour_bot(equipe: str) -> str:
@@ -76,13 +87,49 @@ class Suivi:
 
         self._canons = vagues_canon_bot(saison)
 
+        self.sorts: dict[tuple[str, str], Minuteur] = {}  # (joueur, identifiant du sort) -> minuteur
+        # Ce que le joueur vient de signaler : ("note" | "annule", Minuteur) ou ("refus", explication).
+        self.notes: list[tuple[str, Minuteur | str]] = []
+        self._notes_en_attente: list[tuple[str, Minuteur | str]] = []
+
     @property
     def premiere(self) -> bool:
         return self.lectures == 1
 
+    def noter_sort(self, e: Etat, numero: int, quoi: str) -> None:
+        """Le joueur a vu partir un sort de l'ennemi `numero` (ligne du tableau des scores).
+
+        `quoi` vaut "flash" (le Flash, ou le premier sort s'il n'en a pas) ou "autre" (l'autre sort).
+        Signaler deux fois le même sort en moins de 10 secondes annule le minuteur.
+        """
+        cible = e.ennemi_numero(numero)
+        if cible is None or not cible.sorts:
+            self._notes_en_attente.append(("refus", f"Pas d'ennemi numéro {numero}."))
+            return
+        flash = next((s for s in cible.sorts if s.id == "SummonerFlash"), cible.sorts[0])
+        sort = flash if quoi == "flash" else next((s for s in cible.sorts if s is not flash), flash)
+        connu = self.saison["sorts"].get(sort.id, {})
+        if "recharge" not in connu:
+            self._notes_en_attente.append(("refus", f"Pas de minuteur pour {connu.get('nom', sort.nom)}."))
+            return
+
+        cle = (cible.nom, sort.id)
+        ancien = self.sorts.get(cle)
+        if ancien and e.t - ancien.note_a <= 10:
+            del self.sorts[cle]
+            self._notes_en_attente.append(("annule", ancien))
+            return
+        hate = sum(self.saison["hate_sorts"].get(str(o.id), 0) for o in cible.objets)
+        minuteur = Minuteur(cible.champion, connu["nom"], e.t, e.t + connu["recharge"] * 100 / (100 + hate))
+        self.sorts[cle] = minuteur
+        self._notes_en_attente.append(("note", minuteur))
+
     def maj(self, e: Etat) -> None:
         self.lectures += 1
         self.jungler_vu_ce_tour = False
+        self.notes, self._notes_en_attente = self._notes_en_attente, []
+        # Un minuteur écoulé reste quelques secondes, le temps que la règle annonce le retour du sort.
+        self.sorts = {cle: m for cle, m in self.sorts.items() if e.t - m.retour <= 5}
 
         self.nouveaux = [ev for ev in e.evenements if ev.id > self._dernier_id]
         for ev in self.nouveaux:

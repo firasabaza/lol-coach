@@ -36,6 +36,26 @@ de la fenêtre, seuils (or de recall, PV, farm, délais d'annonce).
 
 La mini fenêtre ne passe au-dessus du jeu qu'en mode **fenêtré sans bordure**.
 
+## Minuteurs de sorts ennemis
+
+Le coach ne voit ni tes pings ni le chat. Quand tu vois partir un sort d'invocateur, appuie sur
+la touche de cet ennemi, en plus de ton ping :
+
+| Ennemi (ordre du tableau des scores) | Son Flash | Son autre sort |
+|---|---|---|
+| Top | Ctrl+F1 | Shift+F1 |
+| Jungle | Ctrl+F2 | Shift+F2 |
+| Mid | Ctrl+F3 | Shift+F3 |
+| ADC | Ctrl+F4 | Shift+F4 |
+| Support | Ctrl+F5 | Shift+F5 |
+
+Il confirme à la voix (« Flash de Leona noté, retour à 15 minutes »), affiche le décompte dans
+la fenêtre, prévient 30 secondes avant le retour, puis au retour. Deux appuis en moins de
+10 secondes annulent. Les bottes de lucidité de l'ennemi sont prises en compte ; la rune
+Perspicacité cosmique ne l'est pas, parce que le jeu ne la montre pas.
+
+Ces touches ne sont prises à Windows que pendant une partie, et se changent dans `config.toml`.
+
 ## Ce que le coach voit, et ce qu'il ne voit pas
 
 Il voit ce que donne la Live Client Data API : l'horloge, ton or, tes PV, les niveaux, objets,
