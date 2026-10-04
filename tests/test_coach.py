@@ -192,7 +192,8 @@ class Compositions(unittest.TestCase):
                     "ulti-Leona ennemie": 470, "etat-10": 635, "plan-de-combat": 1080}
         for cle, heure in attendus.items():
             self.assertEqual(heures.get(cle), heure, cle)
-        self.assertIn("or-2", heures)  # un seul conseil de back à la fois : l'arbitre fusionne les doublons
+        self.assertIn("finir-3032", heures)  # le conseil précis passe devant le « 1300 gold » générique
+        self.assertNotIn("or-2", heures)
         plan = next(c for _, c in conseils if c.cle == "plan-de-lane")
         self.assertIn("Leona engage au contact", plan.action)
         self.assertEqual(plan.texte("faits"), "")  # un plan est une conclusion : rien en mode faits
@@ -251,7 +252,7 @@ class LectureAdverse(unittest.TestCase):
         ]
         dits = {c.cle: c for c in moteur.lire(depuis_json(brut))}
         self.assertNotIn("ace-90", dits)  # l'ace pour vous est dit par la règle d'avantage numérique
-        self.assertEqual(dits["inhibiteur-91"].fait, "Inhibiteur perdu.")
+        self.assertEqual(dits["inhibiteur-perdu"].fait, "Inhibiteur perdu.")
 
     def test_deux_niveaux_de_retard(self):
         brut = simulateur.partie(300)

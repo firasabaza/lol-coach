@@ -8,7 +8,7 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 
-from .compo import est
+from .compo import est, finissable
 from .etat import PINK, ROLES_BOT, Etat
 from .rapport import ECRASANT, NET, avance, avance_lane, ennemis_morts, forme, score
 from .reglages import Reglages
@@ -230,7 +230,7 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             f"or-dormant-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold non dépensés.",
             "Tu joues avec un item de moins. Reset maintenant.", repeter_apres=90, intention="back",
         )
-    elif or_en_poche(e) >= c.seuils.or_recall:
+    elif or_en_poche(e) >= c.seuils.or_recall and finissable(e, or_en_poche(e)) is None:
         if lane and canon <= 25:
             action = "Crash la vague canon qui arrive, puis back."
         elif lane:
@@ -390,7 +390,7 @@ def avantage(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
     if len(morts) >= 3 and not e.moi.mort:
         retour = min(j.reapparition for j in morts)  # le premier qui revient ferme la fenêtre
-        if len(morts) == len(e.ennemis) and retour >= 20 and e.t >= 1200:
+        if len(morts) == len(e.ennemis) and retour >= 20 and e.t >= 900:
             action = "Finissez : tout le monde mid avec la vague, la partie se gagne maintenant."
         elif s.baron_dispo(e.t) and retour >= 15:
             action = "Baron, maintenant."

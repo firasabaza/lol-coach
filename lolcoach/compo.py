@@ -128,6 +128,23 @@ def reste_a_payer(cible: int, possedes: Iterable[int]) -> int:
     return cout(cible)
 
 
+def prochain_objet(e: Etat) -> int | None:
+    """L'objet à viser maintenant : la suite du chemin type, puis ce que la compo impose."""
+    for objet in chemin(e.moi):
+        if not e.moi.possede(objet):
+            return objet
+    return next((objet for objet, _ in adaptations(e)), None)
+
+
+def finissable(e: Etat, poche: float) -> int | None:
+    """L'objet que l'or en poche permet de terminer tout de suite, s'il y en a un."""
+    cible = prochain_objet(e)
+    if cible is None or objets().get(cible, {}).get("prix", 0) < PRIX_OBJET_FINI:
+        return None
+    reste = reste_a_payer(cible, [o.id for o in e.moi.objets for _ in range(o.nombre)])
+    return cible if 0 < reste <= poche else None
+
+
 def objets_finis(j: Joueur) -> int:
     return sum(o.prix >= PRIX_OBJET_FINI for o in j.objets)
 

@@ -9,11 +9,11 @@ from __future__ import annotations
 from collections.abc import Iterator
 
 from .compo import (
-    PLONGEURS, POKE, adaptations, bottes, chemin, classe, est, fiche, lire_compo, nom_objet, noms, notes, objets_finis,
-    reste_a_payer,
+    PLONGEURS, POKE, adaptations, bottes, chemin, classe, est, fiche, finissable, lire_compo, nom_objet, noms, notes,
+    objets_finis,
 )
-from .datadragon import objets, runes
-from .etat import PRIX_OBJET_FINI, ROLES_BOT, Etat
+from .datadragon import runes
+from .etat import ROLES_BOT, Etat
 from .rapport import NET, avance, avance_lane, ennemis_morts, forme, puissance, score
 from .reglages import Reglages
 from .regles import INFO, TEMPO, URGENT, Conseil, Regle, duree, or_en_poche
@@ -91,26 +91,15 @@ def build(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     yield Conseil("build-adaptation", INFO, fait + ".", action)
 
 
-def _prochain_objet(e: Etat) -> int | None:
-    """L'objet à viser maintenant : la suite du chemin type, puis ce que la compo impose."""
-    for objet in chemin(e.moi):
-        if not e.moi.possede(objet):
-            return objet
-    return next((objet for objet, _ in adaptations(e)), None)
-
-
 def objet_finissable(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     """Le meilleur moment pour back : quand l'or en poche termine un objet."""
     if e.moi.mort or e.t - s.reapparu_a < 20 or (s.nb_achats and e.t - s.dernier_achat < 20):
         return
     if ennemis_morts(e) >= 3:
         return  # la carte est libre : on prend un objectif, l'achat attendra
-    cible = _prochain_objet(e)
-    if cible is None or objets().get(cible, {}).get("prix", 0) < PRIX_OBJET_FINI:
-        return
-    reste = reste_a_payer(cible, [o.id for o in e.moi.objets for _ in range(o.nombre)])
     poche = or_en_poche(e)
-    if 0 < reste <= poche:
+    cible = finissable(e, poche)
+    if cible is not None:
         action = (
             "Crash ta vague et back : c'est ton pic de puissance."
             if s.en_lane(e)
@@ -273,7 +262,7 @@ def etat_de_partie(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         if fort and avance(e, fort) <= -NET:
             lecture.append(f"Leur plus fort : {fort.champion}, {score(fort)}. Ne te bats pas à sa portée sans ton équipe.")
         if faible and faible is not fort and avance(e, faible) >= NET:
-            lecture.append(f"Leur plus faible : {faible.champion}, {score(faible)}. C'est ta cible quand il est à portée.")
+            lecture.append(f"Leur plus faible : {faible.champion}, {score(faible)}. C'est ta cible dès que tu peux l'atteindre.")
         if lecture:
             yield Conseil(f"ennemis-{minute}", INFO, "", " ".join(lecture))
 
@@ -435,13 +424,15 @@ def tournants(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         elif ev.nom == "InhibKilled" and (tueur := e.joueur(ev.tueur)):
             if tueur.equipe == e.moi.equipe:
                 yield Conseil(
-                    f"inhibiteur-{ev.id}", TEMPO, "Inhibiteur détruit.",
+                    "inhibiteur-pris", TEMPO, "Inhibiteur détruit.",
                     "Les super-sbires poussent cette lane tout seuls : jouez l'objectif du côté opposé.",
+                    repeter_apres=45,
                 )
             else:
                 yield Conseil(
-                    f"inhibiteur-{ev.id}", URGENT, "Inhibiteur perdu.",
+                    "inhibiteur-perdu", URGENT, "Inhibiteur perdu.",
                     "Quelqu'un doit nettoyer les super-sbires. Pas de Baron ni de drake à quatre.",
+                    repeter_apres=45, intention="danger",
                 )
         elif ev.nom == "InhibRespawningSoon" and (structure := lire_structure(ev.cible)) and structure[0] != e.moi.equipe:
             yield Conseil(
