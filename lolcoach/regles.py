@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 from .compo import est
 from .etat import PINK, ROLES_BOT, Etat
+from .rapport import ECRASANT, NET, avance, avance_lane, ennemis_morts, forme, score
 from .reglages import Reglages
 from .suivi import Suivi, lire_structure
 
@@ -23,6 +24,9 @@ class Conseil:
     fait: str  # ce qu'on constate
     action: str  # ce que le coach en conclut
     repeter_apres: float | None = None
+    # Ce que le conseil demande au joueur : « danger », « objectif », « agressif », « back » ou
+    # « prudent ». Le moteur s'en sert pour ne jamais dire deux choses contraires (moteur.py).
+    intention: str = ""
 
     def texte(self, niveau: str) -> str:
         if niveau == "coach":
@@ -118,9 +122,11 @@ def niveaux(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     eux = max(j.niveau for j in duo)
     for n in (2, 3, 6):
         if eux >= n > e.moi.niveau:
+            if avance_lane(e) >= NET:
+                continue  # un niveau de retard ne pèse pas contre une vraie avance en objets
             yield Conseil(
                 f"niveau-eux-{n}", URGENT, f"Ils passent niveau {n} avant toi.",
-                "Recule, pas de trade tant que tu n'y es pas.",
+                "Recule, pas de trade tant que tu n'y es pas.", intention="prudent",
             )
         elif e.moi.niveau >= n > eux:
             action = (
@@ -128,7 +134,7 @@ def niveaux(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
                 if n == 6
                 else "Avance et trade maintenant."
             )
-            yield Conseil(f"niveau-moi-{n}", TEMPO, f"Niveau {n} avant eux.", action)
+            yield Conseil(f"niveau-moi-{n}", TEMPO, f"Niveau {n} avant eux.", action, intention="agressif")
 
 
 def drake(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
@@ -142,7 +148,7 @@ def drake(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if 60 < reste <= 90 and not e.moi.mort and or_en_poche(e) >= c.seuils.or_reset_objectif:
         yield Conseil(
             f"{cle}-reset", TEMPO, f"{nom} dans {duree(round(reste / 10) * 10)} et {_or(or_en_poche(e))} gold.",
-            "Reset maintenant pour arriver avec tes items.",
+            "Reset maintenant pour arriver avec tes items.", intention="back",
         )
 
     palier = _annonce(reste, c.seuils.annonces_objectif)
@@ -161,7 +167,7 @@ def drake(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         action = "Décale avec ton support, vague poussée d'abord."
     else:
         action = "Pousse ta vague maintenant, puis ward la rivière."
-    yield Conseil(f"{cle}-{palier}", TEMPO, f"{nom} dans {duree(round(reste / 5) * 5)}.", action)
+    yield Conseil(f"{cle}-{palier}", TEMPO, f"{nom} dans {duree(round(reste / 5) * 5)}.", action, intention="tempo")
 
 
 def objectifs_haut(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
@@ -170,10 +176,18 @@ def objectifs_haut(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
     reste = o["grubs"] - e.t
     if _annonce(reste, premier):
-        yield Conseil(
-            "grubs", INFO, f"Grubs dans {duree(round(reste / 5) * 5)}.",
-            "Ton jungler part en haut : joue safe en bot, pas de trade sans vision.",
-        )
+        if avance_lane(e) >= NET:
+            # Les deux junglers montent : en bas c'est du deux contre deux, et tu es devant.
+            yield Conseil(
+                "grubs", INFO, f"Grubs dans {duree(round(reste / 5) * 5)}.",
+                "Les junglers montent : en bot c'est du deux contre deux et tu es devant. Force le trade ou les plaques.",
+                intention="agressif",
+            )
+        else:
+            yield Conseil(
+                "grubs", INFO, f"Grubs dans {duree(round(reste / 5) * 5)}.",
+                "Ton jungler part en haut : pas de trade sans vision de la rivière.", intention="prudent",
+            )
 
     reste = o["herald"] - e.t
     if _annonce(reste, premier) and not s.herald_pris:
@@ -187,7 +201,7 @@ def objectifs_haut(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if palier:
         yield Conseil(
             f"baron-{int(s.prochain_baron)}-{palier}", TEMPO, f"Baron dans {duree(round(reste / 5) * 5)}.",
-            "Groupe mid, vision côté Baron, ne reste pas seul en side.",
+            "Groupe mid, vision côté Baron, ne reste pas seul en side.", intention="tempo",
         )
 
 
@@ -205,13 +219,16 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     # Juste après une réapparition ou un achat on est à la fontaine : lui dire de back n'a pas de sens.
     if e.moi.mort or e.t - s.reapparu_a < 20 or (s.nb_achats and e.t - s.dernier_achat < 20):
         return
+    # Trois ennemis morts : la carte est libre, on prend quelque chose. Le back et les PV attendront.
+    if ennemis_morts(e) >= 3:
+        return
 
     lane = s.en_lane(e)
     canon = s.prochain_canon(e.t) - e.t
     if or_en_poche(e) >= c.seuils.or_dormant:
         yield Conseil(
             f"or-dormant-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold non dépensés.",
-            "Tu joues avec un item de moins. Reset maintenant.", repeter_apres=90,
+            "Tu joues avec un item de moins. Reset maintenant.", repeter_apres=90, intention="back",
         )
     elif or_en_poche(e) >= c.seuils.or_recall:
         if lane and canon <= 25:
@@ -220,12 +237,12 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             action = "Crash ta vague et back pour ton composant."
         else:
             action = "Reset dès que ta vague est poussée."
-        yield Conseil(f"or-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold.", action)
+        yield Conseil(f"or-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold.", action, intention="back")
         attend = s.or_seuil_depuis is not None and e.t - s.or_seuil_depuis > 20
         if lane and canon <= 20 and attend:
             yield Conseil(
                 f"canon-{s.nb_achats}", TEMPO, f"Vague canon dans {duree(canon)}.",
-                "C'est celle-là qu'on crash avant de back.",
+                "C'est celle-là qu'on crash avant de back.", intention="back",
             )
 
     if len(s.pv) < (s.pv.maxlen or 0):
@@ -234,7 +251,7 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if stable <= c.seuils.pv_critique:
         yield Conseil(
             "pv-critique", URGENT, "PV critiques.", "Back tout de suite, n'attends pas la vague.",
-            repeter_apres=60,
+            repeter_apres=60, intention="danger",
         )
     elif stable <= c.seuils.pv_bas:
         action = (
@@ -242,7 +259,7 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             if or_en_poche(e) >= 500
             else "Joue derrière ta vague, pas de trade."
         )
-        yield Conseil("pv-bas", TEMPO, "PV bas.", action, repeter_apres=90)
+        yield Conseil("pv-bas", TEMPO, "PV bas.", action, repeter_apres=90, intention="back")
 
 
 def vision(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
@@ -285,20 +302,26 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             "Gank avec ulti possible : reste du côté de ta vision.",
         )
 
+    lane = s.en_lane(e)
+    devant = avance_lane(e) >= NET  # en avance sur leur duo : un jungler seul ne suffit plus à te faire reculer
     if jg.mort and jg.reapparition >= 10 and not e.moi.mort:
-        if sum(j.mort for j in e.ennemis) >= 3:
+        if ennemis_morts(e) >= 3:
             return  # la règle d'avantage numérique le dit déjà, en mieux
-        action = (
-            "Drake gratuit : ping ton jungler et pousse."
-            if s.drake_dispo(e.t)
-            else "Tu peux pousser et warder sans risque."
-        )
-        yield Conseil(
-            f"jungler-mort-{jg.morts}", TEMPO, f"Leur jungler est mort, {duree(jg.reapparition)}.", action
-        )
+        if s.drake_dispo(e.t):
+            yield Conseil(
+                f"jungler-mort-{jg.morts}", TEMPO, f"Leur jungler est mort, {duree(jg.reapparition)}.",
+                "Drake gratuit : ping ton jungler et pousse.", intention="objectif",
+            )
+        elif lane:
+            yield Conseil(
+                "jungler-mort", TEMPO, f"Leur jungler est mort, {duree(jg.reapparition)}.",
+                "Personne ne viendra les aider : force le trade ou plonge avec la vague."
+                if devant
+                else "Tu peux pousser et warder sans risque.",
+                repeter_apres=120, intention="agressif",
+            )
         return
 
-    lane = s.en_lane(e)
     if s.jungler_vu:
         t_vu, cote, indice = s.jungler_vu
         cle = f"jungler-vu-{cote}"  # un même côté n'est annoncé qu'une fois par minute (trois grubs = une annonce)
@@ -308,29 +331,37 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             if lane and cote == "top" and traversee <= e.t - t_vu < traversee + 20:
                 yield Conseil(
                     f"jungler-fenetre-{int(t_vu)}", TEMPO, f"Leur jungler était top il y a {duree(traversee)}.",
-                    "Ta fenêtre est finie, il a eu le temps de descendre. "
+                    "Il a eu le temps de descendre : un œil sur la rivière avant de plonger."
+                    if devant
+                    else "Ta fenêtre est finie, il a eu le temps de descendre. "
                     "Avancé : recule. Sous tour : c'est le moment de back.",
+                    intention="" if devant else "prudent",
                 )
         elif cote == "top" and s.drake_dispo(e.t):
             yield Conseil(
                 cle, TEMPO, "Leur jungler vient d'apparaître en top.",
-                "Il est loin : drake possible, ping ton jungler.", repeter_apres=60,
+                "Il est loin : drake possible, ping ton jungler.", repeter_apres=60, intention="objectif",
             )
         elif cote == "top" and lane:
             yield Conseil(
                 cle, TEMPO, "Leur jungler vient d'apparaître en top.",
                 f"Tu es safe {traversee} secondes : joue agressif ou prends la vision rivière.", repeter_apres=60,
+                intention="agressif",
             )
-        elif cote == "mid" and lane:
+        elif cote == "mid" and lane and not devant:
             yield Conseil(
-                cle, TEMPO, "Leur jungler vient d'apparaître mid.", "Il peut descendre vite. Avancé : recule.", repeter_apres=60
+                cle, TEMPO, "Leur jungler vient d'apparaître mid.", "Il peut descendre vite. Avancé : recule.",
+                repeter_apres=60, intention="prudent",
             )
         elif cote == "bot" and indice == "objectif" and lane:
             yield Conseil(
                 cle, URGENT, "Leur jungler vient de prendre le drake, il est côté bot.",
-                "Avancé : recule, gank probable. Sous tour : c'est le moment de back.", repeter_apres=60,
+                "Ils sont trois de ton côté : pas de plongée tant qu'il n'est pas reparti."
+                if devant
+                else "Avancé : recule, gank probable. Sous tour : c'est le moment de back.",
+                repeter_apres=60, intention="prudent",
             )
-        elif cote == "base" and lane:
+        elif cote == "base" and lane and not devant:
             yield Conseil(
                 cle, INFO, "Leur jungler est de retour en jeu.",
                 f"Compte {j['base_vers_bot']} secondes avant qu'il puisse être bot.", repeter_apres=60,
@@ -339,53 +370,86 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     sans_nouvelle = e.t - s.jungler_nouvelle
     if lane and sans_nouvelle >= c.seuils.jungler_inconnu and e.t - s.derniere_vision >= 60:
         depuis = "plus de 3 minutes" if sans_nouvelle > 180 else duree(round(sans_nouvelle / 15) * 15)
-        yield Conseil(
-            "jungler-inconnu", INFO, f"Leur jungler n'a pas été vu depuis {depuis}.",
-            "Sans vision, ne dépasse pas le milieu de la lane.", repeter_apres=150,
-        )
+        if devant:
+            # Devant, on ne recule pas : on pose la ward qui permet de continuer à presser.
+            yield Conseil(
+                "jungler-inconnu", INFO, f"Leur jungler n'a pas été vu depuis {depuis}.",
+                f"Tu es devant, mais à trois ils te tuent : ward la rivière, puis continue de presser. "
+                f"Il est à {score(jg)}.",
+                repeter_apres=150,
+            )
+        else:
+            yield Conseil(
+                "jungler-inconnu", INFO, f"Leur jungler n'a pas été vu depuis {depuis}.",
+                "Sans vision, ne dépasse pas le milieu de la lane.", repeter_apres=150, intention="prudent",
+            )
 
 
 def avantage(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     morts = [j for j in e.ennemis if j.mort]
 
     if len(morts) >= 3 and not e.moi.mort:
-        if s.baron_dispo(e.t):
+        retour = min(j.reapparition for j in morts)  # le premier qui revient ferme la fenêtre
+        if len(morts) == len(e.ennemis) and retour >= 20 and e.t >= 1200:
+            action = "Finissez : tout le monde mid avec la vague, la partie se gagne maintenant."
+        elif s.baron_dispo(e.t) and retour >= 15:
             action = "Baron, maintenant."
         elif s.drake_dispo(e.t):
             action = "Drake, maintenant."
         else:
-            action = "Prends une tour, pas de back."
-        yield Conseil("avantage", URGENT, f"{len(morts)} ennemis morts.", action, repeter_apres=45)
+            action = "Prends une tour ou un inhibiteur : le back viendra après."
+        yield Conseil(
+            "avantage", URGENT, f"{len(morts)} ennemis morts.", action, repeter_apres=45, intention="objectif"
+        )
         return
 
     if not s.en_lane(e):
         return
     support = e.allie("UTILITY")
     if support and support.mort and not e.moi.mort:
-        yield Conseil(
-            f"support-mort-{support.morts}", URGENT, "Ton support est mort.",
-            "Tu es seul : recule sous ta tour et farm ce qui vient.",
-        )
+        marge = avance_lane(e)
+        if marge >= ECRASANT:
+            yield Conseil(
+                f"support-mort-{support.morts}", TEMPO, "Ton support est mort.",
+                f"Tu as {round(marge, -2):.0f} gold d'avance sur leur duo : garde ta vague et punis celui qui avance. "
+                "Méfie-toi seulement de leur jungler.", intention="agressif",
+            )
+        elif marge >= NET:
+            yield Conseil(
+                f"support-mort-{support.morts}", TEMPO, "Ton support est mort.",
+                "Tu es devant mais seul : farme, et ne prends que les trades à un contre un.",
+            )
+        else:
+            yield Conseil(
+                f"support-mort-{support.morts}", URGENT, "Ton support est mort.",
+                "Tu es seul : recule sous ta tour et farm ce qui vient.", intention="prudent",
+            )
     if e.moi.mort:
         return
     duo_mort = [j for j in morts if j.role in ROLES_BOT]
     # On ne commente qu'une mort qui vient d'arriver : pas celui qui reste mort quand l'autre réapparaît.
     if not any(e.t - s.morts_ennemies.get(j.nom, e.t) <= 3 for j in duo_mort):
         return
+    drake = s.prochain_drake - e.t
     if len(duo_mort) == 2:
-        drake_proche = s.prochain_drake - e.t <= 120
+        if drake <= 60:
+            action = "Crash la vague et enchaîne sur le drake : pas de back."
+        elif drake <= 120 and or_en_poche(e) >= c.seuils.or_reset_objectif:
+            action = "Crash la vague, back tout de suite, et reviens pour le drake avec tes objets."
+        else:
+            action = "Crash la vague et tape la tour, 120 gold la plaque, puis back."
         yield Conseil(
-            f"duo-mort-{sum(j.morts for j in duo_mort)}", TEMPO, "Leur botlane est morte.",
-            "Crash la vague et enchaîne sur le drake : pas de back."
-            if drake_proche
-            else "Crash la vague et tape la tour, 120 gold la plaque, puis back.",
+            f"duo-mort-{sum(j.morts for j in duo_mort)}", TEMPO, "Leur botlane est morte.", action, intention="objectif"
         )
     elif duo_mort[0].reapparition >= 12:
         j = duo_mort[0]
         role = "ADC" if j.role == "BOTTOM" else "support"
         yield Conseil(
             f"duo-mort-{j.nom}-{j.morts}", TEMPO, f"Leur {role} est mort, {duree(j.reapparition)}.",
-            "Deux contre un : pousse et mets la pression, sans dive.",
+            "Deux contre un : pousse, plaques, et plonge celui qui reste si la vague est grosse."
+            if avance_lane(e) >= NET
+            else "Deux contre un : pousse et mets la pression, sans dive.",
+            intention="agressif",
         )
 
 
@@ -393,36 +457,45 @@ def farm(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     for minute in (6, 10, 15, 20, 25):
         if minute * 60 <= e.t < minute * 60 + 30:
             rythme = s.cs_par_minute(e)
-            action = (
-                "Bon rythme, continue."
-                if rythme >= c.seuils.cs_par_minute
-                else f"Sous l'objectif de {c.seuils.cs_par_minute:g}. Priorité au farm."
-            )
+            if rythme >= c.seuils.cs_par_minute:
+                action = "Bon rythme, continue."
+            elif forme(e) == "domine":
+                # Devant aux kills : le farm n'est pas la priorité, mais il reste de l'or facile.
+                action = "Tu es devant aux kills : prends aussi les vagues entre deux combats, c'est de l'or sans risque."
+            else:
+                action = f"Sous l'objectif de {c.seuils.cs_par_minute:g}. Priorité au farm."
             lu = f"{rythme:.1f}".replace(".", ",")
             # Le jeu ne donne les sbires qu'à la dizaine près : on annonce le rythme, pas le compte.
             yield Conseil(f"farm-{minute}", INFO, f"{minute} minutes : environ {lu} sbires par minute.", action)
 
 
 def items(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Le rapport de force avec l'ADC adverse, et ce qu'il autorise."""
     adc = e.ennemi("BOTTOM")
     if adc is None or (s.nb_achats and e.t - s.dernier_achat < 20):
         return  # pas d'ADC en face, ou panier en cours : l'écart bouge à chaque clic
-    ecart = adc.valeur_objets - e.moi.valeur_objets
+    ecart = e.moi.valeur_objets - adc.valeur_objets
     # Trois annonces au plus dans chaque sens : au-delà, l'écart est acquis et le redire n'apprend rien.
     palier = min(3, abs(ecart) // c.seuils.ecart_items)
     if palier == 0:
         return
     montant = round(abs(ecart) / 100) * 100
-    if ecart > 0:
+    if ecart < 0:
         yield Conseil(
-            f"items-retard-{palier}", INFO, f"Leur ADC a {montant} gold d'items de plus que toi.",
-            "Pas de trade long. Farm et attends ton prochain back.",
+            f"items-retard-{palier}", INFO, f"{adc.champion} a {montant} gold d'objets de plus que toi.",
+            "Pas de trade long. Farm et attends ton prochain back.", intention="prudent",
         )
+        return
+    fait = f"Tu as {montant} gold d'objets d'avance sur {adc.champion} ({score(e.moi)} contre {score(adc)})."
+    if palier == 1:
+        action = "C'est ta fenêtre : force les trades."
+    elif palier == 2:
+        action = "Tu gagnes le un contre un : empêche-le d'approcher la vague, et punis chaque sbire qu'il prend."
+    elif s.en_lane(e):
+        action = "Tu peux te battre à un contre deux : plaques, plongée quand la vague est grosse, puis porte ton avance mid."
     else:
-        yield Conseil(
-            f"items-avance-{palier}", TEMPO, f"Tu as {montant} gold d'items d'avance sur leur ADC.",
-            "C'est ta fenêtre : force les trades.",
-        )
+        action = "Tu le tues seul : cherche-le en combat, il ne peut pas te répondre."
+    yield Conseil(f"items-avance-{palier}", TEMPO, fait, action, intention="agressif")
 
 
 def tours(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
@@ -438,7 +511,9 @@ def tours(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         else:
             yield Conseil(
                 "tour-bot-prise", TEMPO, "Tour bot ennemie détruite.",
-                "Va mid avec ton support. La side, c'est pour ton toplaner.",
+                "Porte ton avance mid avec ton support : la tour mid est la suivante. La side, c'est pour ton toplaner."
+                if forme(e) == "domine"
+                else "Va mid avec ton support. La side, c'est pour ton toplaner.",
             )
 
     fin = c.saison["sbires"]["fin_de_lane"]

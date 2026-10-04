@@ -224,7 +224,7 @@ class Suivi:
             heure = ev.t + self.decalage
             self.jungler_nouvelle = heure  # un kill, un objectif ou une tour : on sait où il était
             lieu = self._lieu(ev, e, jungler.nom)
-            if lieu:
+            if lieu and ev.victime != jungler.nom:  # mort, il n'est plus nulle part : la règle du jungler mort parle
                 self.jungler_vu = (heure, *lieu)
                 self.jungler_vu_ce_tour = True
 

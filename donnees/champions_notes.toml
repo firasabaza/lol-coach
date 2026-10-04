@@ -25,6 +25,12 @@ ultis_engage = ["Leona", "Nautilus", "Malphite", "Amumu", "Sejuani", "Rell", "Za
                 "Hecarim", "Nocturne", "Rammus", "Skarner", "Lissandra", "Diana", "Annie", "Fiddlesticks", "Galio",
                 "Gragas", "Maokai", "Ornn", "Rakan", "MonkeyKing", "Lillia", "Varus", "Neeko", "Sett", "Kennen"]
 
+# Ulti qui amène le champion en bot depuis une autre lane.
+ultis_arrivee = ["TwistedFate", "Galio", "Shen", "Nocturne", "Pantheon", "Ryze", "Sion", "Briar", "TahmKench"]
+
+# Ulti qui fait des dégâts à travers la carte.
+ultis_degats = ["Karthus", "Gangplank", "Senna", "Ashe", "Jinx", "Ezreal", "Draven", "Lux", "Xerath", "Ziggs"]
+
 # Junglers qui gankent fort dès leur premier passage.
 ganks_precoces = ["LeeSin", "XinZhao", "JarvanIV", "Elise", "RekSai", "Shaco", "Pantheon", "Volibear", "Nunu", "Zac",
                   "Rammus", "Warwick", "Vi", "Twitch", "Nidalee"]

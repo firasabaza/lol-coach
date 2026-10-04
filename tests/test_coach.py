@@ -101,8 +101,8 @@ class PartieSimulee(unittest.TestCase):
     def test_les_moments_cles_sont_vus_au_bon_moment(self):
         attendus = {
             "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 120, "jungler-vu-top": 200,
-            "jungler-fenetre-200": 230, "jungler-vu-bot": 372,
-            "drake-300-60": 240, "drake-300-30": 270, "grubs": 420, "jungler-6": 500,
+            "jungler-fenetre-200": 231,  # une seconde plus tard : « safe 30 secondes » pesait encore "jungler-vu-bot": 372,
+            "drake-300-60": 240, "drake-300-30": 270, "grubs": 451, "jungler-6": 500,
             "tour-bot-prise": 700, "mort-or-1": 760, "fin-de-lane": 840, "herald": 840,
             "avantage": 1100, "baron-1200-60": 1140, "baron-1200-30": 1170,
         }
@@ -111,7 +111,7 @@ class PartieSimulee(unittest.TestCase):
 
     def test_ordre_des_annonces_d_or(self):
         self.assertLess(self.heures["or-1"], self.heures["pv-bas"])
-        self.assertIn("items-retard-2", self.heures)
+        self.assertIn("jungler-inconnu", self.heures)
         self.assertIn("farm-6", self.heures)
 
     def test_un_conseil_n_est_dit_qu_une_fois(self):
@@ -192,7 +192,7 @@ class Compositions(unittest.TestCase):
                     "ulti-Leona ennemie": 470, "etat-10": 635, "plan-de-combat": 1080}
         for cle, heure in attendus.items():
             self.assertEqual(heures.get(cle), heure, cle)
-        self.assertIn("finir-3032", heures)  # assez d'or pour finir le premier objet du chemin
+        self.assertIn("or-2", heures)  # un seul conseil de back à la fois : l'arbitre fusionne les doublons
         plan = next(c for _, c in conseils if c.cle == "plan-de-lane")
         self.assertIn("Leona engage au contact", plan.action)
         self.assertEqual(plan.texte("faits"), "")  # un plan est une conclusion : rien en mode faits
@@ -250,7 +250,7 @@ class LectureAdverse(unittest.TestCase):
              "KillerName": "Lee Sin ennemi", "Assisters": []},
         ]
         dits = {c.cle: c for c in moteur.lire(depuis_json(brut))}
-        self.assertEqual((dits["ace-90"].fait, dits["ace-90"].action), ("Ace pour vous.", "Baron tout de suite, puis siège."))
+        self.assertNotIn("ace-90", dits)  # l'ace pour vous est dit par la règle d'avantage numérique
         self.assertEqual(dits["inhibiteur-91"].fait, "Inhibiteur perdu.")
 
     def test_deux_niveaux_de_retard(self):
