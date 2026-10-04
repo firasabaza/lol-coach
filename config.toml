@@ -7,9 +7,10 @@ niveau = "coach"
 
 [voix]
 active = true
-nom = "Microsoft Paul"   # autres voix FR installées : Microsoft Julie, Microsoft Hortense
+nom = "Microsoft Julie"  # autres voix FR installées : Microsoft Hortense, Microsoft Paul
+hauteur = 1.15           # 1.0 = voix telle quelle ; plus haut = plus aiguë (1.1 à 1.25 reste naturel)
 debit = 2                # -10 (lent) à 10 (rapide)
-volume = 100
+volume = 65              # 0 à 100
 peremption = 8           # un conseil qui attend plus longtemps que ça (en secondes) est abandonné
 
 # La voix française lit les mots anglais à la française. Écris ici comment elle doit les dire ;

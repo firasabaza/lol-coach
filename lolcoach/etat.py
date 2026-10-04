@@ -11,7 +11,8 @@ from .datadragon import prix_totaux
 _prix = cache(prix_totaux)  # lu une fois par lancement
 
 PINK = 2055
-ROLES = ("TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY")  # l'ordre du tableau des scores
+PRIX_OBJET_FINI = 2000  # en dessous, c'est un composant, des bottes ou un consommable
+ROLES =("TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY")  # l'ordre du tableau des scores
 ROLES_BOT = ("BOTTOM", "UTILITY")
 # « GeneratedTip_SummonerSpell_SummonerFlash_DisplayName » -> « SummonerFlash »
 _ID_SORT = re.compile(r"^.*SummonerSpell_(.+?)_DisplayName$")
@@ -56,6 +57,16 @@ class Joueur:
     @property
     def valeur_objets(self) -> int:
         return sum(o.prix * o.nombre for o in self.objets)
+
+    @property
+    def build_complet(self) -> bool:
+        """Six objets finis : l'or ne sert plus qu'aux élixirs."""
+        return sum(o.prix >= PRIX_OBJET_FINI for o in self.objets) >= 6
+
+    @property
+    def place_libre(self) -> bool:
+        """Reste-t-il un emplacement d'inventaire ? Les trinkets ne coûtent rien et ne comptent pas."""
+        return sum(o.prix > 0 for o in self.objets) < 6
 
     def possede(self, id_objet: int) -> bool:
         return any(o.id == id_objet for o in self.objets)
@@ -161,14 +172,32 @@ def _joueur(d: dict) -> Joueur:
     )
 
 
-def _evenement(d: dict) -> Evenement:
+def _alias(joueurs: list[dict]) -> dict[str, str]:
+    """Chaque nom sous lequel un événement peut désigner un joueur -> son nom dans Joueur.
+
+    Vu en vraie partie : les événements nomment un humain par son riotIdGameName, mais un bot
+    par son summonerName (« Bot Xin Zhao », alors que son riotIdGameName est « XinZhao »).
+    """
+    alias: dict[str, str] = {}
+    for d in joueurs:
+        for cle in ("riotIdGameName", "summonerName", "riotId"):
+            valeur = d.get(cle) or ""
+            alias.setdefault(valeur, _nom(d))
+            alias.setdefault(valeur.split("#")[0], _nom(d))
+    return alias
+
+
+def _evenement(d: dict, alias: dict[str, str]) -> Evenement:
+    def nom(brut: str) -> str:
+        return alias.get(brut, brut.split("#")[0])
+
     return Evenement(
         id=int(d.get("EventID", 0)),
         nom=d.get("EventName", ""),
         t=float(d.get("EventTime", 0.0)),
-        tueur=d.get("KillerName", "").split("#")[0],
-        victime=d.get("VictimName", "").split("#")[0],
-        assistants=tuple(a.split("#")[0] for a in d.get("Assisters", [])),
+        tueur=nom(d.get("KillerName", "")),
+        victime=nom(d.get("VictimName", "")),
+        assistants=tuple(nom(a) for a in d.get("Assisters", [])),
         cible=d.get("TurretKilled") or d.get("InhibKilled") or "",
         type_drake=d.get("DragonType", ""),
     )
@@ -187,6 +216,7 @@ def depuis_json(brut: dict) -> Etat | None:
     moi = next((j for j in joueurs if j.nom == _nom(actif)), None)
     if moi is None:
         return None
+    alias = _alias(brut["allPlayers"])
 
     return Etat(
         t=float(jeu.get("gameTime", 0.0)),
@@ -195,5 +225,5 @@ def depuis_json(brut: dict) -> Etat | None:
         or_=float(actif.get("currentGold", 0.0)),
         pv=float(stats.get("currentHealth", 0.0)) / (float(stats.get("maxHealth", 0.0)) or 1.0),
         joueurs=joueurs,
-        evenements=tuple(_evenement(d) for d in brut.get("events", {}).get("Events", [])),
+        evenements=tuple(_evenement(d, alias) for d in brut.get("events", {}).get("Events", [])),
     )

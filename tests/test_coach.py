@@ -20,8 +20,8 @@ from lolcoach.enregistreur import Enregistreur, relire
 from lolcoach.etat import depuis_json
 from lolcoach.moteur import Moteur
 from lolcoach.reglages import RACINE, charger
-from lolcoach.regles import Conseil, duree
-from lolcoach.suivi import Suivi, vagues_canon_bot
+from lolcoach.regles import Conseil, accompli, duree, or_en_poche
+from lolcoach.suivi import Suivi, lire_structure, vagues_canon_bot
 
 REGLAGES = replace(charger(), niveau="coach")
 
@@ -97,8 +97,8 @@ class PartieSimulee(unittest.TestCase):
 
     def test_les_moments_cles_sont_vus_au_bon_moment(self):
         attendus = {
-            "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 120, "jungler-vu-200": 200,
-            "jungler-fenetre-200": 230, "jungler-vu-372": 372,
+            "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 120, "jungler-vu-top": 200,
+            "jungler-fenetre-200": 230, "jungler-vu-bot": 372,
             "drake-300-60": 240, "drake-300-30": 270, "grubs": 420, "jungler-6": 500,
             "tour-bot-prise": 700, "mort-or-1": 760, "fin-de-lane": 840, "herald": 840,
             "avantage": 1100, "baron-1200-60": 1140, "baron-1200-30": 1170,
@@ -122,7 +122,12 @@ class PartieSimulee(unittest.TestCase):
                 self.assertFalse(400 <= t < 420 or 785 <= t < 815, f"{c.cle} à {t}")
 
     def test_rappel_de_pink_apres_un_achat_sans_pink(self):
-        self.assertEqual(self.heures["pink-2"], 406)
+        self.assertEqual(self.heures["pink"], 406)
+
+    def test_mort_du_duo_adverse_dite_une_fois(self):
+        # Caitlyn meurt à 9:16, Leona à 9:18 : une annonce pour elle, une pour le duo, puis plus rien.
+        cles = [c.cle for _, c in self.conseils if c.cle.startswith("duo-mort") and 540 <= self.heures[c.cle] <= 600]
+        self.assertEqual(len(cles), 2)
 
     def test_le_coach_ne_noie_pas_le_joueur(self):
         par_minute = len(self.conseils) / (simulateur.FIN / 60)
@@ -134,6 +139,75 @@ class PartieSimulee(unittest.TestCase):
         self.assertIn("debut", cles)
         self.assertEqual(conseils[0][1].fait, "Coach connecté.")
         self.assertNotIn("tour-bot-prise", cles)  # la tour est tombée avant qu'on arrive
+
+
+class VraiePartie(unittest.TestCase):
+    """Ce que la première vraie partie (outil d'entraînement, patch 26.19) a appris sur l'API du jeu."""
+
+    def test_noms_de_tours(self):
+        self.assertEqual(lire_structure("Turret_TChaos_L0_P3_511845594_0"), ("CHAOS", "bot", True))
+        self.assertEqual(lire_structure("Turret_TOrder_L2_P2_1526764315_0"), ("ORDER", "top", False))
+        self.assertEqual(lire_structure("Turret_TOrder_L1_P3_1242677625_0"), ("ORDER", "mid", True))
+        # Le format de la documentation de Riot reste compris.
+        self.assertEqual(lire_structure("Turret_T2_R_03_A"), ("CHAOS", "bot", True))
+        self.assertEqual(lire_structure("Barracks_T2_R1"), ("CHAOS", "bot", False))
+        self.assertIsNone(lire_structure("Minion_T100L0S1N0001"))
+
+    def test_bots_nommes_autrement_dans_les_evenements(self):
+        brut = simulateur.partie(100)
+        lee = next(j for j in brut["allPlayers"] if j["championName"] == "Lee Sin")
+        lee.update(riotId="LeeSin#BOT", riotIdGameName="LeeSin", summonerName="Bot Lee Sin")
+        brut["events"]["Events"] = [
+            {"EventID": 0, "EventName": "HordeKill", "EventTime": 90.0, "KillerName": "Bot Lee Sin", "Assisters": []}
+        ]
+        etat = depuis_json(brut)
+        self.assertEqual(etat.evenements[0].tueur, etat.jungler_ennemi.nom)
+        suivi = Suivi(REGLAGES)
+        suivi.maj(etat)
+        self.assertEqual(suivi.jungler_vu, (90, "top", "objectif"))  # un grub : il est en haut
+
+    def test_sbires_arrondis_a_la_dizaine(self):
+        suivi = Suivi(REGLAGES)
+        for t in range(60, 400):
+            suivi.maj(depuis_json(simulateur.partie(t)))
+        sbires, heure = suivi.cs_palier
+        self.assertEqual(sbires % 10, 0)
+        self.assertAlmostEqual(suivi.cs_par_minute(depuis_json(simulateur.partie(400))), sbires / (heure / 60))
+
+    def test_prix_total_et_non_cout_de_combinaison(self):
+        brut = simulateur.partie(100)
+        brut["allPlayers"][0]["items"] = [{"itemID": 6672, "displayName": "Tueur de krakens", "price": 325, "count": 1}]
+        self.assertGreaterEqual(depuis_json(brut).moi.valeur_objets, 2500)
+
+    def test_build_complet(self):
+        brut = simulateur.partie(1000)
+        finis = (6672, 3124, 3115, 3089, 4645, 3157)
+        brut["allPlayers"][0]["items"] = [
+            *({"itemID": i, "displayName": "objet fini", "price": 300, "count": 1} for i in finis),
+            {"itemID": 3340, "displayName": "Balise camouflée", "price": 0, "count": 1},
+        ]
+        brut["activePlayer"]["currentGold"] = 5000.0
+        etat = depuis_json(brut)
+        self.assertTrue(etat.moi.build_complet)
+        self.assertFalse(etat.moi.place_libre)
+        self.assertEqual(or_en_poche(etat), 0)
+
+        moteur = Moteur(REGLAGES)
+        moteur.lire(depuis_json(simulateur.partie(999)))
+        cles = [c.cle for c in moteur.lire(etat)]
+        self.assertIn("build-complet", cles)
+        self.assertEqual([c for c in cles if c.startswith(("or-", "canon-", "pink"))], [])
+
+    def test_conseil_accompli(self):
+        suivi = Suivi(REGLAGES)
+        avant = depuis_json(simulateur.partie(380))
+        suivi.maj(avant)
+        back = Conseil("or-1", 2, "1700 gold.", "Crash ta vague et back.")
+        self.assertFalse(accompli(back, 380, avant, suivi))
+        apres = depuis_json(simulateur.partie(401))  # il vient d'acheter
+        suivi.maj(apres)
+        self.assertTrue(accompli(back, 380, apres, suivi))
+        self.assertFalse(accompli(Conseil("drake-300-60", 2, "Drake dans une minute.", ""), 380, apres, suivi))
 
 
 class JunglerAdverse(unittest.TestCase):
@@ -174,7 +248,7 @@ class JunglerAdverse(unittest.TestCase):
             dits += [c.cle for c in moteur.lire(depuis_json(brut))]
         self.assertEqual(moteur.suivi.jungler_vu, (303, "base", "retour"))
         self.assertIn("jungler-mort-0", dits)
-        self.assertIn("jungler-vu-303", dits)
+        self.assertIn("jungler-vu-base", dits)
 
 
 class SortsEnnemis(unittest.TestCase):

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import re
 from collections.abc import Iterator
 from datetime import datetime
 from pathlib import Path
@@ -47,7 +48,8 @@ def _alleger(brut: dict, apres_id: int) -> dict:
 class Enregistreur:
     def __init__(self, dossier: Path, champion: str):
         dossier.mkdir(parents=True, exist_ok=True)
-        self.chemin = dossier / f"{datetime.now():%Y-%m-%d_%Hh%M%S}_{champion.replace(' ', '')}.jsonl.gz"
+        nom = re.sub(r"\W", "", champion)  # « Kai'Sa » -> « KaiSa » : pas d'apostrophe dans un nom de fichier
+        self.chemin = dossier / f"{datetime.now():%Y-%m-%d_%Hh%M%S}_{nom}.jsonl.gz"
         self._fichier = gzip.open(self.chemin, "wt", encoding="utf-8")
         self._dernier_id = -1
         self._lignes = 0

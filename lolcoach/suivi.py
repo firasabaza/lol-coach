@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from bisect import bisect_right
 from collections import deque
 from dataclasses import dataclass
@@ -45,9 +46,21 @@ class Minuteur:
     au_plus_tot: bool = False  # calculé en supposant une rune de hâte qu'on ne peut pas voir
 
 
-def tour_bot(equipe: str) -> str:
-    """Nom, dans les événements du jeu, de la tour extérieure bot d'une équipe."""
-    return f"Turret_T{1 if equipe == 'ORDER' else 2}_R_03_A"
+# Vu en vraie partie (patch 26.19) : Turret_TChaos_L0_P3_511845594_0.
+# L0 = bot, L1 = mid, L2 = top ; P3 = tour extérieure, P2 = intérieure, P1 = d'inhibiteur.
+_STRUCTURE = re.compile(r"T(Order|Chaos)_L([012])(?:_P(\d))?")
+# Format de la documentation de Riot : Turret_T2_R_03_A, Barracks_T2_R1.
+_STRUCTURE_DOC = re.compile(r"T([12])_([LCR])_?(\d+)")
+
+
+def lire_structure(nom: str) -> tuple[str, str, bool] | None:
+    """(équipe propriétaire, lane, tour extérieure ?) d'une tour ou d'un inhibiteur, d'après son nom."""
+    if trouve := _STRUCTURE.search(nom):
+        return trouve[1].upper(), ("bot", "mid", "top")[int(trouve[2])], trouve[3] == "3"
+    if trouve := _STRUCTURE_DOC.search(nom):
+        lane = {"L": "top", "C": "mid", "R": "bot"}[trouve[2]]
+        return ("ORDER" if trouve[1] == "1" else "CHAOS"), lane, int(trouve[3]) == (5 if lane == "mid" else 3)
+    return None
 
 
 class Suivi:
@@ -59,13 +72,18 @@ class Suivi:
         self.lectures = 0
         self.nouveaux: list[Evenement] = []
         self._dernier_id = -1
+        self.decalage = 0.0  # heure de la partie - heure portée par les événements
 
         self.drakes = {"ORDER": 0, "CHAOS": 0}
         self.prochain_drake = float(saison["objectifs"]["drake"])
         self.elder = False
         self.herald_pris = False
         self.prochain_baron = float(saison["objectifs"]["baron"])
-        self.tours_tombees: set[str] = set()
+        self.tours_bot_tombees: set[str] = set()  # équipes qui ont perdu leur tour extérieure bot
+        # Le jeu arrondit les sbires à la dizaine inférieure : on retient quand chaque dizaine est atteinte.
+        self.cs_palier: tuple[int, float] | None = None
+        self._cs: int | None = None
+        self.morts_ennemies: dict[str, float] = {}  # ennemi actuellement mort -> heure de sa mort
 
         self.nb_achats = 0
         self.dernier_achat = 0.0
@@ -137,10 +155,17 @@ class Suivi:
         self.sorts = {cle: m for cle, m in self.sorts.items() if e.t - m.retour <= 5}
 
         self.nouveaux = [ev for ev in e.evenements if ev.id > self._dernier_id]
+        if self.nouveaux and not self.premiere:
+            # Un événement qui vient d'apparaître date de maintenant : s'il porte une autre heure,
+            # c'est que son horloge n'est pas celle de la partie (vu dans l'outil d'entraînement : 37 s d'écart).
+            mesure = e.t - self.nouveaux[-1].t
+            if abs(mesure - self.decalage) > 5:  # une vraie différence d'horloge, pas la seconde entre deux lectures
+                self.decalage = mesure
         for ev in self.nouveaux:
             self._evenement(ev, e)
         if self.nouveaux:
             self._dernier_id = self.nouveaux[-1].id
+        self._objectifs(e)
         if self.premiere and e.t > 90:
             # Connexion en cours de partie : on rattrape l'historique sans le commenter.
             self.nouveaux = []
@@ -158,6 +183,16 @@ class Suivi:
             self.or_seuil_depuis = None
         elif self.or_seuil_depuis is None:
             self.or_seuil_depuis = e.t
+
+        for j in e.ennemis:
+            if not j.mort:
+                self.morts_ennemies.pop(j.nom, None)
+            else:
+                self.morts_ennemies.setdefault(j.nom, e.t)
+
+        if self._cs is not None and e.moi.cs > self._cs:
+            self.cs_palier = (e.moi.cs, e.t)
+        self._cs = e.moi.cs
 
         if e.moi.vision > self._vision + 0.01:
             self.derniere_vision = e.t
@@ -180,34 +215,40 @@ class Suivi:
         self._vivant = not e.moi.mort
 
     def _evenement(self, ev: Evenement, e: Etat) -> None:
-        o = self.saison["objectifs"]
+        """Un événement nouveau : dit-il où est le jungler adverse ?"""
         jungler = e.jungler_ennemi
         if jungler and jungler.nom in ev.participants:
-            self.jungler_nouvelle = ev.t  # un kill, un objectif ou une tour : on sait où il était
+            heure = ev.t + self.decalage
+            self.jungler_nouvelle = heure  # un kill, un objectif ou une tour : on sait où il était
             lieu = self._lieu(ev, e, jungler.nom)
             if lieu:
-                self.jungler_vu = (ev.t, *lieu)
+                self.jungler_vu = (heure, *lieu)
                 self.jungler_vu_ce_tour = True
 
-        if ev.nom == "DragonKill":
-            tueur = e.joueur(ev.tueur)
-            if ev.type_drake == "Elder":
-                self.elder = True
-                self.prochain_drake = ev.t + o["elder_respawn"]
-                return
-            if tueur:
-                self.drakes[tueur.equipe] += 1
-            if tueur and self.drakes[tueur.equipe] >= o["drakes_pour_ame"]:
-                self.elder = True
-                self.prochain_drake = ev.t + o["elder_respawn"]
-            else:
-                self.prochain_drake = ev.t + o["drake_respawn"]
-        elif ev.nom == "BaronKill":
-            self.prochain_baron = ev.t + o["baron_respawn"]
-        elif ev.nom == "HeraldKill":
-            self.herald_pris = True
-        elif ev.nom == "TurretKilled":
-            self.tours_tombees.add(ev.cible)
+    def _objectifs(self, e: Etat) -> None:
+        """Recalcule drakes, Baron, Herald et tours depuis tout l'historique, à l'horloge de la partie."""
+        o = self.saison["objectifs"]
+        self.drakes = {"ORDER": 0, "CHAOS": 0}
+        self.prochain_drake, self.elder = float(o["drake"]), False
+        self.prochain_baron, self.herald_pris = float(o["baron"]), False
+        self.tours_bot_tombees = set()
+        for ev in e.evenements:
+            heure = ev.t + self.decalage
+            if ev.nom == "DragonKill":
+                tueur = e.joueur(ev.tueur)
+                if tueur and ev.type_drake != "Elder":
+                    self.drakes[tueur.equipe] += 1
+                ame = tueur is not None and self.drakes[tueur.equipe] >= o["drakes_pour_ame"]
+                self.elder = self.elder or ame or ev.type_drake == "Elder"
+                self.prochain_drake = heure + (o["elder_respawn"] if self.elder else o["drake_respawn"])
+            elif ev.nom == "BaronKill":
+                self.prochain_baron = heure + o["baron_respawn"]
+            elif ev.nom == "HeraldKill":
+                self.herald_pris = True
+            elif ev.nom == "TurretKilled":
+                structure = lire_structure(ev.cible)
+                if structure and structure[1] == "bot" and structure[2]:
+                    self.tours_bot_tombees.add(structure[0])
 
     @classmethod
     def _lieu(cls, ev: Evenement, e: Etat, jungler: str) -> tuple[str, str] | None:
@@ -216,13 +257,11 @@ class Suivi:
             return cls._cote(ev, e, jungler), "kill"
         if ev.nom == "DragonKill":
             return "bot", "objectif"
-        if ev.nom in ("HeraldKill", "BaronKill"):
+        if ev.nom in ("HeraldKill", "BaronKill", "HordeKill"):  # HordeKill : un grub
             return "top", "objectif"
         if ev.nom in ("TurretKilled", "InhibKilled"):
-            # Turret_T2_R_03_A, Barracks_T2_R1 : le troisième morceau commence par la lane.
-            morceaux = ev.cible.split("_")
-            lane = {"L": "top", "C": "mid", "R": "bot"}.get(morceaux[2][:1]) if len(morceaux) > 2 else None
-            return (lane, "tour") if lane else None
+            structure = lire_structure(ev.cible)
+            return (structure[1], "tour") if structure else None
         return None
 
     @staticmethod
@@ -249,7 +288,12 @@ class Suivi:
     def en_lane(self, e: Etat) -> bool:
         if e.t >= self.saison["sbires"]["fin_de_lane"]:
             return False
-        return not ({tour_bot("ORDER"), tour_bot("CHAOS")} & self.tours_tombees)
+        return not self.tours_bot_tombees
+
+    def cs_par_minute(self, e: Etat) -> float:
+        """Rythme de farm, mesuré à la dernière dizaine atteinte : c'est le seul instant où le compte est exact."""
+        cs, t = self.cs_palier or (e.moi.cs, e.t)
+        return cs / (t / 60) if t > 0 else 0.0
 
     def prochain_canon(self, t: float) -> float:
         """Heure d'arrivée en bot de la prochaine vague canon."""

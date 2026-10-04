@@ -87,7 +87,7 @@ EVENEMENTS = [
      "VictimName": "Caitlyn ennemie", "Assisters": ["Lulu allié", "Vi allié"]},
     {"EventName": "ChampionKill", "EventTime": 558.0, "KillerName": "Vi allié",
      "VictimName": "Leona ennemie", "Assisters": [MOI, "Lulu allié"]},
-    {"EventName": "TurretKilled", "EventTime": 700.0, "TurretKilled": "Turret_T2_R_03_A",
+    {"EventName": "TurretKilled", "EventTime": 700.0, "TurretKilled": "Turret_TChaos_L0_P3_511845594_0",
      "KillerName": MOI, "Assisters": ["Lulu allié"]},
     {"EventName": "FirstBrick", "EventTime": 700.0, "KillerName": MOI},
     {"EventName": "DragonKill", "EventTime": 705.0, "DragonType": "Earth", "Stolen": "False",
@@ -142,7 +142,8 @@ def _joueur(nom: str, champion: str, equipe: str, role: str, smite: bool, t: flo
             "kills": sum(e["KillerName"] == nom for e in evenements),
             "deaths": sum(e["VictimName"] == nom for e in evenements),
             "assists": sum(nom in e["Assisters"] for e in evenements),
-            "creepScore": int(_courbe(CS, t)) if nom == MOI else int(max(0.0, t - 63) * 0.11),
+            # Comme le vrai jeu : le compte de sbires est arrondi à la dizaine inférieure.
+            "creepScore": int(_courbe(CS, t) if nom == MOI else max(0.0, t - 63) * 0.11) // 10 * 10,
             "wardScore": round(_courbe(VISION, t), 2) if nom == MOI else round(t / 60, 2),
         },
         "summonerSpells": {

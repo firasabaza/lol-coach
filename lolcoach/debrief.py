@@ -32,6 +32,7 @@ class Analyse:
     duree: float = 0.0
     kda: tuple[int, int, int] = (0, 0, 0)
     cs: int = 0
+    rythme: float = 0.0  # sbires par minute, mesuré à la dernière dizaine atteinte
     points: list[tuple[float, float, int]] = field(default_factory=list)  # (t, or, sbires)
     conseils: list[tuple[float, Conseil]] = field(default_factory=list)
     achats: list[tuple[float, float]] = field(default_factory=list)  # (t, or juste avant)
@@ -72,7 +73,7 @@ def analyser(chemin: Path, reglages: Reglages) -> Analyse:
         if not a.points or e.t - a.points[-1][0] >= PAS:
             a.points.append((e.t, e.or_, e.moi.cs))
 
-        a.duree, a.cs = e.t, e.moi.cs
+        a.duree, a.cs, a.rythme = e.t, e.moi.cs, s.cs_par_minute(e)
         a.kda = (e.moi.kills, e.moi.morts, e.moi.assists)
         precedent = e
     return a
@@ -95,7 +96,7 @@ def _lecons(a: Analyse, c: Reglages) -> list[str]:
     minutes = a.duree / 60
     notes: list[tuple[float, str]] = []
 
-    rythme = a.cs / minutes
+    rythme = a.rythme
     if rythme < c.seuils.cs_par_minute:
         manque = (c.seuils.cs_par_minute - rythme) * minutes * OR_PAR_SBIRE
         notes.append((manque / 100, (
@@ -234,7 +235,7 @@ def rendre(a: Analyse, c: Reglages, date: str) -> str:
         script = ""
     else:
         minutes = a.duree / 60
-        rythme = a.cs / minutes
+        rythme = a.rythme
         riches = sum(m.or_ >= 0.8 * c.seuils.or_recall for m in a.morts)
         lecons = _lecons(a, c)
         liste = "".join(f"<li>{texte}</li>" for texte in lecons) or "<li>Rien de majeur à corriger sur cette partie.</li>"
@@ -258,7 +259,7 @@ def rendre(a: Analyse, c: Reglages, date: str) -> str:
 <title>Débrief · {h(titre)}</title><style>{_STYLE}</style></head>
 <body><main>
 <header><div class="surtitre">Débrief</div><h1>{h(titre)}</h1>
-<p class="meta">{h(date)} · {_temps(a.duree)} · {k}/{d}/{s} · {a.cs} sbires</p></header>
+<p class="meta">{h(date)} · {_temps(a.duree)} · {k}/{d}/{s} · environ {a.cs} sbires</p></header>
 {corps}
 </main>{script}</body></html>"""
 

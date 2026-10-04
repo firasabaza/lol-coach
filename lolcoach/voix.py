@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import math
 import queue
 import re
 import shutil
@@ -22,9 +23,21 @@ try {{ $s.SelectVoice('{nom}') }} catch {{
 $s.Rate = {debit}
 $s.Volume = {volume}
 while ($null -ne ($ligne = [Console]::In.ReadLine())) {{
-    [void]$s.SpeakAsync([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($ligne)))
+    $son = New-Object IO.MemoryStream
+    $s.SetOutputToWaveStream($son)
+    $s.Speak([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($ligne)))
+    $s.SetOutputToNull()
+    $octets = $son.ToArray()
+    # Hauteur : on déclare au lecteur une fréquence d'échantillonnage plus haute que la vraie.
+    $taux = [int]([BitConverter]::ToInt32($octets, 24) * {hauteur})
+    [BitConverter]::GetBytes($taux).CopyTo($octets, 24)
+    [BitConverter]::GetBytes([int]($taux * [BitConverter]::ToInt16($octets, 32))).CopyTo($octets, 28)
+    (New-Object System.Media.SoundPlayer (New-Object IO.MemoryStream (, $octets))).PlaySync()
 }}
 """
+
+# Un cran de débit de la synthèse Windows accélère d'environ 12 %.
+_CRAN_DE_DEBIT = 1.116
 
 class Voix:
     def __init__(self, reglages: dict):
@@ -39,10 +52,14 @@ class Voix:
         programme = shutil.which("pwsh") or shutil.which("powershell")
         if programme is None:
             raise RuntimeError("PowerShell introuvable : la voix a besoin de Windows")
+        # Une voix jouée plus aiguë est aussi jouée plus vite : on ralentit la synthèse d'autant.
+        hauteur = min(1.5, max(0.7, float(reglages.get("hauteur", 1.0))))
+        compensation = round(math.log(hauteur) / math.log(_CRAN_DE_DEBIT))
         script = _SCRIPT.format(
-            nom=str(reglages.get("nom", "Microsoft Paul")).replace("'", "''"),
-            debit=self._debit,
-            volume=int(reglages.get("volume", 100)),
+            nom=str(reglages.get("nom", "Microsoft Julie")).replace("'", "''"),
+            debit=max(-10, min(10, self._debit - compensation)),
+            volume=int(reglages.get("volume", 70)),
+            hauteur=hauteur,
         )
         self._processus = subprocess.Popen(
             [programme, "-NoProfile", "-NonInteractive", "-Command", script],
