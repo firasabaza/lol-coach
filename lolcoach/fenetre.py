@@ -201,17 +201,17 @@ class _Bulle(QWidget):
 
 
 class _Minuteurs(QWidget):
-    """Pastilles des sorts ennemis notés par le joueur : « Flash Leona 4:20 »."""
+    """Pastilles en tête de la messagerie : l'état du coach hors partie, les sorts ennemis notés en partie."""
 
     def __init__(self, opacite: float):
         super().__init__()
-        self._lignes: list[tuple[str, float]] = []
+        self._lignes: list[tuple[str, float | None]] = []  # (libellé, secondes restantes ou None)
         self._fond = QColor(FOND)
         self._fond.setAlphaF(opacite)
         self.setFixedHeight(34)
         self.hide()
 
-    def montrer(self, lignes: list[tuple[str, float]]) -> None:
+    def montrer(self, lignes: list[tuple[str, float | None]]) -> None:
         self._lignes = lignes[:3]
         self.setVisible(bool(lignes))
         self.update()
@@ -222,11 +222,12 @@ class _Minuteurs(QWidget):
         normal, gras = QFont(POLICE, 9), QFont(POLICE, 9, QFont.Weight.DemiBold)
         x = 12.0
         for libelle, secondes in self._lignes:
-            temps = f"{int(max(secondes, 0)) // 60}:{int(max(secondes, 0)) % 60:02d}"
+            # Sans durée, c'est une pastille d'état : un point bleu et le texte seul.
+            temps = "" if secondes is None else f"{int(max(secondes, 0)) // 60}:{int(max(secondes, 0)) % 60:02d}"
             p.setFont(normal)
             largeur_libelle = p.fontMetrics().horizontalAdvance(libelle)
             p.setFont(gras)
-            largeur = 26 + largeur_libelle + 8 + p.fontMetrics().horizontalAdvance(temps) + 12
+            largeur = 26 + largeur_libelle + (8 + p.fontMetrics().horizontalAdvance(temps) if temps else 0) + 12
             pastille = QRectF(x, 3, largeur, 26)
             contour = QPainterPath()
             contour.addRoundedRect(pastille, 13, 13)
@@ -235,7 +236,7 @@ class _Minuteurs(QWidget):
             p.setBrush(Qt.BrushStyle.NoBrush)
             p.drawPath(contour)
             p.setPen(Qt.PenStyle.NoPen)
-            p.setBrush(QColor(ACCENTS["sort"]))
+            p.setBrush(QColor(ACCENTS["sort" if temps else "vision"]))
             p.drawEllipse(QPointF(x + 14, 16), 3.5, 3.5)
             p.setFont(normal)
             p.setPen(QColor(ENCRE_2))
@@ -303,7 +304,8 @@ class Fenetre:
         self._pont.appel.emit(lambda: self._ajouter("message", titre, detail, "info", self._duree))
 
     def attente(self) -> None:
-        self.message("Coach prêt", "En attente d'une partie.")
+        """Hors partie, une pastille discrète dit que le coach tourne. Elle part à la première lecture du jeu."""
+        self._pont.appel.emit(lambda: self._minuteurs.montrer([("Coach prêt · en attente d'une partie", None)]))
 
     def fermer(self) -> None:
         self._pont.appel.emit(self._app.quit)

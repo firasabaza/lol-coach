@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import sys
 import threading
 import time
@@ -78,6 +79,8 @@ class Coach:
         # Partie à ne plus lire : terminée (le jeu la sert encore quelques secondes) ou hors profil.
         ignoree = False
         print("En attente d'une partie...")
+        if self.fenetre:
+            self.fenetre.attente()
         try:
             while not self._stop.is_set():
                 brut = self.client.lire()
@@ -87,6 +90,8 @@ class Coach:
                     if absences >= ABSENCES_AVANT_FIN:
                         if self._moteur:
                             self._terminer()
+                            if self.fenetre:
+                                self.fenetre.attente()
                         elif ignoree and self.fenetre:
                             self.fenetre.attente()
                         ignoree = False
@@ -105,6 +110,8 @@ class Coach:
                         ignoree = True
                         if self.une_partie:
                             break
+                        if self.fenetre:
+                            self.fenetre.attente()
                 self._stop.wait(self.intervalle)
         finally:
             if self._moteur:
@@ -187,6 +194,13 @@ class Coach:
         return apres_match.creer_depuis_coach(enregistrement, self.reglages, rapports)
 
 
+def _deja_lance() -> bool:
+    """Vrai si un autre coach tourne déjà : deux coachs parleraient en même temps."""
+    global _VERROU
+    _VERROU = ctypes.windll.kernel32.CreateMutexW(None, False, "lol-coach")
+    return ctypes.windll.kernel32.GetLastError() == 183  # ERROR_ALREADY_EXISTS
+
+
 def main() -> None:
     arguments = argparse.ArgumentParser(prog="python -m lolcoach", description="Coach League of Legends en direct.")
     arguments.add_argument("--simulation", action="store_true", help="joue la partie de démonstration")
@@ -197,10 +211,13 @@ def main() -> None:
     arguments.add_argument("--maj-donnees", action="store_true", help="télécharge objets et champions du dernier patch")
     arguments.add_argument("--apres-match", nargs="?", const="", metavar="ID",
                            help="ouvre l'après-match de ta dernière partie, ou de la partie ID")
+    if sys.stdout is None:
+        # Lancé sans terminal (pythonw, lancer.bat) : ce que le coach dit va dans journal.log.
+        sys.stdout = sys.stderr = (RACINE / "journal.log").open("w", encoding="utf-8", buffering=1)
+    else:
+        for flux in (sys.stdout, sys.stderr):
+            flux.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
     options = arguments.parse_args()
-
-    for flux in (sys.stdout, sys.stderr):
-        flux.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
     if options.maj_donnees:
         from .datadragon import mettre_a_jour
 
@@ -226,6 +243,8 @@ def main() -> None:
         return
 
     serveur = None
+    if not options.simulation and _deja_lance():
+        sys.exit("Le coach tourne déjà. Pour l'arrêter : arreter.bat.")
     if options.simulation:
         from .simulateur import Serveur
 

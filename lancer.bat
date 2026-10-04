@@ -1,5 +1,5 @@
 @echo off
-rem Lance le coach. Ajoute --simulation pour la partie de demonstration.
+rem Lance le coach sans fenetre de terminal : seule la messagerie apparait, en haut a gauche.
+rem Pour l'arreter : arreter.bat. Ce qu'il dit est aussi ecrit dans journal.log.
 cd /d "%~dp0"
-python -m lolcoach %*
-pause
+start "" pythonw -m lolcoach %*

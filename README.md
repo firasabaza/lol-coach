@@ -9,8 +9,12 @@ français pendant la partie et sort un débrief à la fin.
 lancer.bat
 ```
 
-ou `python -m lolcoach`. Lance-le avant ou pendant la partie : il attend, détecte la partie,
-coache, puis écrit le débrief dans `rapports/` et attend la suivante. Ctrl+C pour arrêter.
+Le coach démarre sans fenêtre de terminal : seule la messagerie apparaît, en haut à gauche, avec
+une pastille « Coach prêt » tant qu'il attend une partie. Lance-le avant ou pendant la partie : il
+la détecte, coache, ouvre l'après-match à la fin et attend la suivante. `arreter.bat` l'arrête.
+Ce qu'il dit est aussi écrit dans `journal.log`.
+
+Avec un terminal, pour voir le journal en direct : `python -m lolcoach` (Ctrl+C pour arrêter).
 
 Pour voir ce que ça donne sans lancer le jeu (partie de démonstration, environ deux minutes) :
 
