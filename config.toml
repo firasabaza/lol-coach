@@ -12,6 +12,9 @@ hauteur = 1.15           # 1.0 = voix telle quelle ; plus haut = plus aiguë (1.
 debit = 2                # -10 (lent) à 10 (rapide)
 volume = 65              # 0 à 100
 peremption = 8           # un conseil qui attend plus longtemps que ça (en secondes) est abandonné
+# Conseils coupés à la voix : ils restent affichés en bulle.
+dire_pinks = false       # le rappel de pink n'est plus dit
+dire_back_des = 2000     # les conseils de back sur l'or ne sont dits qu'à partir de ce montant
 
 # La voix française lit les mots anglais à la française. Écris ici comment elle doit les dire ;
 # ajuste à l'oreille, ajoute les mots qui sonnent mal.

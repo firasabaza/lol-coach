@@ -33,6 +33,15 @@ def _temps(t: float) -> str:
     return f"{int(t) // 60}:{int(t) % 60:02d}"
 
 
+def a_dire(conseil: Conseil, e: Etat, voix: dict) -> bool:
+    """Ce conseil est-il dit à voix haute ? Ceux qui ne le sont pas restent affichés en bulle."""
+    if conseil.cle == "pink":
+        return bool(voix.get("dire_pinks", True))
+    if conseil.cle.startswith(("or-", "canon-", "finir-")) or conseil.cle.endswith("-reset"):
+        return e.or_ >= voix.get("dire_back_des", 0)  # conseils de back déclenchés par l'or en poche
+    return True
+
+
 def _hors_profil(e: Etat) -> str | None:
     """Pourquoi le coach ne sait pas coacher cette partie, ou None s'il sait."""
     if e.mode not in MODES:
@@ -129,7 +138,8 @@ class Coach:
         for c in dits:
             print(f"[{_temps(etat.t)}] {c.texte(niveau)}")
         if self.voix:
-            for c in dits[:2]:  # au plus deux phrases par lecture, les plus urgentes
+            a_voix_haute = [c for c in dits if a_dire(c, etat, self.reglages.voix)]
+            for c in a_voix_haute[:2]:  # au plus deux phrases par lecture, les plus urgentes
                 self.voix.dire(c.texte(niveau))
         if self.fenetre:
             suivi = self._moteur.suivi

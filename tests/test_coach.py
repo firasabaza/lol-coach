@@ -14,7 +14,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from lolcoach import simulateur
-from lolcoach.__main__ import Coach, _hors_profil
+from lolcoach.__main__ import Coach, _hors_profil, a_dire
 from lolcoach.client import Client
 from lolcoach.compo import adaptations, bottes, chemin, lire_compo, reste_a_payer
 from lolcoach.datadragon import objets
@@ -523,6 +523,36 @@ class Reseau(unittest.TestCase):
             serveur.arreter()
         self.assertEqual(etat.moi.champion, "Jinx")
         self.assertGreaterEqual(etat.t, 300)
+
+
+class VoixCoupee(unittest.TestCase):
+    """Certains conseils restent affichés mais ne sont plus dits : pinks, back sous un seuil d'or."""
+
+    VOIX = {"dire_pinks": False, "dire_back_des": 2000}
+
+    def etat(self, or_: float):
+        brut = simulateur.partie(600)
+        brut["activePlayer"]["currentGold"] = or_
+        return depuis_json(brut)
+
+    def test_pink_jamais_dite(self):
+        self.assertFalse(a_dire(Conseil("pink", 3, "Pas de pink dans ton inventaire.", ""), self.etat(3000), self.VOIX))
+
+    def test_back_sur_l_or_dit_seulement_a_partir_du_seuil(self):
+        for cle in ("or-2", "canon-2", "finir-6672", "drake-672-reset"):
+            conseil = Conseil(cle, 2, "1300 gold.", "Crash ta vague et back.")
+            self.assertFalse(a_dire(conseil, self.etat(1300), self.VOIX), cle)
+            self.assertTrue(a_dire(conseil, self.etat(2000), self.VOIX), cle)
+        dormant = Conseil("or-dormant-2", 2, "2050 gold non dépensés.", "Reset maintenant.")
+        self.assertTrue(a_dire(dormant, self.etat(2050), self.VOIX))
+
+    def test_le_reste_est_toujours_dit(self):
+        for cle in ("drake-300-60", "pv-bas", "jungler-vu-top", "menace-Zed", "vision"):
+            self.assertTrue(a_dire(Conseil(cle, 2, "x", "y"), self.etat(500), self.VOIX), cle)
+
+    def test_sans_reglage_rien_n_est_coupe(self):
+        self.assertTrue(a_dire(Conseil("pink", 3, "x", ""), self.etat(0), {}))
+        self.assertTrue(a_dire(Conseil("or-1", 2, "x", "y"), self.etat(1300), {}))
 
 
 class EnDirect(unittest.TestCase):
