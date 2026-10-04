@@ -1,0 +1,40 @@
+# Réglages du coach. Modifie, sauvegarde, relance.
+
+# coach      : le constat + le conseil  (« 1300 gold. Crash la vague canon et back. »)
+# faits      : le constat seul          (« 1300 gold. »)
+# silencieux : ne dit rien, enregistre la partie et produit le débrief
+niveau = "coach"
+
+[voix]
+active = true
+nom = "Microsoft Paul"   # autres voix FR installées : Microsoft Julie, Microsoft Hortense
+debit = 2                # -10 (lent) à 10 (rapide)
+volume = 100
+peremption = 8           # un conseil qui attend plus longtemps que ça (en secondes) est abandonné
+
+# La voix française lit les mots anglais à la française. Écris ici comment elle doit les dire ;
+# ajuste à l'oreille, ajoute les mots qui sonnent mal.
+[voix.prononciation]
+ward = "ouarde"
+warder = "ouardé"
+trade = "tréde"
+trades = "tréde"
+dive = "daïve"
+
+[fenetre]
+active = true            # le jeu doit être en « fenêtré sans bordure » pour qu'elle passe au-dessus
+coin = "haut-gauche"     # haut-gauche, haut-droite, bas-gauche, bas-droite
+marge = 24
+opacite = 0.88
+
+[seuils]
+or_recall = 1300         # de quoi acheter un gros composant
+or_dormant = 2000        # trop d'or non dépensé
+or_reset_objectif = 900  # assez pour justifier un reset avant un objectif
+pv_bas = 0.35
+pv_critique = 0.20
+vision_silence = 150     # secondes sans poser de vision avant un rappel
+jungler_inconnu = 75     # secondes sans nouvelle du jungler adverse
+cs_par_minute = 7.0      # objectif de farm
+ecart_items = 700        # écart d'or en items avec l'ADC adverse qui mérite une annonce
+annonces_objectif = [60, 30]   # secondes avant un objectif

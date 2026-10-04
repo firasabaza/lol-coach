@@ -1,0 +1,36 @@
+# Timers de la saison 2026 (patch 26.x). Tout est en secondes de jeu.
+# "verifie" = lu sur wiki.leagueoflegends.com le 2026-10-04.
+# "estime"  = déduit des guides, à calibrer en vraie partie.
+
+[sbires]
+premiere_vague = 30          # verifie
+# [à partir de t, intervalle entre deux vagues]
+intervalles = [[0, 30], [840, 25], [1800, 20]]   # verifie
+trajet_bot = 33              # estime : temps entre le spawn et la rencontre des vagues en bot
+# [à partir de t, une vague canon toutes les N vagues]
+canon = [[0, 3], [900, 2], [1500, 1]]            # estime : cadence après 15 min à confirmer
+fin_de_lane = 840            # verifie : à 14:00 les vagues accélèrent
+
+[jungle]
+camps = 55                   # verifie : premier spawn des camps
+crabe = 175                  # verifie : 2:55
+respawn_camp = 135           # 2:15, inchangé depuis plusieurs saisons
+respawn_buff = 300
+gank_niveau_3 = 130          # estime : 3 camps puis gank, autour de 2:10
+fin_premier_clear = 175      # estime : full clear terminé vers le spawn des crabes
+traversee_carte = 30         # estime : temps pour passer d'un côté de la carte à l'autre
+
+[objectifs]
+drake = 300                  # verifie
+drake_respawn = 300          # verifie
+drakes_pour_ame = 4          # verifie
+elder_respawn = 360          # verifie
+grubs = 480                  # verifie : 8:00, une seule fois
+grubs_fin = 885              # verifie : 14:45
+herald = 900                 # verifie : 15:00
+herald_fin = 1185            # verifie : 19:45
+baron = 1200                 # verifie : 20:00
+baron_respawn = 360          # verifie
+
+[niveaux]
+sbires_niveau_2_duo = 9      # première vague + 3 mêlées. Les sources divergent (7 ou 9) : à vérifier
