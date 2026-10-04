@@ -56,12 +56,13 @@ def _pied(e: Etat, s: Suivi) -> str:
 
 class Coach:
     def __init__(self, client: Client, reglages: Reglages, voix, fenetre, intervalle: float, une_partie: bool,
-                 dossier: Path = RACINE, touches=None):
+                 dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False):
         self.client = client
         self.reglages = reglages
         self.voix = voix
         self.fenetre = fenetre
         self.touches = touches
+        self.ouvrir_rapport = ouvrir_rapport
         self.intervalle = intervalle
         self.une_partie = une_partie
         self.dossier = dossier
@@ -154,7 +155,7 @@ class Coach:
         print(f"Partie terminée. Débrief : {self.rapport}")
         if self.fenetre:
             self.fenetre.message("Partie terminée", "Le débrief est prêt.")
-        if sys.stdout.isatty():
+        if self.ouvrir_rapport:
             os.startfile(self.rapport)
 
 
@@ -165,10 +166,16 @@ def main() -> None:
     arguments.add_argument("--muet", action="store_true", help="sans la voix")
     arguments.add_argument("--sans-fenetre", action="store_true", help="sans la mini fenêtre")
     arguments.add_argument("--debrief", metavar="FICHIER", help="refait le rapport d'une partie enregistrée")
+    arguments.add_argument("--maj-donnees", action="store_true", help="télécharge les prix des objets du dernier patch")
     options = arguments.parse_args()
 
     for flux in (sys.stdout, sys.stderr):
-        flux.reconfigure(encoding="utf-8", errors="replace")
+        flux.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
+    if options.maj_donnees:
+        from .datadragon import mettre_a_jour
+
+        print(f"Prix des objets mis à jour, patch {mettre_a_jour()}.")
+        return
     try:
         reglages = charger()
     except (ValueError, TypeError) as erreur:  # config.toml mal écrit : on le dit sans pile d'appels
@@ -209,7 +216,11 @@ def main() -> None:
         except ValueError as erreur:
             sys.exit(f"Réglages invalides : {erreur}")
 
-    coach = Coach(client, reglages, voix, fenetre, intervalle, une_partie=options.simulation, touches=touches)
+    coach = Coach(
+        client, reglages, voix, fenetre, intervalle, une_partie=options.simulation, touches=touches,
+        # Après une vraie partie le débrief s'ouvre toujours ; en simulation, seulement devant un terminal.
+        ouvrir_rapport=not options.simulation or sys.stdout.isatty(),
+    )
     fil = None
     try:
         if fenetre:

@@ -11,7 +11,7 @@ from .enregistreur import relire
 from .etat import Etat, depuis_json
 from .moteur import Moteur
 from .reglages import RACINE, Reglages
-from .regles import URGENT, Conseil, duree
+from .regles import URGENT, Conseil, duree, or_en_poche
 
 PAS = 5  # secondes entre deux points du graphique
 OR_PAR_SBIRE = 20
@@ -60,7 +60,7 @@ def analyser(chemin: Path, reglages: Reglages) -> Analyse:
         else:
             if s.nb_achats > achats_avant:
                 a.achats.append((e.t, precedent.or_))
-            if precedent.or_ >= reglages.seuils.or_recall and not precedent.moi.mort:
+            if or_en_poche(precedent) >= reglages.seuils.or_recall and not precedent.moi.mort:
                 a.or_dormant += e.t - precedent.t
         if s.mort_ce_tour:
             fatal = next((ev for ev in reversed(e.evenements) if ev.victime == e.moi.nom), None)

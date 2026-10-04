@@ -50,12 +50,16 @@ class Enregistreur:
         self.chemin = dossier / f"{datetime.now():%Y-%m-%d_%Hh%M%S}_{champion.replace(' ', '')}.jsonl.gz"
         self._fichier = gzip.open(self.chemin, "wt", encoding="utf-8")
         self._dernier_id = -1
+        self._lignes = 0
 
     def ecrire(self, brut: dict) -> None:
         ligne = _alleger(brut, self._dernier_id)
         if ligne["events"]["Events"]:
             self._dernier_id = ligne["events"]["Events"][-1].get("EventID", self._dernier_id)
         self._fichier.write(json.dumps(ligne, ensure_ascii=False, separators=(",", ":")) + "\n")
+        self._lignes += 1
+        if self._lignes % 10 == 0:
+            self._fichier.flush()  # si le coach est coupé net, on ne perd que quelques secondes
 
     def fermer(self) -> None:
         self._fichier.close()

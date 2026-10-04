@@ -4,6 +4,11 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from functools import cache
+
+from .datadragon import prix_totaux
+
+_prix = cache(prix_totaux)  # lu une fois par lancement
 
 PINK = 2055
 ROLES = ("TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY")  # l'ordre du tableau des scores
@@ -137,7 +142,11 @@ def _joueur(d: dict) -> Joueur:
         cs=int(scores.get("creepScore", 0)),
         vision=float(scores.get("wardScore", 0.0)),
         objets=tuple(
-            Objet(int(o.get("itemID", 0)), o.get("displayName", ""), int(o.get("price", 0)), int(o.get("count", 1)))
+            # `price` n'est que le coût de combinaison : le prix total vient de Data Dragon.
+            Objet(
+                int(o.get("itemID", 0)), o.get("displayName", ""),
+                _prix().get(int(o.get("itemID", 0)), int(o.get("price", 0))), int(o.get("count", 1)),
+            )
             for o in d.get("items", [])
         ),
         sorts=tuple(

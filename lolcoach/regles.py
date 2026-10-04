@@ -49,6 +49,11 @@ def heure(t: float) -> str:
     return f"{minutes} minutes {secondes}" if secondes else f"{minutes} minutes"
 
 
+def or_en_poche(e: Etat) -> float:
+    """L'or du joueur. L'outil d'entraînement en donne des dizaines de milliers : on l'ignore."""
+    return 0.0 if e.mode == "PRACTICETOOL" and e.or_ > 10000 else e.or_
+
+
 def _or(x: float) -> int:
     return int(x // 50 * 50)
 
@@ -113,9 +118,9 @@ def drake(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     ame_eux = any(n == point_ame for equipe, n in s.drakes.items() if equipe != e.moi.equipe)
     nom = "Elder" if s.elder else "Drake d'âme" if ame_nous or ame_eux else "Drake"
 
-    if 60 < reste <= 90 and not e.moi.mort and e.or_ >= c.seuils.or_reset_objectif:
+    if 60 < reste <= 90 and not e.moi.mort and or_en_poche(e) >= c.seuils.or_reset_objectif:
         yield Conseil(
-            f"{cle}-reset", TEMPO, f"{nom} dans {duree(round(reste / 10) * 10)} et {_or(e.or_)} gold.",
+            f"{cle}-reset", TEMPO, f"{nom} dans {duree(round(reste / 10) * 10)} et {_or(or_en_poche(e))} gold.",
             "Reset maintenant pour arriver avec tes items.",
         )
 
@@ -166,9 +171,9 @@ def objectifs_haut(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
 
 def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
-    if s.mort_ce_tour and e.or_ >= 0.8 * c.seuils.or_recall:
+    if s.mort_ce_tour and or_en_poche(e) >= 0.8 * c.seuils.or_recall:
         yield Conseil(
-            f"mort-or-{e.moi.morts}", INFO, f"Mort avec {_or(e.or_)} gold en poche.",
+            f"mort-or-{e.moi.morts}", INFO, f"Mort avec {_or(or_en_poche(e))} gold en poche.",
             "Ce back, il fallait le prendre avant.",
         )
     # Juste après une réapparition ou un achat on est à la fontaine : lui dire de back n'a pas de sens.
@@ -177,19 +182,19 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
     lane = s.en_lane(e)
     canon = s.prochain_canon(e.t) - e.t
-    if e.or_ >= c.seuils.or_dormant:
+    if or_en_poche(e) >= c.seuils.or_dormant:
         yield Conseil(
-            f"or-dormant-{s.nb_achats}", TEMPO, f"{_or(e.or_)} gold non dépensés.",
+            f"or-dormant-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold non dépensés.",
             "Tu joues avec un item de moins. Reset maintenant.", repeter_apres=90,
         )
-    elif e.or_ >= c.seuils.or_recall:
+    elif or_en_poche(e) >= c.seuils.or_recall:
         if lane and canon <= 25:
             action = "Crash la vague canon qui arrive, puis back."
         elif lane:
             action = "Crash ta vague et back pour ton composant."
         else:
             action = "Reset dès que ta vague est poussée."
-        yield Conseil(f"or-{s.nb_achats}", TEMPO, f"{_or(e.or_)} gold.", action)
+        yield Conseil(f"or-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold.", action)
         attend = s.or_seuil_depuis is not None and e.t - s.or_seuil_depuis > 20
         if lane and canon <= 20 and attend:
             yield Conseil(
@@ -207,8 +212,8 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         )
     elif stable <= c.seuils.pv_bas:
         action = (
-            f"Avec {_or(e.or_)} gold, pousse si tu peux et back."
-            if e.or_ >= 500
+            f"Avec {_or(or_en_poche(e))} gold, pousse si tu peux et back."
+            if or_en_poche(e) >= 500
             else "Joue derrière ta vague, pas de trade."
         )
         yield Conseil("pv-bas", TEMPO, "PV bas.", action, repeter_apres=90)
@@ -370,7 +375,8 @@ def items(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if adc is None:
         return
     ecart = adc.valeur_objets - e.moi.valeur_objets
-    palier = abs(ecart) // c.seuils.ecart_items
+    # Trois annonces au plus dans chaque sens : au-delà, l'écart est acquis et le redire n'apprend rien.
+    palier = min(3, abs(ecart) // c.seuils.ecart_items)
     if palier == 0:
         return
     montant = round(abs(ecart) / 100) * 100
