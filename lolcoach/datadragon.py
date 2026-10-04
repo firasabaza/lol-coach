@@ -19,6 +19,7 @@ DDRAGON = "https://ddragon.leagueoflegends.com"
 MERAKI = "https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json"
 OBJETS = RACINE / "donnees" / "objets.json"
 CHAMPIONS = RACINE / "donnees" / "champions.json"
+IMAGES = RACINE / "donnees" / "images"
 FAILLE = "11"  # identifiant de la Faille de l'invocateur dans Data Dragon
 
 
@@ -45,6 +46,7 @@ def mettre_a_jour(objets: Path = OBJETS, champions: Path = CHAMPIONS) -> str:
 
     fiches = {
         cle: {
+            "id": c["id"],
             "nom": c["name"],
             "roles": c.get("roles", []),
             "degats": "AP" if c.get("adaptiveType") == "MAGIC_DAMAGE" else "AD",
@@ -75,3 +77,36 @@ def objets() -> dict[int, dict]:
 def champions() -> dict[str, dict]:
     """Clé du champion (« Kaisa ») -> {nom, roles, degats, portee, melee, notes}. Vide si le cache manque."""
     return _cache(CHAMPIONS, "champions")
+
+
+@cache
+def champion_par_id(identifiant: int) -> tuple[str, dict]:
+    """(clé, fiche) du champion qui porte ce numéro ; ("", {}) s'il est inconnu."""
+    return next(((cle, f) for cle, f in champions().items() if f.get("id") == identifiant), ("", {}))
+
+
+@cache
+def image(genre: str, nom: str) -> Path | None:
+    """Chemin local d'une image du jeu, téléchargée depuis Data Dragon à la première demande.
+
+    genre : "champion" (portrait carré), "splash" (illustration), "objet", "carte".
+    """
+    patch = json.loads(OBJETS.read_text(encoding="utf-8")).get("patch", "") if OBJETS.exists() else ""
+    adresses = {
+        "champion": (f"{DDRAGON}/cdn/{patch}/img/champion/{nom}.png", "png"),
+        "splash": (f"{DDRAGON}/cdn/img/champion/splash/{nom}_0.jpg", "jpg"),
+        "objet": (f"{DDRAGON}/cdn/{patch}/img/item/{nom}.png", "png"),
+        "carte": (f"{DDRAGON}/cdn/{patch}/img/map/map11.png", "png"),
+    }
+    adresse, extension = adresses[genre]
+    fichier = IMAGES / genre / f"{nom}.{extension}"
+    if not fichier.exists():
+        try:
+            requete = urllib.request.Request(adresse, headers={"User-Agent": "lol-coach"})
+            with urllib.request.urlopen(requete, timeout=20) as reponse:
+                contenu = reponse.read()
+        except OSError:
+            return None
+        fichier.parent.mkdir(parents=True, exist_ok=True)
+        fichier.write_bytes(contenu)
+    return fichier

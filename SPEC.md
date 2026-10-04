@@ -47,15 +47,16 @@ Firas, ADC. Scénario type :
 - [x] Conseils selon les champions : plan de lane, build type, objets d'adaptation
 - [x] Macro avancée : pics d'objets, primes, état de la partie, Baron, âme, Elder
 - [x] Messagerie en jeu en bulles (Qt), voix féminine
+- [x] Fenêtre d'après-match : leçons, moments clés, revue de carte, tableau illustré des dix joueurs
 
 ## Plus tard
 
 - Profil support, puis les autres rôles (un fichier de règles par rôle)
 - Type de partie via l'API du client (classée, perso, bots) et niveau différent par file
-- **Prochain chantier, validé le 2026-10-04 :** revue de la minimap sur replay, pour le débrief.
-  À chaque mort ou gank subi, le jungler était-il visible sur la carte avant, et depuis combien
-  de temps. Demande de la lecture d'image (numpy, OpenCV) et des captures d'un vrai replay pour
-  caler la position de la minimap et la reconnaissance des icônes.
+- Revue de carte : faite à partir de la chronologie du client (positions par minute, kills
+  exacts). Ce qu'elle ne dit pas : si le jungler était *visible sur ta minimap* avant un gank.
+  Pour ça il faut lire l'image d'un replay (numpy, OpenCV) et une capture d'un vrai replay pour
+  caler la reconnaissance.
 - Lecture de l'état des waves à l'écran.
 - Voix neuronale (plus naturelle), débrief commenté par un LLM
 - Builds par champion tirés de statistiques du patch (aujourd'hui : repères par famille, tenus à la main)

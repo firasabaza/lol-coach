@@ -2,6 +2,7 @@
 "patch": "16.19.1",
 "champions": {
 "Aatrox": {
+"id": 266,
 "nom": "Aatrox",
 "roles": [
 "FIGHTER",
@@ -19,6 +20,7 @@
 }
 },
 "Ahri": {
+"id": 103,
 "nom": "Ahri",
 "roles": [
 "ASSASSIN",
@@ -36,6 +38,7 @@
 }
 },
 "Akali": {
+"id": 84,
 "nom": "Akali",
 "roles": [
 "ASSASSIN"
@@ -51,6 +54,7 @@
 }
 },
 "Akshan": {
+"id": 166,
 "nom": "Akshan",
 "roles": [
 "ASSASSIN",
@@ -67,6 +71,7 @@
 }
 },
 "Alistar": {
+"id": 12,
 "nom": "Alistar",
 "roles": [
 "SUPPORT",
@@ -84,6 +89,7 @@
 }
 },
 "Ambessa": {
+"id": 799,
 "nom": "Ambessa",
 "roles": [
 "ASSASSIN",
@@ -102,6 +108,7 @@
 }
 },
 "Amumu": {
+"id": 32,
 "nom": "Amumu",
 "roles": [
 "SUPPORT",
@@ -119,6 +126,7 @@
 }
 },
 "Anivia": {
+"id": 34,
 "nom": "Anivia",
 "roles": [
 "BATTLEMAGE",
@@ -136,6 +144,7 @@
 }
 },
 "Annie": {
+"id": 1,
 "nom": "Annie",
 "roles": [
 "BURST",
@@ -153,6 +162,7 @@
 }
 },
 "Aphelios": {
+"id": 523,
 "nom": "Aphelios",
 "roles": [
 "MARKSMAN"
@@ -168,6 +178,7 @@
 }
 },
 "Ashe": {
+"id": 22,
 "nom": "Ashe",
 "roles": [
 "MARKSMAN",
@@ -184,6 +195,7 @@
 }
 },
 "AurelionSol": {
+"id": 136,
 "nom": "Aurelion Sol",
 "roles": [
 "BATTLEMAGE",
@@ -200,6 +212,7 @@
 }
 },
 "Aurora": {
+"id": 893,
 "nom": "Aurora",
 "roles": [
 "ASSASSIN",
@@ -217,6 +230,7 @@
 }
 },
 "Azir": {
+"id": 268,
 "nom": "Azir",
 "roles": [
 "MAGE",
@@ -234,6 +248,7 @@
 }
 },
 "Bard": {
+"id": 432,
 "nom": "Bard",
 "roles": [
 "CATCHER",
@@ -251,6 +266,7 @@
 }
 },
 "Belveth": {
+"id": 200,
 "nom": "Bel'Veth",
 "roles": [
 "FIGHTER",
@@ -267,6 +283,7 @@
 }
 },
 "Blitzcrank": {
+"id": 53,
 "nom": "Blitzcrank",
 "roles": [
 "CATCHER",
@@ -284,6 +301,7 @@
 }
 },
 "Brand": {
+"id": 63,
 "nom": "Brand",
 "roles": [
 "BURST",
@@ -301,6 +319,7 @@
 }
 },
 "Braum": {
+"id": 201,
 "nom": "Braum",
 "roles": [
 "SUPPORT",
@@ -318,6 +337,7 @@
 }
 },
 "Briar": {
+"id": 233,
 "nom": "Briar",
 "roles": [
 "ASSASSIN",
@@ -335,6 +355,7 @@
 }
 },
 "Caitlyn": {
+"id": 51,
 "nom": "Caitlyn",
 "roles": [
 "MARKSMAN"
@@ -350,6 +371,7 @@
 }
 },
 "Camille": {
+"id": 164,
 "nom": "Camille",
 "roles": [
 "ASSASSIN",
@@ -367,6 +389,7 @@
 }
 },
 "Cassiopeia": {
+"id": 69,
 "nom": "Cassiopeia",
 "roles": [
 "BATTLEMAGE",
@@ -383,6 +406,7 @@
 }
 },
 "Chogath": {
+"id": 31,
 "nom": "Cho'Gath",
 "roles": [
 "MAGE",
@@ -400,6 +424,7 @@
 }
 },
 "Corki": {
+"id": 42,
 "nom": "Corki",
 "roles": [
 "MAGE",
@@ -416,6 +441,7 @@
 }
 },
 "Darius": {
+"id": 122,
 "nom": "Darius",
 "roles": [
 "FIGHTER",
@@ -433,6 +459,7 @@
 }
 },
 "Diana": {
+"id": 131,
 "nom": "Diana",
 "roles": [
 "ASSASSIN",
@@ -450,6 +477,7 @@
 }
 },
 "DrMundo": {
+"id": 36,
 "nom": "Dr. Mundo",
 "roles": [
 "FIGHTER",
@@ -467,6 +495,7 @@
 }
 },
 "Draven": {
+"id": 119,
 "nom": "Draven",
 "roles": [
 "MARKSMAN"
@@ -482,6 +511,7 @@
 }
 },
 "Ekko": {
+"id": 245,
 "nom": "Ekko",
 "roles": [
 "ASSASSIN",
@@ -498,6 +528,7 @@
 }
 },
 "Elise": {
+"id": 60,
 "nom": "Elise",
 "roles": [
 "ASSASSIN",
@@ -515,6 +546,7 @@
 }
 },
 "Evelynn": {
+"id": 28,
 "nom": "Evelynn",
 "roles": [
 "ASSASSIN",
@@ -531,6 +563,7 @@
 }
 },
 "Ezreal": {
+"id": 81,
 "nom": "Ezreal",
 "roles": [
 "MAGE",
@@ -547,6 +580,7 @@
 }
 },
 "Fiddlesticks": {
+"id": 9,
 "nom": "Fiddlesticks",
 "roles": [
 "MAGE",
@@ -564,6 +598,7 @@
 }
 },
 "Fiora": {
+"id": 114,
 "nom": "Fiora",
 "roles": [
 "ASSASSIN",
@@ -581,6 +616,7 @@
 }
 },
 "Fizz": {
+"id": 105,
 "nom": "Fizz",
 "roles": [
 "ASSASSIN",
@@ -597,6 +633,7 @@
 }
 },
 "Galio": {
+"id": 3,
 "nom": "Galio",
 "roles": [
 "MAGE",
@@ -614,6 +651,7 @@
 }
 },
 "Gangplank": {
+"id": 41,
 "nom": "Gangplank",
 "roles": [
 "FIGHTER",
@@ -630,6 +668,7 @@
 }
 },
 "Garen": {
+"id": 86,
 "nom": "Garen",
 "roles": [
 "FIGHTER",
@@ -647,6 +686,7 @@
 }
 },
 "Gnar": {
+"id": 150,
 "nom": "Gnar",
 "roles": [
 "FIGHTER",
@@ -664,6 +704,7 @@
 }
 },
 "Gragas": {
+"id": 79,
 "nom": "Gragas",
 "roles": [
 "FIGHTER",
@@ -681,6 +722,7 @@
 }
 },
 "Graves": {
+"id": 104,
 "nom": "Graves",
 "roles": [
 "MARKSMAN",
@@ -697,6 +739,7 @@
 }
 },
 "Gwen": {
+"id": 887,
 "nom": "Gwen",
 "roles": [
 "ASSASSIN",
@@ -714,6 +757,7 @@
 }
 },
 "Hecarim": {
+"id": 120,
 "nom": "Hecarim",
 "roles": [
 "DIVER",
@@ -731,6 +775,7 @@
 }
 },
 "Heimerdinger": {
+"id": 74,
 "nom": "Heimerdinger",
 "roles": [
 "MAGE",
@@ -748,6 +793,7 @@
 }
 },
 "Hwei": {
+"id": 910,
 "nom": "Hwei",
 "roles": [
 "ARTILLERY",
@@ -765,6 +811,7 @@
 }
 },
 "Illaoi": {
+"id": 420,
 "nom": "Illaoi",
 "roles": [
 "FIGHTER",
@@ -782,6 +829,7 @@
 }
 },
 "Irelia": {
+"id": 39,
 "nom": "Irelia",
 "roles": [
 "ASSASSIN",
@@ -799,6 +847,7 @@
 }
 },
 "Ivern": {
+"id": 427,
 "nom": "Ivern",
 "roles": [
 "CATCHER",
@@ -816,6 +865,7 @@
 }
 },
 "Janna": {
+"id": 40,
 "nom": "Janna",
 "roles": [
 "ENCHANTER",
@@ -833,6 +883,7 @@
 }
 },
 "JarvanIV": {
+"id": 59,
 "nom": "Jarvan IV",
 "roles": [
 "DIVER",
@@ -850,6 +901,7 @@
 }
 },
 "Jax": {
+"id": 24,
 "nom": "Jax",
 "roles": [
 "ASSASSIN",
@@ -867,6 +919,7 @@
 }
 },
 "Jayce": {
+"id": 126,
 "nom": "Jayce",
 "roles": [
 "ARTILLERY",
@@ -884,6 +937,7 @@
 }
 },
 "Jhin": {
+"id": 202,
 "nom": "Jhin",
 "roles": [
 "CATCHER",
@@ -901,6 +955,7 @@
 }
 },
 "Jinx": {
+"id": 222,
 "nom": "Jinx",
 "roles": [
 "MARKSMAN"
@@ -916,6 +971,7 @@
 }
 },
 "KSante": {
+"id": 897,
 "nom": "K'Sante",
 "roles": [
 "FIGHTER",
@@ -934,6 +990,7 @@
 }
 },
 "Kaisa": {
+"id": 145,
 "nom": "Kai'Sa",
 "roles": [
 "MAGE",
@@ -950,6 +1007,7 @@
 }
 },
 "Kalista": {
+"id": 429,
 "nom": "Kalista",
 "roles": [
 "MARKSMAN"
@@ -965,6 +1023,7 @@
 }
 },
 "Karma": {
+"id": 43,
 "nom": "Karma",
 "roles": [
 "BURST",
@@ -983,6 +1042,7 @@
 }
 },
 "Karthus": {
+"id": 30,
 "nom": "Karthus",
 "roles": [
 "BATTLEMAGE",
@@ -999,6 +1059,7 @@
 }
 },
 "Kassadin": {
+"id": 38,
 "nom": "Kassadin",
 "roles": [
 "ASSASSIN",
@@ -1015,6 +1076,7 @@
 }
 },
 "Katarina": {
+"id": 55,
 "nom": "Katarina",
 "roles": [
 "ASSASSIN",
@@ -1031,6 +1093,7 @@
 }
 },
 "Kayle": {
+"id": 10,
 "nom": "Kayle",
 "roles": [
 "MAGE",
@@ -1048,6 +1111,7 @@
 }
 },
 "Kayn": {
+"id": 141,
 "nom": "Kayn",
 "roles": [
 "ASSASSIN",
@@ -1065,6 +1129,7 @@
 }
 },
 "Kennen": {
+"id": 85,
 "nom": "Kennen",
 "roles": [
 "MAGE",
@@ -1082,6 +1147,7 @@
 }
 },
 "Khazix": {
+"id": 121,
 "nom": "Kha'Zix",
 "roles": [
 "ASSASSIN"
@@ -1097,6 +1163,7 @@
 }
 },
 "Kindred": {
+"id": 203,
 "nom": "Kindred",
 "roles": [
 "MARKSMAN"
@@ -1112,6 +1179,7 @@
 }
 },
 "Kled": {
+"id": 240,
 "nom": "Kled",
 "roles": [
 "FIGHTER",
@@ -1129,6 +1197,7 @@
 }
 },
 "KogMaw": {
+"id": 96,
 "nom": "Kog'Maw",
 "roles": [
 "MAGE",
@@ -1145,6 +1214,7 @@
 }
 },
 "Leblanc": {
+"id": 7,
 "nom": "LeBlanc",
 "roles": [
 "ASSASSIN",
@@ -1162,6 +1232,7 @@
 }
 },
 "LeeSin": {
+"id": 64,
 "nom": "Lee Sin",
 "roles": [
 "ASSASSIN",
@@ -1179,6 +1250,7 @@
 }
 },
 "Leona": {
+"id": 89,
 "nom": "Leona",
 "roles": [
 "SUPPORT",
@@ -1196,6 +1268,7 @@
 }
 },
 "Lillia": {
+"id": 876,
 "nom": "Lillia",
 "roles": [
 "FIGHTER",
@@ -1213,6 +1286,7 @@
 }
 },
 "Lissandra": {
+"id": 127,
 "nom": "Lissandra",
 "roles": [
 "BURST",
@@ -1229,6 +1303,7 @@
 }
 },
 "Lucian": {
+"id": 236,
 "nom": "Lucian",
 "roles": [
 "ASSASSIN",
@@ -1245,6 +1320,7 @@
 }
 },
 "Lulu": {
+"id": 117,
 "nom": "Lulu",
 "roles": [
 "ENCHANTER",
@@ -1262,6 +1338,7 @@
 }
 },
 "Lux": {
+"id": 99,
 "nom": "Lux",
 "roles": [
 "ARTILLERY",
@@ -1280,6 +1357,7 @@
 }
 },
 "Malphite": {
+"id": 54,
 "nom": "Malphite",
 "roles": [
 "MAGE",
@@ -1297,6 +1375,7 @@
 }
 },
 "Malzahar": {
+"id": 90,
 "nom": "Malzahar",
 "roles": [
 "ASSASSIN",
@@ -1314,6 +1393,7 @@
 }
 },
 "Maokai": {
+"id": 57,
 "nom": "Maokai",
 "roles": [
 "SUPPORT",
@@ -1331,6 +1411,7 @@
 }
 },
 "MasterYi": {
+"id": 11,
 "nom": "Master Yi",
 "roles": [
 "ASSASSIN",
@@ -1348,6 +1429,7 @@
 }
 },
 "Mel": {
+"id": 800,
 "nom": "Mel",
 "roles": [
 "ARTILLERY",
@@ -1365,6 +1447,7 @@
 }
 },
 "Milio": {
+"id": 902,
 "nom": "Milio",
 "roles": [
 "ENCHANTER",
@@ -1382,6 +1465,7 @@
 }
 },
 "MissFortune": {
+"id": 21,
 "nom": "Miss Fortune",
 "roles": [
 "MAGE",
@@ -1398,6 +1482,7 @@
 }
 },
 "MonkeyKing": {
+"id": 62,
 "nom": "Wukong",
 "roles": [
 "DIVER",
@@ -1415,6 +1500,7 @@
 }
 },
 "Mordekaiser": {
+"id": 82,
 "nom": "Mordekaiser",
 "roles": [
 "FIGHTER",
@@ -1432,6 +1518,7 @@
 }
 },
 "Morgana": {
+"id": 25,
 "nom": "Morgana",
 "roles": [
 "CATCHER",
@@ -1449,6 +1536,7 @@
 }
 },
 "Naafiri": {
+"id": 950,
 "nom": "Naafiri",
 "roles": [
 "ASSASSIN",
@@ -1465,6 +1553,7 @@
 }
 },
 "Nami": {
+"id": 267,
 "nom": "Nami",
 "roles": [
 "ENCHANTER",
@@ -1482,6 +1571,7 @@
 }
 },
 "Nasus": {
+"id": 75,
 "nom": "Nasus",
 "roles": [
 "FIGHTER",
@@ -1499,6 +1589,7 @@
 }
 },
 "Nautilus": {
+"id": 111,
 "nom": "Nautilus",
 "roles": [
 "SUPPORT",
@@ -1516,6 +1607,7 @@
 }
 },
 "Neeko": {
+"id": 518,
 "nom": "Neeko",
 "roles": [
 "BURST",
@@ -1534,6 +1626,7 @@
 }
 },
 "Nidalee": {
+"id": 76,
 "nom": "Nidalee",
 "roles": [
 "ASSASSIN",
@@ -1551,6 +1644,7 @@
 }
 },
 "Nilah": {
+"id": 895,
 "nom": "Nilah",
 "roles": [
 "ASSASSIN",
@@ -1568,6 +1662,7 @@
 }
 },
 "Nocturne": {
+"id": 56,
 "nom": "Nocturne",
 "roles": [
 "ASSASSIN",
@@ -1584,6 +1679,7 @@
 }
 },
 "Nunu": {
+"id": 20,
 "nom": "Nunu & Willump",
 "roles": [
 "MAGE",
@@ -1601,6 +1697,7 @@
 }
 },
 "Olaf": {
+"id": 2,
 "nom": "Olaf",
 "roles": [
 "DIVER",
@@ -1618,6 +1715,7 @@
 }
 },
 "Orianna": {
+"id": 61,
 "nom": "Orianna",
 "roles": [
 "BURST",
@@ -1635,6 +1733,7 @@
 }
 },
 "Ornn": {
+"id": 516,
 "nom": "Ornn",
 "roles": [
 "FIGHTER",
@@ -1652,6 +1751,7 @@
 }
 },
 "Pantheon": {
+"id": 80,
 "nom": "Pantheon",
 "roles": [
 "ASSASSIN",
@@ -1669,6 +1769,7 @@
 }
 },
 "Poppy": {
+"id": 78,
 "nom": "Poppy",
 "roles": [
 "FIGHTER",
@@ -1686,6 +1787,7 @@
 }
 },
 "Pyke": {
+"id": 555,
 "nom": "Pyke",
 "roles": [
 "ASSASSIN",
@@ -1703,6 +1805,7 @@
 }
 },
 "Qiyana": {
+"id": 246,
 "nom": "Qiyana",
 "roles": [
 "ASSASSIN",
@@ -1719,6 +1822,7 @@
 }
 },
 "Quinn": {
+"id": 133,
 "nom": "Quinn",
 "roles": [
 "ASSASSIN",
@@ -1736,6 +1840,7 @@
 }
 },
 "Rakan": {
+"id": 497,
 "nom": "Rakan",
 "roles": [
 "CATCHER",
@@ -1752,6 +1857,7 @@
 }
 },
 "Rammus": {
+"id": 33,
 "nom": "Rammus",
 "roles": [
 "FIGHTER",
@@ -1769,6 +1875,7 @@
 }
 },
 "RekSai": {
+"id": 421,
 "nom": "Rek'Sai",
 "roles": [
 "DIVER",
@@ -1786,6 +1893,7 @@
 }
 },
 "Rell": {
+"id": 526,
 "nom": "Rell",
 "roles": [
 "SUPPORT",
@@ -1803,6 +1911,7 @@
 }
 },
 "Renata": {
+"id": 888,
 "nom": "Renata Glasc",
 "roles": [
 "ENCHANTER",
@@ -1820,6 +1929,7 @@
 }
 },
 "Renekton": {
+"id": 58,
 "nom": "Renekton",
 "roles": [
 "DIVER",
@@ -1837,6 +1947,7 @@
 }
 },
 "Rengar": {
+"id": 107,
 "nom": "Rengar",
 "roles": [
 "ASSASSIN",
@@ -1854,6 +1965,7 @@
 }
 },
 "Riven": {
+"id": 92,
 "nom": "Riven",
 "roles": [
 "ASSASSIN",
@@ -1871,6 +1983,7 @@
 }
 },
 "Rumble": {
+"id": 68,
 "nom": "Rumble",
 "roles": [
 "BATTLEMAGE",
@@ -1888,6 +2001,7 @@
 }
 },
 "Ryze": {
+"id": 13,
 "nom": "Ryze",
 "roles": [
 "BATTLEMAGE",
@@ -1905,6 +2019,7 @@
 }
 },
 "Samira": {
+"id": 360,
 "nom": "Samira",
 "roles": [
 "ASSASSIN",
@@ -1921,6 +2036,7 @@
 }
 },
 "Sejuani": {
+"id": 113,
 "nom": "Sejuani",
 "roles": [
 "FIGHTER",
@@ -1938,6 +2054,7 @@
 }
 },
 "Senna": {
+"id": 235,
 "nom": "Senna",
 "roles": [
 "ENCHANTER",
@@ -1955,6 +2072,7 @@
 }
 },
 "Seraphine": {
+"id": 147,
 "nom": "Seraphine",
 "roles": [
 "BURST",
@@ -1973,6 +2091,7 @@
 }
 },
 "Sett": {
+"id": 875,
 "nom": "Sett",
 "roles": [
 "FIGHTER",
@@ -1990,6 +2109,7 @@
 }
 },
 "Shaco": {
+"id": 35,
 "nom": "Shaco",
 "roles": [
 "ASSASSIN"
@@ -2005,6 +2125,7 @@
 }
 },
 "Shen": {
+"id": 98,
 "nom": "Shen",
 "roles": [
 "TANK",
@@ -2021,6 +2142,7 @@
 }
 },
 "Shyvana": {
+"id": 102,
 "nom": "Shyvana",
 "roles": [
 "FIGHTER",
@@ -2038,6 +2160,7 @@
 }
 },
 "Singed": {
+"id": 27,
 "nom": "Singed",
 "roles": [
 "MAGE",
@@ -2055,6 +2178,7 @@
 }
 },
 "Sion": {
+"id": 14,
 "nom": "Sion",
 "roles": [
 "FIGHTER",
@@ -2072,6 +2196,7 @@
 }
 },
 "Sivir": {
+"id": 15,
 "nom": "Sivir",
 "roles": [
 "MARKSMAN"
@@ -2087,6 +2212,7 @@
 }
 },
 "Skarner": {
+"id": 72,
 "nom": "Skarner",
 "roles": [
 "FIGHTER",
@@ -2105,6 +2231,7 @@
 }
 },
 "Smolder": {
+"id": 901,
 "nom": "Smolder",
 "roles": [
 "MAGE",
@@ -2121,6 +2248,7 @@
 }
 },
 "Sona": {
+"id": 37,
 "nom": "Sona",
 "roles": [
 "ENCHANTER",
@@ -2138,6 +2266,7 @@
 }
 },
 "Soraka": {
+"id": 16,
 "nom": "Soraka",
 "roles": [
 "ENCHANTER",
@@ -2155,6 +2284,7 @@
 }
 },
 "Swain": {
+"id": 50,
 "nom": "Swain",
 "roles": [
 "BATTLEMAGE",
@@ -2172,6 +2302,7 @@
 }
 },
 "Sylas": {
+"id": 517,
 "nom": "Sylas",
 "roles": [
 "ASSASSIN",
@@ -2190,6 +2321,7 @@
 }
 },
 "Syndra": {
+"id": 134,
 "nom": "Syndra",
 "roles": [
 "BURST",
@@ -2206,6 +2338,7 @@
 }
 },
 "TahmKench": {
+"id": 223,
 "nom": "Tahm Kench",
 "roles": [
 "SUPPORT",
@@ -2223,6 +2356,7 @@
 }
 },
 "Taliyah": {
+"id": 163,
 "nom": "Taliyah",
 "roles": [
 "BATTLEMAGE",
@@ -2240,6 +2374,7 @@
 }
 },
 "Talon": {
+"id": 91,
 "nom": "Talon",
 "roles": [
 "ASSASSIN"
@@ -2255,6 +2390,7 @@
 }
 },
 "Taric": {
+"id": 44,
 "nom": "Taric",
 "roles": [
 "ENCHANTER",
@@ -2273,6 +2409,7 @@
 }
 },
 "Teemo": {
+"id": 17,
 "nom": "Teemo",
 "roles": [
 "MAGE",
@@ -2290,6 +2427,7 @@
 }
 },
 "Thresh": {
+"id": 412,
 "nom": "Thresh",
 "roles": [
 "CATCHER",
@@ -2307,6 +2445,7 @@
 }
 },
 "Tristana": {
+"id": 18,
 "nom": "Tristana",
 "roles": [
 "ASSASSIN",
@@ -2323,6 +2462,7 @@
 }
 },
 "Trundle": {
+"id": 48,
 "nom": "Trundle",
 "roles": [
 "FIGHTER",
@@ -2340,6 +2480,7 @@
 }
 },
 "Tryndamere": {
+"id": 23,
 "nom": "Tryndamere",
 "roles": [
 "ASSASSIN",
@@ -2357,6 +2498,7 @@
 }
 },
 "TwistedFate": {
+"id": 4,
 "nom": "Twisted Fate",
 "roles": [
 "BURST",
@@ -2374,6 +2516,7 @@
 }
 },
 "Twitch": {
+"id": 29,
 "nom": "Twitch",
 "roles": [
 "ASSASSIN",
@@ -2390,6 +2533,7 @@
 }
 },
 "Udyr": {
+"id": 77,
 "nom": "Udyr",
 "roles": [
 "FIGHTER",
@@ -2407,6 +2551,7 @@
 }
 },
 "Urgot": {
+"id": 6,
 "nom": "Urgot",
 "roles": [
 "FIGHTER",
@@ -2424,6 +2569,7 @@
 }
 },
 "Varus": {
+"id": 110,
 "nom": "Varus",
 "roles": [
 "ARTILLERY",
@@ -2441,6 +2587,7 @@
 }
 },
 "Vayne": {
+"id": 67,
 "nom": "Vayne",
 "roles": [
 "ASSASSIN",
@@ -2457,6 +2604,7 @@
 }
 },
 "Veigar": {
+"id": 45,
 "nom": "Veigar",
 "roles": [
 "BURST",
@@ -2473,6 +2621,7 @@
 }
 },
 "Velkoz": {
+"id": 161,
 "nom": "Vel'Koz",
 "roles": [
 "ARTILLERY",
@@ -2490,6 +2639,7 @@
 }
 },
 "Vex": {
+"id": 711,
 "nom": "Vex",
 "roles": [
 "BURST",
@@ -2506,6 +2656,7 @@
 }
 },
 "Vi": {
+"id": 254,
 "nom": "Vi",
 "roles": [
 "ASSASSIN",
@@ -2523,6 +2674,7 @@
 }
 },
 "Viego": {
+"id": 234,
 "nom": "Viego",
 "roles": [
 "ASSASSIN",
@@ -2540,6 +2692,7 @@
 }
 },
 "Viktor": {
+"id": 112,
 "nom": "Viktor",
 "roles": [
 "BATTLEMAGE",
@@ -2556,6 +2709,7 @@
 }
 },
 "Vladimir": {
+"id": 8,
 "nom": "Vladimir",
 "roles": [
 "BATTLEMAGE",
@@ -2573,6 +2727,7 @@
 }
 },
 "Volibear": {
+"id": 106,
 "nom": "Volibear",
 "roles": [
 "FIGHTER",
@@ -2590,6 +2745,7 @@
 }
 },
 "Warwick": {
+"id": 19,
 "nom": "Warwick",
 "roles": [
 "DIVER",
@@ -2607,6 +2763,7 @@
 }
 },
 "Xayah": {
+"id": 498,
 "nom": "Xayah",
 "roles": [
 "MARKSMAN"
@@ -2622,6 +2779,7 @@
 }
 },
 "Xerath": {
+"id": 101,
 "nom": "Xerath",
 "roles": [
 "ARTILLERY",
@@ -2639,6 +2797,7 @@
 }
 },
 "XinZhao": {
+"id": 5,
 "nom": "Xin Zhao",
 "roles": [
 "DIVER",
@@ -2656,6 +2815,7 @@
 }
 },
 "Yasuo": {
+"id": 157,
 "nom": "Yasuo",
 "roles": [
 "ASSASSIN",
@@ -2673,6 +2833,7 @@
 }
 },
 "Yone": {
+"id": 777,
 "nom": "Yone",
 "roles": [
 "ASSASSIN",
@@ -2690,6 +2851,7 @@
 }
 },
 "Yorick": {
+"id": 83,
 "nom": "Yorick",
 "roles": [
 "FIGHTER",
@@ -2707,6 +2869,7 @@
 }
 },
 "Yunara": {
+"id": 804,
 "nom": "Yunara",
 "roles": [
 "MARKSMAN"
@@ -2722,6 +2885,7 @@
 }
 },
 "Yuumi": {
+"id": 350,
 "nom": "Yuumi",
 "roles": [
 "ENCHANTER",
@@ -2739,6 +2903,7 @@
 }
 },
 "Zac": {
+"id": 154,
 "nom": "Zac",
 "roles": [
 "FIGHTER",
@@ -2756,6 +2921,7 @@
 }
 },
 "Zed": {
+"id": 238,
 "nom": "Zed",
 "roles": [
 "ASSASSIN"
@@ -2771,6 +2937,7 @@
 }
 },
 "Zeri": {
+"id": 221,
 "nom": "Zeri",
 "roles": [
 "MARKSMAN"
@@ -2786,6 +2953,7 @@
 }
 },
 "Ziggs": {
+"id": 115,
 "nom": "Ziggs",
 "roles": [
 "ARTILLERY",
@@ -2802,6 +2970,7 @@
 }
 },
 "Zilean": {
+"id": 26,
 "nom": "Zilean",
 "roles": [
 "MAGE",
@@ -2819,6 +2988,7 @@
 }
 },
 "Zoe": {
+"id": 142,
 "nom": "Zoe",
 "roles": [
 "BURST",
@@ -2836,6 +3006,7 @@
 }
 },
 "Zyra": {
+"id": 143,
 "nom": "Zyra",
 "roles": [
 "CATCHER",

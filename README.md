@@ -24,6 +24,7 @@ python -m lolcoach --simulation
 | `--vitesse 30` | accélère la simulation (défaut : 10) |
 | `--muet` | sans la voix |
 | `--sans-fenetre` | sans la messagerie en jeu |
+| `--apres-match` | ouvre l'après-match de ta dernière partie ; `--apres-match 8003015310` pour une partie précise |
 | `--debrief parties/xxx.jsonl.gz` | refait le rapport d'une partie enregistrée |
 | `--maj-donnees` | télécharge objets et champions du dernier patch (à relancer après un patch) |
 
@@ -55,6 +56,27 @@ Les classes des champions et les prix viennent de données publiques, mises en c
 `donnees/` (`--maj-donnees`). Les listes fines et les chemins d'items sont tenus à la main dans
 `donnees/champions_notes.toml` : ce sont des repères par famille d'ADC, pas des statistiques du
 patch. Corrige-les quand la méta bouge.
+
+## Après-match
+
+À la fin d'une partie, une fenêtre s'ouvre avec le récapitulatif :
+
+- **À améliorer** : les quatre erreurs qui ont coûté le plus, chiffrées (morts loin de l'équipe,
+  recalls tardifs, lane perdue, vision, dégâts, présence aux objectifs).
+- **Moments clés** : chaque mort, classée (gank, isolé, infériorité numérique, trop avancé...),
+  avec qui t'a tué, à combien contre combien, et ce qu'il fallait faire ; les objectifs joués sans
+  toi ; tes bons combats.
+- **Revue de carte** : la position des dix joueurs rejouée sur la carte, avec les kills à leur
+  endroit exact. Chaque moment clé a un bouton qui amène la carte à cet instant.
+- **Les dix joueurs** : portraits, K/D/A, sbires, or, dégâts, vision et objets.
+- **Or total** : toi et l'ADC adverse, minute par minute.
+- **Ce que le coach a dit** pendant la partie, s'il tournait.
+
+Tout vient du client League, qui doit être ouvert. Il garde tes parties classées et normales ;
+l'outil d'entraînement n'y laisse rien, et donne donc le débrief du coach seul.
+
+Limite : les positions sont relevées une fois par minute et lissées entre deux relevés. La carte
+montre où chacun était, pas ce que tu voyais sur ta minimap.
 
 ## Minuteurs de sorts ennemis
 
@@ -92,6 +114,7 @@ fenêtres de timing.
 - `SPEC.md` : le projet, les choix, le plan.
 - `docs/CONNAISSANCES.md` : ce que le coach sait, avec les sources.
 - `donnees/saison.toml` : les timers de la saison. À mettre à jour quand un patch les change.
+- `lolcoach/bilan.py` et `lolcoach/apres_match.py` : l'analyse et la page d'après-match.
 - `lolcoach/regles.py` : les fondamentaux. `lolcoach/strategie.py` : matchup, build, macro avancée.
 - `donnees/champions_notes.toml` : soigneurs, accroches, ultis d'engage, chemins d'items par famille.
 

@@ -11,10 +11,14 @@ import argparse
 import os
 import sys
 import threading
+import time
 from pathlib import Path
 
+from . import apres_match, debrief
+from .bilan import analyser
 from .client import Client
 from .debrief import generer
+from .lcu import ClientLol
 from .enregistreur import Enregistreur
 from .etat import Etat, depuis_json
 from .moteur import Moteur
@@ -40,13 +44,15 @@ def _hors_profil(e: Etat) -> str | None:
 
 class Coach:
     def __init__(self, client: Client, reglages: Reglages, voix, fenetre, intervalle: float, une_partie: bool,
-                 dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False):
+                 dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False, client_lol: ClientLol | None = None):
         self.client = client
         self.reglages = reglages
         self.voix = voix
         self.fenetre = fenetre
         self.touches = touches
         self.ouvrir_rapport = ouvrir_rapport
+        self.client_lol = client_lol  # pour l'après-match ; None en simulation
+        self._debut = 0.0  # heure réelle du début de la partie en cours
         self.intervalle = intervalle
         self.une_partie = une_partie
         self.dossier = dossier
@@ -105,6 +111,7 @@ class Coach:
         if self._moteur is None:
             self._moteur = Moteur(self.reglages)
             self._enregistreur = Enregistreur(self.dossier / "parties", etat.moi.champion)
+            self._debut = time.time() - etat.t
             print(f"Partie détectée : {etat.moi.champion}, niveau « {self.reglages.niveau} ».")
             if self.touches:
                 refuses = self.touches.activer()
@@ -143,7 +150,7 @@ class Coach:
         self._enregistreur.fermer()
         if self.touches:
             self.touches.desactiver()
-        self.rapport = generer(self._enregistreur.chemin, self.reglages, self.dossier / "rapports")
+        self.rapport = self._apres_match(self._enregistreur.chemin)
         self._moteur = self._enregistreur = None
         self._affiches.clear()
         if self.fenetre:
@@ -152,7 +159,22 @@ class Coach:
         if self.fenetre:
             self.fenetre.message("Partie terminée", "Le débrief est prêt.")
         if self.ouvrir_rapport:
-            os.startfile(self.rapport)
+            apres_match.ouvrir(self.rapport)
+
+    def _apres_match(self, enregistrement: Path) -> Path:
+        """La page d'après-match si le client League connaît la partie, sinon le débrief du coach seul."""
+        rapports = self.dossier / "rapports"
+        if self.client_lol:
+            if self.fenetre:
+                self.fenetre.message("Partie terminée", "Je prépare l'après-match.")
+            # Le client met quelques secondes à enregistrer la partie ; l'outil d'entraînement n'en garde rien.
+            trouve = apres_match.attendre(self.client_lol, depuis=self._debut - 600)
+            if trouve:
+                partie, chrono, puuid = trouve
+                coach = debrief.analyser(enregistrement, self.reglages)
+                dit = debrief._timeline(coach, self.reglages)
+                return apres_match.generer(analyser(partie, chrono, puuid, self.reglages), self.reglages, rapports, dit)
+        return generer(enregistrement, self.reglages, rapports)
 
 
 def main() -> None:
@@ -162,7 +184,9 @@ def main() -> None:
     arguments.add_argument("--muet", action="store_true", help="sans la voix")
     arguments.add_argument("--sans-fenetre", action="store_true", help="sans la messagerie en jeu")
     arguments.add_argument("--debrief", metavar="FICHIER", help="refait le rapport d'une partie enregistrée")
-    arguments.add_argument("--maj-donnees", action="store_true", help="télécharge les prix des objets du dernier patch")
+    arguments.add_argument("--maj-donnees", action="store_true", help="télécharge objets et champions du dernier patch")
+    arguments.add_argument("--apres-match", nargs="?", const="", metavar="ID",
+                           help="ouvre l'après-match de ta dernière partie, ou de la partie ID")
     options = arguments.parse_args()
 
     for flux in (sys.stdout, sys.stderr):
@@ -177,6 +201,13 @@ def main() -> None:
     except (ValueError, TypeError) as erreur:  # config.toml mal écrit : on le dit sans pile d'appels
         sys.exit(f"Réglages invalides : {erreur}")
 
+    if options.apres_match is not None:
+        page = apres_match.creer(ClientLol(), reglages, int(options.apres_match) if options.apres_match else None)
+        if page is None:
+            sys.exit("Partie introuvable : le client League doit être ouvert, et la partie figurer dans ton historique.")
+        print(f"Après-match : {page}")
+        apres_match.ouvrir(page)
+        return
     if options.debrief:
         rapport = generer(Path(options.debrief), reglages)
         print(f"Débrief : {rapport}")
@@ -219,6 +250,7 @@ def main() -> None:
         client, reglages, voix, fenetre, intervalle, une_partie=options.simulation, touches=touches,
         # Après une vraie partie le débrief s'ouvre toujours ; en simulation, seulement devant un terminal.
         ouvrir_rapport=not options.simulation or sys.stdout.isatty(),
+        client_lol=None if options.simulation else ClientLol(),
     )
     fil = None
     try:
