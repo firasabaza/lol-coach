@@ -69,7 +69,7 @@ class Bilan:
     file: str
     date: str
     duree: int
-    victoire: bool
+    victoire: bool | None  # None : partie quittée sans résultat (outil d'entraînement)
     joueurs: list[Participant]
     moi: Participant
     adversaire: Participant | None  # leur ADC
@@ -80,6 +80,7 @@ class Bilan:
     kills: list[dict]  # {"t", "x", "y", "tueur", "victime"}
     objectifs: list[dict]  # {"t", "x", "y", "nom", "equipe"}
     chiffres: dict[str, float]  # cs_par_minute, part_degats, participation, presence, vision_par_minute, ecart_or_14
+    source: str = "client"  # "client" : client League (tout) ; "coach" : enregistrement du coach (sans carte)
 
 
 def _participants(partie: dict, puuid: str) -> list[Participant]:
@@ -154,6 +155,16 @@ def lieu(x: float, y: float, equipe: int) -> str:
     if not chez_moi and not chez_eux:
         return "dans la rivière"
     return "dans ta jungle" if chez_moi else "dans leur jungle"
+
+
+def series_de_kills(heures: list[float], combien: int = 3) -> list[tuple[float, int]]:
+    """Les plus belles séries de kills : (heure du premier, nombre), kills à moins de 12 secondes d'écart."""
+    series: list[tuple[float, int]] = []
+    for i, t in enumerate(heures):
+        if i == 0 or heures[i - 1] < t - 12:
+            series.append((t, len([u for u in heures if t <= u < t + 12])))
+    retenues = sorted((s for s in series if s[1] >= 2), key=lambda s: -s[1])[:combien]
+    return sorted(retenues)
 
 
 def _liste(noms: list[str]) -> str:
@@ -258,12 +269,11 @@ def analyser(partie: dict, chrono: dict, puuid: str, c: Reglages) -> Bilan:
             moments.append(moment)
             categories.append(categorie)
     miens = sorted(k["t"] for k in kills if k["tueur"] == moi.id)
-    for i, t in enumerate(miens):
-        serie = [u for u in miens if t <= u < t + 12]
-        if len(serie) >= 2 and (i == 0 or miens[i - 1] < t - 12):
+    for t, nombre in series_de_kills(miens):
+        if nombre:
             k = next(k for k in kills if k["t"] == t)
             moments.append(Moment(
-                t, "exploit", f"{len(serie)} kills d'affilée {lieu(k['x'], k['y'], moi.equipe)}",
+                t, "exploit", f"{nombre} kills d'affilée {lieu(k['x'], k['y'], moi.equipe)}",
                 "Bon combat : tu es resté en vie assez longtemps pour faire tes dégâts.",
                 "Retiens le placement de ce combat, c'est celui à refaire.", k["x"], k["y"],
                 [par_id[v["victime"]].cle for v in kills if v["tueur"] == moi.id and t <= v["t"] < t + 12],

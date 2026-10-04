@@ -25,7 +25,7 @@ python -m lolcoach --simulation
 | `--muet` | sans la voix |
 | `--sans-fenetre` | sans la messagerie en jeu |
 | `--apres-match` | ouvre l'après-match de ta dernière partie ; `--apres-match 8003015310` pour une partie précise |
-| `--debrief parties/xxx.jsonl.gz` | refait le rapport d'une partie enregistrée |
+| `--debrief parties/xxx.jsonl.gz` | refait l'après-match d'une partie enregistrée par le coach |
 | `--maj-donnees` | télécharge objets et champions du dernier patch (à relancer après un patch) |
 
 Il faut Python 3.12. Le coach lui-même n'utilise que la bibliothèque standard ; la messagerie
@@ -72,8 +72,9 @@ patch. Corrige-les quand la méta bouge.
 - **Or total** : toi et l'ADC adverse, minute par minute.
 - **Ce que le coach a dit** pendant la partie, s'il tournait.
 
-Tout vient du client League, qui doit être ouvert. Il garde tes parties classées et normales ;
-l'outil d'entraînement n'y laisse rien, et donne donc le débrief du coach seul.
+La page complète vient du client League, qui doit être ouvert : il garde tes parties classées et
+normales. Pour l'outil d'entraînement, ou si le client ne répond pas dans les deux minutes, la
+même page est tirée de l'enregistrement du coach : tout y est sauf la carte et les dégâts.
 
 Limite : les positions sont relevées une fois par minute et lissées entre deux relevés. La carte
 montre où chacun était, pas ce que tu voyais sur ta minimap.

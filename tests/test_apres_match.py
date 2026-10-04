@@ -9,7 +9,10 @@ import unittest
 from pathlib import Path
 
 from lolcoach.apres_match import rendre
-from lolcoach.bilan import DRAKE, analyser, lieu, position
+from lolcoach import simulateur
+from lolcoach.bilan import DRAKE, analyser, lieu, position, series_de_kills
+from lolcoach.bilan_coach import depuis_enregistrement
+from lolcoach.etat import depuis_json
 from lolcoach.reglages import charger
 
 REGLAGES = charger()
@@ -145,6 +148,51 @@ class Page(unittest.TestCase):
         self.assertEqual(len(carte["images"]), 21)
         self.assertEqual(len(carte["kills"]), 5)
         self.assertEqual(carte["objectifs"][0]["nom"], "Drake")
+
+
+class SansLeClient(unittest.TestCase):
+    """Outil d'entraînement, client fermé : le bilan vient de l'enregistrement du coach."""
+
+    @classmethod
+    def setUpClass(cls):
+        etats = [depuis_json(simulateur.partie(t)) for t in range(0, int(simulateur.FIN) + 1)]
+        cls.bilan = depuis_enregistrement(etats, True, REGLAGES, 123, "2026-10-04")
+
+    def test_les_dix_joueurs_et_leurs_objets(self):
+        b = self.bilan
+        self.assertEqual((b.source, len(b.joueurs)), ("coach", 10))
+        self.assertEqual((b.moi.champion, b.moi.role, b.adversaire.champion), ("Jinx", "adc", "Caitlyn"))
+        self.assertIn(1038, b.moi.objets)  # le B.F. Glaive acheté à 6:40
+        self.assertEqual({j.champion for j in b.joueurs if j.role == "jungle"}, {"Vi", "Lee Sin"})
+
+    def test_la_mort_est_lue_avec_ses_auteurs(self):
+        (mort,) = [m for m in self.bilan.moments if m.genre == "mort"]
+        self.assertEqual(round(mort.t), 760)
+        self.assertEqual(mort.acteurs, ["LeeSin", "Caitlyn", "Leona"])
+        self.assertIn("Tué par Lee Sin, Caitlyn et Leona", mort.analyse)
+        self.assertIn("gold en poche", mort.analyse)
+        self.assertIn("À 3 sur toi", mort.conseil)
+
+    def test_page_sans_carte_mais_complete(self):
+        with tempfile.TemporaryDirectory() as dossier:
+            html = rendre(self.bilan, REGLAGES, Path(dossier))
+        for attendu in ("Victoire", "À améliorer", "Moments clés", "Les dix joueurs", "Or en objets", "Or total",
+                        "Pas de carte pour cette partie", "estimation d'après ses objets"):
+            self.assertIn(attendu, html)
+        for absent in ("Voir sur la carte", "Dégâts aux champions", 'id="temps"'):
+            self.assertNotIn(absent, html)
+
+    def test_partie_quittee_sans_resultat(self):
+        etats = [depuis_json(simulateur.partie(t)) for t in range(0, 400)]
+        bilan = depuis_enregistrement(etats, None, REGLAGES, 1, "2026-10-04")
+        with tempfile.TemporaryDirectory() as dossier:
+            self.assertIn("Entraînement", rendre(bilan, REGLAGES, Path(dossier)))
+
+    def test_trois_plus_belles_series_de_kills(self):
+        heures = [10, 15, 100, 300, 305, 309, 500, 504, 700, 703]
+        self.assertEqual(series_de_kills(heures), [(10, 2), (300, 3), (500, 2)])
+        self.assertEqual(series_de_kills(heures, combien=1), [(300, 3)])
+        self.assertEqual(series_de_kills([10, 100, 200]), [])
 
 
 if __name__ == "__main__":

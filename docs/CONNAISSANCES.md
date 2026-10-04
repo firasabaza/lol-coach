@@ -298,3 +298,39 @@ Sources ajoutées :
 - Wiki officiel : [Turret](https://wiki.leagueoflegends.com/en-us/Turret),
   [Experience](https://wiki.leagueoflegends.com/en-us/Experience_(champion))
 - [Riot, notes de patch 14.21 (primes)](https://www.leagueoflegends.com/en-us/news/game-updates/patch-14-21-notes/)
+
+## 17. Rapport de force et arbitrage
+
+**Principe.** Un conseil n'a de sens que rapporté à l'état du joueur. On ne dit pas « recule » à
+un carry qui a 2000 gold d'avance, ni « force le trade » à celui qui en a 2000 de retard. Et un
+coach ne dit jamais deux choses contraires dans la même minute.
+
+**Rapport de force** (`rapport.py`). La puissance d'un joueur est l'or de ses objets plus 300 par
+niveau. Pour un ennemi, dont on ne voit les objets que quand il est visible, on ne descend pas
+sous ce que son score laisse supposer. De là :
+- l'avance sur chaque ennemi, et sur le plus fort des deux adversaires de lane ;
+- la forme du joueur : « domine » à 1500 gold au-dessus de la moyenne adverse, « retard » à
+  1500 en dessous.
+
+Devant, les conseils de prudence se taisent ou changent de sens : support mort, niveau de retard,
+jungler pas vu, grubs. Les menaces sont lues contre ta propre force : un ennemi nourri que tu
+domines devient une prime à prendre.
+
+**Arbitrage** (`moteur.py`). Chaque conseil porte une intention. En cas de conflit, la plus
+importante passe et l'autre attend :
+
+| Rang | Intention | Exemples |
+|---|---|---|
+| 1 | danger | PV critiques, infériorité numérique, Baron ennemi |
+| 2 | objectif | trois ennemis morts, botlane morte, jungler mort et drake libre |
+| 3 | agressif | avance d'objets, niveau avant eux, pic d'objet |
+| 4 | tempo | drake ou Baron dans une minute |
+| 5 | back | or suffisant, objet finissable, reset avant objectif |
+| 6 | prudent | niveau de retard, jungler pas vu, ennemi nourri |
+
+Sont contraires : objectif et back, tempo et back, objectif et prudent, agressif et prudent,
+danger et agressif. Une même intention n'est pas redite avant 45 secondes pour le back, 40 pour
+la prudence, 30 pour l'agressif. Un conseil écarté revient s'il est encore vrai après le conflit.
+
+Trois ennemis morts : ni back ni alerte de PV, on prend un objectif ; tous morts pour vingt
+secondes ou plus après 15 minutes, on finit la partie.

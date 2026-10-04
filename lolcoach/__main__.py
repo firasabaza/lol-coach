@@ -8,16 +8,14 @@
 from __future__ import annotations
 
 import argparse
-import os
 import sys
 import threading
 import time
 from pathlib import Path
 
-from . import apres_match, debrief
+from . import apres_match
 from .bilan import analyser
 from .client import Client
-from .debrief import generer
 from .lcu import ClientLol
 from .enregistreur import Enregistreur
 from .etat import Etat, depuis_json
@@ -62,6 +60,7 @@ class Coach:
         self.ouvrir_rapport = ouvrir_rapport
         self.client_lol = client_lol  # pour l'après-match ; None en simulation
         self._debut = 0.0  # heure réelle du début de la partie en cours
+        self._mode = ""
         self.intervalle = intervalle
         self.une_partie = une_partie
         self.dossier = dossier
@@ -121,6 +120,7 @@ class Coach:
             self._moteur = Moteur(self.reglages)
             self._enregistreur = Enregistreur(self.dossier / "parties", etat.moi.champion)
             self._debut = time.time() - etat.t
+            self._mode = etat.mode
             print(f"Partie détectée : {etat.moi.champion}, niveau « {self.reglages.niveau} ».")
             if self.touches:
                 refuses = self.touches.activer()
@@ -165,7 +165,7 @@ class Coach:
         self._affiches.clear()
         if self.fenetre:
             self.fenetre.minuteurs([])
-        print(f"Partie terminée. Débrief : {self.rapport}")
+        print(f"Partie terminée. Après-match : {self.rapport}")
         if self.fenetre:
             self.fenetre.message("Partie terminée", "Le débrief est prêt.")
         if self.ouvrir_rapport:
@@ -174,17 +174,17 @@ class Coach:
     def _apres_match(self, enregistrement: Path) -> Path:
         """La page d'après-match si le client League connaît la partie, sinon le débrief du coach seul."""
         rapports = self.dossier / "rapports"
-        if self.client_lol:
+        # Le client garde les parties classées et normales, pas l'outil d'entraînement. Il lui faut
+        # parfois plus d'une minute pour enregistrer celle qui vient de finir.
+        if self.client_lol and self._mode != "PRACTICETOOL":
             if self.fenetre:
                 self.fenetre.message("Partie terminée", "Je prépare l'après-match.")
-            # Le client met quelques secondes à enregistrer la partie ; l'outil d'entraînement n'en garde rien.
-            trouve = apres_match.attendre(self.client_lol, depuis=self._debut - 600)
+            trouve = apres_match.attendre(self.client_lol, depuis=self._debut - 600, patience=120)
             if trouve:
                 partie, chrono, puuid = trouve
-                coach = debrief.analyser(enregistrement, self.reglages)
-                dit = debrief._timeline(coach, self.reglages)
+                dit = apres_match.coach_dit(enregistrement, self.reglages)
                 return apres_match.generer(analyser(partie, chrono, puuid, self.reglages), self.reglages, rapports, dit)
-        return generer(enregistrement, self.reglages, rapports)
+        return apres_match.creer_depuis_coach(enregistrement, self.reglages, rapports)
 
 
 def main() -> None:
@@ -219,10 +219,10 @@ def main() -> None:
         apres_match.ouvrir(page)
         return
     if options.debrief:
-        rapport = generer(Path(options.debrief), reglages)
-        print(f"Débrief : {rapport}")
+        rapport = apres_match.creer_depuis_coach(Path(options.debrief), reglages)
+        print(f"Après-match : {rapport}")
         if sys.stdout.isatty():
-            os.startfile(rapport)
+            apres_match.ouvrir(rapport)
         return
 
     serveur = None

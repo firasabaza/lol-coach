@@ -13,8 +13,12 @@ import time
 from html import escape as h
 from pathlib import Path
 
+from . import debrief
 from .bilan import CARTE, Bilan, Participant, analyser
+from .bilan_coach import depuis_enregistrement
 from .datadragon import image, objets
+from .enregistreur import relire
+from .etat import depuis_json
 from .lcu import ClientLol
 from .reglages import RACINE, Reglages
 
@@ -109,7 +113,7 @@ def _objets(j: Participant, img: _Images) -> str:
 
 
 def _tableau(b: Bilan, img: _Images) -> str:
-    plafond = max(j.degats for j in b.joueurs) or 1
+    plafond = max(j.degats for j in b.joueurs)
     blocs = []
     for equipe in (b.moi.equipe, 300 - b.moi.equipe):
         lignes = []
@@ -118,22 +122,26 @@ def _tableau(b: Bilan, img: _Images) -> str:
             lignes.append(
                 f'<tr class="{"moi" if j.moi else ""}"><td class="qui">{_portrait(j, img)}<span>{h(j.champion)}{role}</span></td>'
                 f'<td class="kda">{j.kills}<i>/</i>{j.morts}<i>/</i>{j.assists}</td><td>{j.cs}</td><td>{_nombre(j.or_)}</td>'
-                f'<td class="degats"><span class="barre"><span style="width:{j.degats / plafond:.0%}"></span></span>{_nombre(j.degats)}</td>'
+                + (f'<td class="degats"><span class="barre"><span style="width:{j.degats / plafond:.0%}"></span></span>'
+                   f"{_nombre(j.degats)}</td>" if plafond else "") +
                 f'<td>{j.vision}</td><td>{_objets(j, img)}</td></tr>'
             )
-        gagne = (equipe == b.moi.equipe) == b.victoire
-        titre = ("Ton équipe" if equipe == b.moi.equipe else "Équipe adverse") + (" · victoire" if gagne else " · défaite")
+        titre = "Ton équipe" if equipe == b.moi.equipe else "Équipe adverse"
+        if b.victoire is not None:
+            titre += " · victoire" if (equipe == b.moi.equipe) == b.victoire else " · défaite"
+        or_ = "Or" if b.source == "client" else "Or en objets"
+        degats = "<th>Dégâts aux champions</th>" if plafond else ""
+        colonnes = (20, 10, 8, 9, 21, 7, 25) if plafond else (26, 12, 10, 12, 9, 31)
         blocs.append(
             f'<table class="equipe {"alliee" if equipe == b.moi.equipe else "adverse"}"><caption>{titre}</caption>'
-            '<colgroup><col style="width:20%"><col style="width:10%"><col style="width:8%"><col style="width:9%">'
-            '<col style="width:21%"><col style="width:7%"><col style="width:25%"></colgroup>'
-            "<thead><tr><th>Champion</th><th>K/D/A</th><th>Sbires</th><th>Or</th><th>Dégâts aux champions</th><th>Vision</th><th>Objets</th></tr></thead>"
+            f'<colgroup>{"".join(f"""<col style="width:{largeur}%">""" for largeur in colonnes)}</colgroup>'
+            f"<thead><tr><th>Champion</th><th>K/D/A</th><th>Sbires</th><th>{or_}</th>{degats}<th>Vision</th><th>Objets</th></tr></thead>"
             f'<tbody>{"".join(lignes)}</tbody></table>'
         )
     return "".join(blocs)
 
 
-def _moments(b: Bilan, img: _Images) -> str:
+def _moments(b: Bilan, img: _Images, carte: bool) -> str:
     par_cle = {j.cle: j for j in b.joueurs}
     signes = {"mort": ("✕", "Mort"), "exploit": ("★", "Bon moment"), "objectif": ("⚑", "Objectif")}
     articles = []
@@ -145,7 +153,8 @@ def _moments(b: Bilan, img: _Images) -> str:
             f'<time>{_temps(m.t)}</time><span class="genre">{nom}</span></div>'
             f'<div class="quoi"><h3>{h(m.titre)}</h3><div class="acteurs">{acteurs}</div><p>{h(m.analyse)}</p>'
             f'<p class="conseil">{h(m.conseil)}</p></div>'
-            f'<button class="voir" data-t="{m.t:.0f}" data-x="{m.x:.0f}" data-y="{m.y:.0f}">Voir sur la carte</button></article>'
+            + (f'<button class="voir" data-t="{m.t:.0f}" data-x="{m.x:.0f}" data-y="{m.y:.0f}">Voir sur la carte</button>'
+               if carte else "") + "</article>"
         )
     return "".join(articles) or '<p class="rien">Aucun moment à revoir : ni mort, ni objectif joué sans toi.</p>'
 
@@ -158,7 +167,7 @@ def _courbe(b: Bilan) -> str:
     moi = [(i["t"], i["or"].get(b.moi.id, 0)) for i in b.images]
     lui = [(i["t"], i["or"].get(b.adversaire.id, 0)) for i in b.images]
     fin = moi[-1][0] or 1
-    plafond = -(-max(v for _, v in moi + lui) // 2500) * 2500
+    plafond = max(2500, -(-max(v for _, v in moi + lui) // 2500) * 2500)
 
     def x(t: float) -> float:
         return gauche + (largeur - gauche - droite) * t / fin
@@ -180,9 +189,10 @@ def _courbe(b: Bilan) -> str:
     svg.append(f'<line class="repere" id="repere" y1="{haut}" y2="{hauteur - bas}" visibility="hidden"/>')
     lignes = "".join(f"<tr><td>{_temps(t)}</td><td>{_nombre(v)}</td><td>{_nombre(w)}</td></tr>" for (t, v), (_, w) in zip(moi, lui))
     donnees = json.dumps({"moi": moi, "lui": lui, "x0": gauche, "x1": largeur - droite, "fin": fin, "nom": b.adversaire.champion})
+    estime = "" if b.source == "client" else " Pour l'adversaire, c'est une estimation d'après ses objets et son score."
     return f"""
 <section id="or"><h2>Or total</h2>
-<p class="note">Toi et {h(b.adversaire.champion)}, minute par minute. L'écart qui se creuse montre où la partie a tourné.</p>
+<p class="note">Toi et {h(b.adversaire.champion)}, minute par minute. L'écart qui se creuse montre où la partie a tourné.{estime}</p>
 <figure class="graphique">
   <div class="cle"><span><i class="trait s1"></i>Toi</span><span><i class="trait s2"></i>{h(b.adversaire.champion)}</span></div>
   <div class="cadre" id="cadre"><svg viewBox="0 0 {largeur} {hauteur}" width="{largeur}" height="{hauteur}" role="img" tabindex="0" id="courbe"
@@ -197,15 +207,22 @@ def rendre(b: Bilan, c: Reglages, dossier: Path, coach: str = "") -> str:
     img = _Images(dossier)
     moi, k = b.moi, b.chiffres
     ecart = k["ecart_or_14"]
+    valeurs = [(f"{k['cs_par_minute']:.1f}".replace(".", ","), "sbires par minute")]
+    if "part_degats" in k:
+        valeurs.append((f"{k['part_degats']:.0%}", "des dégâts de l'équipe"))
+    else:
+        valeurs.append((str(moi.vision), "de score de vision"))
+    valeurs.append((f"{k['participation']:.0%}", "des kills joués"))
+    valeurs.append((f"{'+' if ecart > 0 else ''}{_nombre(ecart)}", "gold d'écart à 14 min"))
     tuiles = "".join(
         f'<div class="tuile"><div class="valeur">{valeur}</div><div class="label">{label}</div></div>'
-        for valeur, label in (
-            (f"{k['cs_par_minute']:.1f}".replace(".", ","), "sbires par minute"),
-            (f"{k['part_degats']:.0%}", "des dégâts de l'équipe"),
-            (f"{k['participation']:.0%}", "des kills joués"),
-            (f"{'+' if ecart > 0 else ''}{_nombre(ecart)}", "gold d'écart à 14 min"),
-        )
+        for valeur, label in valeurs
     )
+    a_carte = any(i["positions"] for i in b.images)
+    if b.victoire is None:
+        resultat, classe_resultat = "Entraînement", "neutre"
+    else:
+        resultat, classe_resultat = ("Victoire", "victoire") if b.victoire else ("Défaite", "defaite")
     lecons = "".join(
         f'<li><h3>{h(lecon.titre)}</h3><p class="constat">{h(lecon.constat)}</p><p>{h(lecon.conseil)}</p></li>'
         for lecon in b.lecons
@@ -231,26 +248,7 @@ def rendre(b: Bilan, c: Reglages, dossier: Path, coach: str = "") -> str:
         for m in b.moments
     )
     contre = f" · contre {h(b.adversaire.champion)}" if b.adversaire else ""
-    section_coach = f'<section id="coach"><h2>Ce que le coach a dit</h2>{coach}</section>' if coach else ""
-    return f"""<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Après-match · {h(moi.champion)}</title><style>{_STYLE}</style></head>
-<body>
-<header class="hero" style="--illustration:url({img('splash', moi.cle)})">
-  <div class="dedans">
-    <div class="resultat {'victoire' if b.victoire else 'defaite'}">{'Victoire' if b.victoire else 'Défaite'}</div>
-    <h1>{h(moi.champion)}</h1>
-    <p class="sous">{h(b.file)} · {_temps(b.duree)} · {_date(b.date)}{contre}</p>
-    <div class="kda-geant">{moi.kills}<i>/</i>{moi.morts}<i>/</i>{moi.assists}</div>
-    <div class="tuiles">{tuiles}</div>
-  </div>
-</header>
-<main>
-<section id="ameliorer"><h2>À améliorer</h2><ol class="lecons">{lecons}</ol>{forts}</section>
-<section id="moments"><h2>Moments clés</h2>
-<p class="note">Chaque mort et chaque objectif joué sans toi, avec ce qu'il fallait faire. Le bouton montre la carte à cet instant.</p>
-{_moments(b, img)}</section>
-<section id="revue"><h2>Revue de carte</h2>
+    revue = f"""<section id="revue"><h2>Revue de carte</h2>
 <p class="note">La position des dix joueurs, relevée chaque minute et lissée entre deux relevés. Les croix sont les kills, à leur endroit exact.</p>
 <div class="revue">
   <div class="carte" id="carte" style="background-image:url({img('carte', 'map11')})">{pions}<div id="marques"></div></div>
@@ -263,7 +261,30 @@ def rendre(b: Bilan, c: Reglages, dossier: Path, coach: str = "") -> str:
     <h3 class="titre-sauts">Aller à un moment</h3>
     <div class="sauts">{sauts}</div>
   </div>
-</div></section>
+</div></section>""" if a_carte else (
+        '<section id="revue"><h2>Revue de carte</h2><p class="note">Pas de carte pour cette partie : les positions des '
+        "joueurs ne sont gardées que par le client League, pour les parties classées et normales.</p></section>"
+    )
+    section_coach = f'<section id="coach"><h2>Ce que le coach a dit</h2>{coach}</section>' if coach else ""
+    return f"""<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Après-match · {h(moi.champion)}</title><style>{_STYLE}</style></head>
+<body>
+<header class="hero" style="--illustration:url({img('splash', moi.cle)})">
+  <div class="dedans">
+    <div class="resultat {classe_resultat}">{resultat}</div>
+    <h1>{h(moi.champion)}</h1>
+    <p class="sous">{h(b.file)} · {_temps(b.duree)} · {_date(b.date)}{contre}</p>
+    <div class="kda-geant">{moi.kills}<i>/</i>{moi.morts}<i>/</i>{moi.assists}</div>
+    <div class="tuiles">{tuiles}</div>
+  </div>
+</header>
+<main>
+<section id="ameliorer"><h2>À améliorer</h2><ol class="lecons">{lecons}</ol>{forts}</section>
+<section id="moments"><h2>Moments clés</h2>
+<p class="note">Chaque mort, avec ceux qui l'ont causée et ce qu'il fallait faire{", et chaque objectif joué sans toi. Le bouton montre la carte à cet instant" if a_carte else ""}.</p>
+{_moments(b, img, a_carte)}</section>
+{revue}
 <section id="tableau"><h2>Les dix joueurs</h2><div class="defile">{_tableau(b, img)}</div></section>
 {_courbe(b)}
 {section_coach}
@@ -286,6 +307,25 @@ def creer(client: ClientLol, c: Reglages, identifiant: int | None = None, dossie
         return None
     partie, chrono, puuid = trouve
     return generer(analyser(partie, chrono, puuid, c), c, dossier, coach)
+
+
+def coach_dit(enregistrement: Path, c: Reglages) -> str:
+    """Ce que le coach a dit pendant la partie enregistrée, mis en page."""
+    return debrief._timeline(debrief.analyser(enregistrement, c), c)
+
+
+def creer_depuis_coach(enregistrement: Path, c: Reglages, dossier: Path = RACINE / "rapports") -> Path:
+    """La page d'une partie que le client League ne connaît pas, tirée de l'enregistrement du coach."""
+    bruts = list(relire(enregistrement))
+    etats = [e for e in map(depuis_json, bruts) if e]
+    if not etats:
+        raise ValueError(f"enregistrement vide ou illisible : {enregistrement}")
+    fin = next((ev for ev in bruts[-1]["events"]["Events"] if ev.get("EventName") == "GameEnd"), None)
+    victoire = None if fin is None else fin.get("Result") == "Win"
+    jour, _, heure = enregistrement.name.removesuffix(".jsonl.gz").partition("_")
+    identifiant = int("".join(chiffre for chiffre in heure.split("_")[0] if chiffre.isdigit()) or 0)
+    bilan = depuis_enregistrement(etats, victoire, c, identifiant, jour)
+    return generer(bilan, c, dossier, coach_dit(enregistrement, c))
 
 
 def ouvrir(page: Path) -> None:
@@ -323,7 +363,7 @@ h2 { font-size: 22px; font-weight: 600; margin-bottom: var(--e3); }
 .dedans { width: 100%; max-width: 1120px; margin: 0 auto; padding: var(--e7) var(--e5) var(--e5); }
 .resultat { display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   padding: var(--e1) var(--e3); border-radius: 999px; border: 1px solid currentColor; }
-.resultat.victoire { color: var(--or); } .resultat.defaite { color: var(--ennemi); }
+.resultat.victoire { color: var(--or); } .resultat.defaite { color: var(--ennemi); } .resultat.neutre { color: var(--encre-2); }
 h1 { font-size: 56px; line-height: 1.05; font-weight: 700; margin-top: var(--e3); letter-spacing: -.01em; }
 .sous { color: var(--encre-2); margin-top: var(--e2); }
 .kda-geant { font-size: 28px; font-weight: 600; margin-top: var(--e4); }
