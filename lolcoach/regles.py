@@ -427,7 +427,8 @@ def sorts(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             )
             yield Conseil(
                 f"sort-note-{objet.champion}-{objet.sort}-{int(objet.note_a)}", INFO,
-                f"{objet.sort} de {objet.champion} noté, retour à {heure(objet.retour)}.", action,
+                f"{objet.sort} de {objet.champion} noté, retour "
+                f"{'au plus tôt ' if objet.au_plus_tot else ''}à {heure(objet.retour)}.", action,
             )
 
     for m in s.sorts.values():

@@ -42,6 +42,7 @@ class Minuteur:
     sort: str  # nom parlé : « Flash », « Ignite »
     note_a: float
     retour: float
+    au_plus_tot: bool = False  # calculé en supposant une rune de hâte qu'on ne peut pas voir
 
 
 def tour_bot(equipe: str) -> str:
@@ -119,8 +120,12 @@ class Suivi:
             del self.sorts[cle]
             self._notes_en_attente.append(("annule", ancien))
             return
+        runes = self.saison["hate_runes"]
+        inspiration = runes["arbre_inspiration"] in cible.arbres
         hate = sum(self.saison["hate_sorts"].get(str(o.id), 0) for o in cible.objets)
-        minuteur = Minuteur(cible.champion, connu["nom"], e.t, e.t + connu["recharge"] * 100 / (100 + hate))
+        hate += runes["perspicacite_cosmique"] if inspiration else 0
+        retour = e.t + connu["recharge"] * 100 / (100 + hate)
+        minuteur = Minuteur(cible.champion, connu["nom"], e.t, retour, au_plus_tot=inspiration)
         self.sorts[cle] = minuteur
         self._notes_en_attente.append(("note", minuteur))
 

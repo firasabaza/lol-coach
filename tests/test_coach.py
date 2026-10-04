@@ -215,6 +215,15 @@ class SortsEnnemis(unittest.TestCase):
         retour = self.moteur.suivi.sorts[("Leona ennemie", "SummonerFlash")].retour
         self.assertAlmostEqual(retour, 600 + 300 * 100 / 110)
 
+    def test_arbre_inspiration_suppose_perspicacite_cosmique(self):
+        brut = simulateur.partie(600)
+        leona = next(j for j in brut["allPlayers"] if j["championName"] == "Leona")
+        leona["runes"] = {"keystone": {"id": 8439}, "primaryRuneTree": {"id": 8400}, "secondaryRuneTree": {"id": 8300}}
+        self.moteur.suivi.noter_sort(depuis_json(brut), 5, "flash")
+        minuteur = self.moteur.suivi.sorts[("Leona ennemie", "SummonerFlash")]
+        self.assertAlmostEqual(minuteur.retour, 600 + 300 * 100 / 118)
+        self.assertTrue(any("Flash de Leona noté, retour au plus tôt à 14 minutes 14." in dit for dit in self.lire(600)))
+
     def test_double_appui_annule(self):
         self.moteur.suivi.noter_sort(depuis_json(simulateur.partie(600)), 5, "flash")
         self.lire(600)

@@ -51,5 +51,11 @@ SummonerSmite = { nom = "Smite" }
 3158 = 10   # Bottes de lucidité ionienne
 3171 = 20   # Lucidité pourpre
 
+# Perspicacité cosmique. Le jeu ne montre que les arbres de runes des autres joueurs : le coach
+# suppose la rune dès qu'un ennemi a l'arbre Inspiration, et annonce alors un retour « au plus tôt ».
+[hate_runes]
+arbre_inspiration = 8300
+perspicacite_cosmique = 18
+
 [niveaux]
 sbires_niveau_2_duo = 9      # première vague + 3 mêlées. Les sources divergent (7 ou 9) : à vérifier

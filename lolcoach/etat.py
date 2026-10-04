@@ -42,6 +42,7 @@ class Joueur:
     vision: float
     objets: tuple[Objet, ...]
     sorts: tuple[Sort, ...]
+    arbres: tuple[int, ...]  # identifiants des deux arbres de runes
 
     @property
     def smite(self) -> bool:
@@ -142,6 +143,11 @@ def _joueur(d: dict) -> Joueur:
         sorts=tuple(
             Sort(_ID_SORT.sub(r"\1", s.get("rawDisplayName", "")), s.get("displayName", ""))
             for s in sorts.values() if isinstance(s, dict)
+        ),
+        arbres=tuple(
+            int(arbre["id"])
+            for cle in ("primaryRuneTree", "secondaryRuneTree")
+            if isinstance(arbre := (d.get("runes") or {}).get(cle), dict) and arbre.get("id") is not None
         ),
     )
 

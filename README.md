@@ -51,8 +51,9 @@ la touche de cet ennemi, en plus de ton ping :
 
 Il confirme à la voix (« Flash de Leona noté, retour à 15 minutes »), affiche le décompte dans
 la fenêtre, prévient 30 secondes avant le retour, puis au retour. Deux appuis en moins de
-10 secondes annulent. Les bottes de lucidité de l'ennemi sont prises en compte ; la rune
-Perspicacité cosmique ne l'est pas, parce que le jeu ne la montre pas.
+10 secondes annulent. Les bottes de lucidité de l'ennemi sont prises en compte. Le jeu ne montre
+pas la rune Perspicacité cosmique : si l'ennemi a l'arbre Inspiration, le coach la suppose et
+annonce un retour « au plus tôt ».
 
 Ces touches ne sont prises à Windows que pendant une partie, et se changent dans `config.toml`.
 

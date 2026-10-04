@@ -27,6 +27,11 @@ def _alleger(brut: dict, apres_id: int) -> dict:
                                          "position", "level", "isDead", "respawnTimer", "scores")},
                 "items": [{k: o.get(k) for k in ("itemID", "displayName", "price", "count")}
                           for o in j.get("items", [])],
+                "runes": {
+                    cle: {"id": arbre.get("id")}
+                    for cle, arbre in (j.get("runes") or {}).items()
+                    if cle != "keystone" and isinstance(arbre, dict)
+                },
                 "summonerSpells": {
                     nom: {"rawDisplayName": sort.get("rawDisplayName", ""), "displayName": sort.get("displayName", "")}
                     for nom, sort in j.get("summonerSpells", {}).items() if isinstance(sort, dict)
