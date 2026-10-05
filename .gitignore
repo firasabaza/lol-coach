@@ -4,3 +4,5 @@ parties/
 rapports/
 donnees/images/
 journal.log
+build/
+dist/

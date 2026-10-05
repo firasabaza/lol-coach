@@ -14,7 +14,7 @@ import threading
 import time
 from pathlib import Path
 
-from . import apres_match
+from . import __version__, apres_match
 from .bilan import analyser
 from .client import Client
 from .lcu import ClientLol
@@ -224,6 +224,7 @@ def _deja_lance() -> bool:
 
 def main() -> None:
     arguments = argparse.ArgumentParser(prog="python -m lolcoach", description="Coach League of Legends en direct.")
+    arguments.add_argument("--version", action="version", version=f"lol-coach {__version__}")
     arguments.add_argument("--simulation", action="store_true", help="joue la partie de démonstration")
     arguments.add_argument("--vitesse", type=float, default=10.0, help="accélération de la simulation (défaut : 10)")
     arguments.add_argument("--muet", action="store_true", help="sans la voix")

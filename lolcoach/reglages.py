@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import sys
 import tomllib
 from dataclasses import dataclass, field, fields
 from pathlib import Path
 
-RACINE = Path(__file__).resolve().parent.parent
+# Le dossier du projet ; pour la version téléchargée (un exécutable), le dossier où il est posé.
+RACINE = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent.parent
 NIVEAUX = ("coach", "faits", "silencieux")
 
 

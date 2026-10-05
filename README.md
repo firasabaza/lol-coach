@@ -3,7 +3,17 @@
 Coach League of Legends en direct pour ADC. Il lit l'API locale officielle du jeu, te parle en
 français pendant la partie et sort un débrief à la fin.
 
-## Lancer
+## Télécharger
+
+Sans installer Python : prends `lol-coach-x.y.z-windows.zip` dans les
+[releases](https://github.com/firasabaza/lol-coach/releases), décompresse-le où tu veux et lance
+`lol-coach.exe` (Windows 10 ou 11). Le `LISEZ-MOI.txt` du dossier dit le reste. Le programme
+n'est pas signé : au premier lancement, Windows demande une confirmation.
+
+Pour refaire l'archive depuis le code : `python -m pip install pyinstaller`, puis
+`python construire.py`.
+
+## Lancer depuis le code
 
 ```
 lancer.bat
