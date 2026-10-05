@@ -16,7 +16,8 @@ from pathlib import Path
 from lolcoach import simulateur
 from lolcoach.__main__ import Coach, _hors_profil, a_dire
 from lolcoach.client import Client
-from lolcoach.compo import adaptations, bottes, chemin, lire_compo, reste_a_payer
+from lolcoach.achats import a_la_boutique, bottes, conseils, prochain
+from lolcoach.compo import chemin, lire_compo, reste_a_payer
 from lolcoach.datadragon import objets
 from lolcoach.debrief import generer
 from lolcoach.enregistreur import Enregistreur, relire
@@ -144,6 +145,20 @@ class PartieSimulee(unittest.TestCase):
         self.assertNotIn("tour-bot-prise", cles)  # la tour est tombée avant qu'on arrive
 
 
+def nourrir(brut: dict, role: str, kills: int, morts: int) -> None:
+    """Donne un score à l'ennemi qui tient ce rôle."""
+    ennemi = next(j for j in brut["allPlayers"] if j["team"] == "CHAOS" and j["position"] == role)
+    ennemi["scores"].update(kills=kills, deaths=morts)
+
+
+def donner(brut: dict, role: str, *objets: tuple[int, str, int], moi: bool = False) -> None:
+    """Remplace l'inventaire du joueur qui tient ce rôle, dans l'équipe adverse ou chez le joueur."""
+    equipe = "ORDER" if moi else "CHAOS"
+    joueur = next(j for j in brut["allPlayers"] if j["team"] == equipe and j["position"] == role)
+    joueur["items"] = [{"itemID": i, "displayName": n, "price": p, "count": 1, "slot": slot, "canUse": False,
+                        "consumable": False} for slot, (i, n, p) in enumerate(objets)]
+
+
 def partie_contre(*champions: str, t: int = 100) -> dict:
     """La partie simulée, avec d'autres champions en face (noms internes, dans l'ordre du tableau)."""
     brut = simulateur.partie(t)
@@ -176,14 +191,117 @@ class Compositions(unittest.TestCase):
         self.assertEqual(reste_a_payer(6672, recette), table[6672]["prix"] - composants)
         self.assertEqual(reste_a_payer(6672, [6672]), 0)
 
-    def test_adaptations_selon_la_compo(self):
-        self.assertEqual(adaptations(depuis_json(simulateur.partie(100)))[0][0], 3036)  # deux tanks : Dominik
+    def test_objets_que_la_compo_justifie(self):
+        # Deux tanks et un soigneur : Rappel mortel fait l'anti-armure et l'anti-soin, Dominik ne s'y ajoute pas.
+        self.assertEqual([a.objet for a in conseils(depuis_json(simulateur.partie(100)))], [3033])
         contre_suppression = depuis_json(partie_contre("Caitlyn", "Soraka", "Warwick", "Malzahar", "Aatrox"))
-        proposes = [objet for objet, _ in adaptations(contre_suppression)]
-        self.assertEqual(proposes[:2], [3140, 3123])  # Ceinture de mercure, puis anti-soin
-        self.assertIsNone(bottes(depuis_json(partie_contre("Caitlyn", "Soraka", "Karthus", "Syndra", "Malphite"))))
+        proposes = conseils(contre_suppression)
+        self.assertEqual({a.objet for a in proposes}, {3033, 3139})  # Rappel mortel, Cimeterre mercuriel
+        self.assertEqual({a.composant for a in proposes}, {3123, 3140})  # Marque du bourreau, Ceinture de mercure
+        sans_controle = depuis_json(partie_contre("Caitlyn", "Soraka", "Karthus", "Syndra", "Malphite"))
+        self.assertEqual(bottes(sans_controle).objet, 3006)  # Jambières du berzerker
         plein_de_controles = depuis_json(partie_contre("Ashe", "Leona", "Amumu", "Lissandra", "Maokai"))
-        self.assertEqual(bottes(plein_de_controles)[0], 3111)  # Sandales de Mercure
+        self.assertEqual(bottes(plein_de_controles).objet, 3111)  # Sandales de Mercure
+
+    def test_les_objets_suivent_la_famille_de_build(self):
+        # Kai'Sa hybride face à un assassin nourri : Sablier de Zhonya, pas l'objet d'un tireur critique.
+        brut = partie_contre("Caitlyn", "Leona", "Zed", "Syndra", "Malphite", t=900)
+        moi = brut["allPlayers"][0]
+        moi["championName"], moi["rawChampionName"] = "Kai'Sa", "game_character_displayname_Kaisa"
+        nourrir(brut, "JUNGLE", 7, 1)
+        self.assertEqual(chemin(depuis_json(brut).moi), [6672, 3124, 3302])
+        self.assertEqual(conseils(depuis_json(brut))[0].objet, 3157)
+
+    def test_le_prochain_achat_suit_la_partie(self):
+        # Sans objet fini, les dégâts d'abord : même un Zed nourri ne change pas le premier objet.
+        avant = partie_contre("Caitlyn", "Leona", "Zed", "Syndra", "Malphite", t=700)
+        nourrir(avant, "JUNGLE", 7, 1)
+        self.assertEqual(prochain(depuis_json(avant)).objet, 3032)
+        # Premier objet fini, partie calme : les bottes, puis la suite du build.
+        calme = depuis_json(partie_contre("Caitlyn", "Leona", "Zed", "Syndra", "Malphite", t=900))
+        self.assertEqual(prochain(calme).objet, 3006)
+        self.assertEqual(prochain(depuis_json(simulateur.partie(1100))).objet, 3031)
+        # Le même moment avec Zed à 7/1 : l'objet de survie passe devant, et le coach dit devant quoi.
+        tendu = partie_contre("Caitlyn", "Leona", "Zed", "Syndra", "Malphite", t=1100)
+        nourrir(tendu, "JUNGLE", 7, 1)
+        vise = prochain(depuis_json(tendu))
+        self.assertEqual((vise.objet, vise.devance), (6673, 3031))  # Arc-bouclier immortel avant Lame d'infini
+        self.assertIn("Zed est à 7/1", vise.raison)
+        # Un ennemi qui a acheté de l'armure : on y répond une fois deux objets finis, pas avant.
+        blinde = partie_contre("Caitlyn", "Lulu", "Karthus", "Syndra", "Malphite", t=1100)
+        donner(blinde, "TOP", (3075, "Cotte épineuse", 2450), (3143, "Présage de Randuin", 2700))
+        self.assertEqual(prochain(depuis_json(blinde)).objet, 3031)
+        donner(blinde, "BOTTOM", (3032, "Flèches des Yun Tal", 3000), (3031, "Lame d'infini", 3500),
+               (3006, "Jambières du berzerker", 1100), moi=True)
+        vise = prochain(depuis_json(blinde))
+        self.assertEqual((vise.objet, vise.devance), (3036, 3046))  # Salutations de Dominik avant Danseur fantôme
+        self.assertIn("Malphite a acheté de l'armure", vise.raison)
+
+    def test_a_la_boutique(self):
+        self.assertEqual(a_la_boutique(depuis_json(simulateur.partie(790)), 1650), "finis Flèches des Yun Tal")
+        depart = depuis_json(simulateur.partie(100))
+        self.assertEqual(a_la_boutique(depart, 1300), "BF Glaive, en route vers Flèches des Yun Tal")
+        # Pas de quoi payer un composant entier : on avance quand même, par un étage plus bas de la recette.
+        self.assertEqual(a_la_boutique(depart, 700), "Fronde de l'éclaireur, en route vers Flèches des Yun Tal")
+        self.assertIsNone(a_la_boutique(depart, 200))  # rien à acheter : silence
+        # Besoin pressant trop cher pour l'instant : le composant qui sert déjà, l'objet ensuite.
+        soins = depuis_json(partie_contre("Caitlyn", "Soraka", "Warwick", "Syndra", "Aatrox", t=1100))
+        self.assertEqual(a_la_boutique(soins, 900), "Marque du bourreau tout de suite, Rappel mortel ensuite")
+        self.assertIn("soins de Soraka, Warwick et Aatrox", prochain(soins).raison)
+        self.assertEqual(a_la_boutique(soins, 700), "garde ton or pour Marque du bourreau, il manque 100 gold")
+
+    def test_un_objet_hors_chemin_prend_un_emplacement(self):
+        # Kai'Sa avec ses trois objets de cœur, un Ouragan de Runaan en plus et les bottes : il reste
+        # deux emplacements, donc deux objets de la suite, pas trois.
+        brut = partie_contre("Caitlyn", "Lulu", "Karthus", "Syndra", "Malphite", t=1100)
+        moi = brut["allPlayers"][0]
+        moi["championName"], moi["rawChampionName"] = "Kai'Sa", "game_character_displayname_Kaisa"
+        donner(brut, "BOTTOM", (6672, "Tueur de krakens", 3000), (3124, "Lame enragée de Guinsoo", 3000),
+               (3302, "Terminus", 3000), (3085, "Ouragan de Runaan", 2650), (3006, "Jambières du berzerker", 1100),
+               moi=True)
+        self.assertEqual(prochain(depuis_json(brut)).objet, 3115)  # Dent de Nashor
+        donner(brut, "BOTTOM", (6672, "Tueur de krakens", 3000), (3124, "Lame enragée de Guinsoo", 3000),
+               (3302, "Terminus", 3000), (3085, "Ouragan de Runaan", 2650), (3115, "Dent de Nashor", 2900),
+               (3157, "Sablier de Zhonya", 3250), (3006, "Jambières du berzerker", 1100), moi=True)
+        self.assertIsNone(prochain(depuis_json(brut)))  # six objets finis : plus rien à viser
+
+    def test_conseils_d_achat_au_bon_moment(self):
+        dits = jouer()
+        heures = {c.cle: t for t, c in reversed(dits)}
+        textes = {c.cle: f"{c.fait} {c.action}" for _, c in dits}
+        # Mort à 12:40 avec de quoi finir l'objet : la boutique est ouverte, le coach dit quoi prendre.
+        self.assertEqual(heures["boutique-1"], 760)
+        self.assertIn("finis Flèches des Yun Tal", textes["boutique-1"])
+        # Chaque achat déplace la cible : bottes après le premier objet, puis la suite du build.
+        # Le coach attend huit secondes après l'achat : à la boutique, la cible change à chaque clic.
+        self.assertEqual((heures["viser-3047"], heures["viser-3031"]), (803, 1028))
+        self.assertIn("4 champions à dégâts physiques", textes["viser-3047"])
+        self.assertIn("À la boutique : BF Glaive", textes["or-1"])
+
+    def test_changement_de_plan_en_cours_de_partie(self):
+        # Zed passe à 7/1 à 17:30, entre deux achats : le coach le dit à ce moment-là, avec la raison.
+        moteur = Moteur(REGLAGES)
+        dits = []
+        for t in range(0, 1150):
+            brut = partie_contre("Caitlyn", "Leona", "Zed", "Syndra", "Malphite", t=t)
+            if t >= 1050:
+                nourrir(brut, "JUNGLE", 7, 1)
+            dits += [(t, c) for c in moteur.lire(depuis_json(brut))]
+        cibles = [(t, c.cle) for t, c in dits if c.cle.startswith("viser-")]
+        self.assertEqual(cibles, [(803, "viser-3006"), (1028, "viser-3031"), (1050, "viser-6673")])
+        plan = dits[[c.cle for _, c in dits].index("viser-6673")][1]
+        self.assertEqual(plan.fait, "Change de plan : Arc-bouclier immortel avant Lame d'infini.")
+        self.assertIn("Zed est à 7/1", plan.action)
+
+    def test_composant_d_attente_annonce_avec_le_changement_de_plan(self):
+        # Trois soigneurs : dès le premier objet fini, l'anti-soin passe devant, en commençant par son composant.
+        moteur = Moteur(REGLAGES)
+        dits = []
+        for t in range(700, 830):
+            dits += moteur.lire(depuis_json(partie_contre("Caitlyn", "Soraka", "Warwick", "Syndra", "Aatrox", t=t)))
+        plan = next(c for c in dits if c.cle == "viser-3033")
+        self.assertEqual(plan.fait, "Change de plan : Rappel mortel avant Lame d'infini.")
+        self.assertIn("Commence par Marque du bourreau", plan.action)
 
     def test_conseils_avances_sur_la_partie_simulee(self):
         conseils = jouer()
@@ -214,6 +332,7 @@ class Compositions(unittest.TestCase):
 
         self.assertEqual(genre("drake-300-60"), "objectif")
         self.assertEqual(genre("finir-3032"), "or")
+        self.assertEqual((genre("viser-3031"), genre("boutique-2")), ("build", "build"))
         self.assertEqual(genre("menace-Zed"), "danger")
         self.assertEqual(genre("sort-note-Leona-Flash-600"), "sort")
         self.assertEqual(genre("jungler-vu-top"), "jungler")
@@ -331,6 +450,10 @@ class VraiePartie(unittest.TestCase):
         suivi.maj(apres)
         self.assertTrue(accompli(back, 380, apres, suivi))
         self.assertFalse(accompli(Conseil("drake-300-60", 2, "Drake dans une minute.", ""), 380, apres, suivi))
+        # « Prochain achat » s'efface quand l'objet est dans l'inventaire, « À la boutique » au premier achat.
+        self.assertTrue(accompli(Conseil("viser-1038", 1, "", "Prochain achat."), 380, apres, suivi))
+        self.assertFalse(accompli(Conseil("viser-3031", 1, "", "Prochain achat."), 380, apres, suivi))
+        self.assertTrue(accompli(Conseil("boutique-1", 1, "", "À la boutique."), 380, apres, suivi))
 
 
 class JunglerAdverse(unittest.TestCase):

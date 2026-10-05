@@ -8,7 +8,8 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 
-from .compo import est, finissable
+from .achats import a_la_boutique, finissable
+from .compo import est
 from .etat import PINK, ROLES_BOT, Etat
 from .rapport import ECRASANT, NET, avance, avance_lane, ennemis_morts, forme, score
 from .reglages import Reglages
@@ -70,8 +71,10 @@ def accompli(conseil: Conseil, dit_a: float, e: Etat, s: Suivi) -> bool:
     cle = conseil.cle
     if cle.startswith("pv-"):
         return e.pv > 0.6 or s.dernier_achat > dit_a
-    if cle.startswith(("or-", "canon-", "finir-")) or cle.endswith("-reset"):
+    if cle.startswith(("or-", "canon-", "finir-", "boutique-")) or cle.endswith("-reset"):
         return s.dernier_achat > dit_a
+    if cle.startswith("viser-"):
+        return e.moi.possede(int(cle.removeprefix("viser-")))
     if cle == "vision":
         return s.derniere_vision > dit_a
     if cle == "pink":
@@ -231,12 +234,14 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             "Tu joues avec un item de moins. Reset maintenant.", repeter_apres=90, intention="back",
         )
     elif or_en_poche(e) >= c.seuils.or_recall and finissable(e, or_en_poche(e)) is None:
+        achat = a_la_boutique(e, or_en_poche(e))
+        boutique = f" À la boutique : {achat}." if achat else ""
         if lane and canon <= 25:
-            action = "Crash la vague canon qui arrive, puis back."
+            action = f"Crash la vague canon qui arrive, puis back.{boutique}"
         elif lane:
-            action = "Crash ta vague et back pour ton composant."
+            action = f"Crash ta vague et back.{boutique}"
         else:
-            action = "Reset dès que ta vague est poussée."
+            action = f"Reset dès que ta vague est poussée.{boutique}"
         yield Conseil(f"or-{s.nb_achats}", TEMPO, f"{_or(or_en_poche(e))} gold.", action, intention="back")
         attend = s.or_seuil_depuis is not None and e.t - s.or_seuil_depuis > 20
         if lane and canon <= 20 and attend:

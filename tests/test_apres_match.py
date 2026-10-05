@@ -162,7 +162,7 @@ class SansLeClient(unittest.TestCase):
         b = self.bilan
         self.assertEqual((b.source, len(b.joueurs)), ("coach", 10))
         self.assertEqual((b.moi.champion, b.moi.role, b.adversaire.champion), ("Jinx", "adc", "Caitlyn"))
-        self.assertIn(1038, b.moi.objets)  # le B.F. Glaive acheté à 6:40
+        self.assertIn(3032, b.moi.objets)  # les Flèches des Yun Tal finies à 13:15
         self.assertEqual({j.champion for j in b.joueurs if j.role == "jungle"}, {"Vi", "Lee Sin"})
 
     def test_la_mort_est_lue_avec_ses_auteurs(self):

@@ -6,21 +6,33 @@
 "prix": 300,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "1004": {
 "nom": "Charme féérique",
 "prix": 200,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"ManaRegen"
+]
 },
 "1006": {
 "nom": "Collier rafraîchissant",
 "prix": 300,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen"
+]
 },
 "1011": {
 "nom": "Ceinture du géant",
@@ -29,42 +41,66 @@
 "recette": [
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health"
+]
 },
 "1018": {
 "nom": "Cape d'agilité",
 "prix": 600,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike"
+]
 },
 "1026": {
 "nom": "Baguette explosive",
 "prix": 850,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "1027": {
 "nom": "Cristal de saphir",
 "prix": 300,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Mana"
+]
 },
 "1028": {
 "nom": "Cristal de rubis",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health"
+]
 },
 "1029": {
 "nom": "Armure d'étoffe",
 "prix": 300,
 "achetable": true,
 "recette": [],
-"armure": 15
+"armure": 15,
+"rm": 0,
+"etiquettes": [
+"Armor"
+]
 },
 "1031": {
 "nom": "Cotte de mailles",
@@ -73,42 +109,67 @@
 "recette": [
 1029
 ],
-"armure": 40
+"armure": 40,
+"rm": 0,
+"etiquettes": [
+"Armor"
+]
 },
 "1033": {
 "nom": "Cape de néant",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 20,
+"etiquettes": [
+"SpellBlock"
+]
 },
 "1036": {
 "nom": "Épée longue",
 "prix": 350,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Lane"
+]
 },
 "1037": {
 "nom": "Pioche",
 "prix": 875,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage"
+]
 },
 "1038": {
 "nom": "BF Glaive",
 "prix": 1300,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage"
+]
 },
 "1042": {
 "nom": "Dague",
 "prix": 250,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed"
+]
 },
 "1043": {
 "nom": "Arc courbe",
@@ -117,14 +178,23 @@
 "recette": [
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"OnHit"
+]
 },
 "1052": {
 "nom": "Tome d'amplification",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "1053": {
 "nom": "Sceptre vampirique",
@@ -133,28 +203,54 @@
 "recette": [
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal"
+]
 },
 "1054": {
 "nom": "Bouclier de Doran",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Lane"
+]
 },
 "1055": {
 "nom": "Lame de Doran",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"LifeSteal",
+"SpellVamp",
+"Lane"
+]
 },
 "1056": {
 "nom": "Anneau de Doran",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Lane",
+"ManaRegen",
+"SpellDamage"
+]
 },
 "1057": {
 "nom": "Manteau de Négatron",
@@ -163,259 +259,446 @@
 "recette": [
 1033
 ],
-"armure": 0
+"armure": 0,
+"rm": 45,
+"etiquettes": [
+"SpellBlock"
+]
 },
 "1058": {
 "nom": "Baguette trop grosse",
 "prix": 1200,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "1082": {
 "nom": "Sceau noir",
 "prix": 350,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"Lane"
+]
 },
 "1083": {
 "nom": "Abatteur",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"OnHit",
+"Lane"
+]
 },
 "1086": {
 "nom": "Arc de Doran",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"SpellVamp",
+"Lane"
+]
 },
 "1101": {
 "nom": "Bébé Chardent",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1102": {
 "nom": "Bébé Saute-nuages",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1103": {
 "nom": "Bébé Ixamandre",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1105": {
 "nom": "Bébé Ixamandre",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1106": {
 "nom": "Bébé Saute-nuages",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1107": {
 "nom": "Bébé Chardent",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Jungle"
+]
 },
 "1120": {
 "nom": "Casque de Doran",
 "prix": 450,
 "achetable": true,
 "recette": [],
-"armure": 8
+"armure": 8,
+"rm": 8,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"Lane"
+]
 },
 "1501": {
 "nom": "Fortification",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "1502": {
 "nom": "Armure renforcée",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1503": {
 "nom": "Œil du gardien",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 },
 "1505": {
 "nom": "Armure renforcée",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1506": {
 "nom": "Armure renforcée",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1507": {
 "nom": "Surchargé",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1508": {
 "nom": "Chaussettes anti-tourelles",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1509": {
 "nom": "Impulsivité",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1510": {
 "nom": "Impulsivité phreakienne",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1511": {
 "nom": "Armure de super mech",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1512": {
 "nom": "Champ de force de super mech",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1515": {
 "nom": "Bouclier de tourelle",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor"
+]
 },
 "1516": {
 "nom": "Prime de bâtiment",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 },
 "1517": {
 "nom": "Prime de bâtiment",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 },
 "1518": {
 "nom": "Prime de bâtiment",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 },
 "1519": {
 "nom": "Prime de bâtiment",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 },
 "1520": {
 "nom": "Surcharge",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1521": {
 "nom": "Fortification",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"OnHit"
+]
 },
 "1522": {
 "nom": "Amélioration de tourelle",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Damage"
+]
 },
 "1523": {
 "nom": "Surcharge",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"ManaRegen",
+"OnHit"
+]
 },
 "1524": {
 "nom": "Surcroissance",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Damage"
+]
 },
 "2001": {
 "nom": "Rappel",
 "prix": 60,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "2003": {
 "nom": "Potion de soin",
 "prix": 50,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"Consumable",
+"Lane",
+"Jungle"
+]
 },
 "2007": {
 "nom": "Rappel désactivé",
 "prix": 60,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "2010": {
 "nom": "Biscuit de longévité",
 "prix": 50,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "2019": {
 "nom": "Sceau d'acier",
@@ -426,7 +709,12 @@
 1036,
 1029
 ],
-"armure": 30
+"armure": 30,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Damage"
+]
 },
 "2020": {
 "nom": "Brutaliseur",
@@ -436,7 +724,13 @@
 2022,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CooldownReduction",
+"ArmorPenetration"
+]
 },
 "2021": {
 "nom": "Foreuse",
@@ -446,21 +740,38 @@
 1036,
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage"
+]
 },
 "2022": {
 "nom": "Poussière luisante",
 "prix": 250,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CooldownReduction"
+]
 },
 "2031": {
 "nom": "Potion rechargeable",
 "prix": 150,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"Consumable",
+"Active",
+"Lane",
+"Jungle"
+]
 },
 "2033": {
 "nom": "Potion de corruption",
@@ -469,28 +780,51 @@
 "recette": [
 2031
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Active",
+"Consumable",
+"HealthRegen",
+"Lane",
+"ManaRegen"
+]
 },
 "2051": {
 "nom": "Corne du gardien",
 "prix": 950,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Lane"
+]
 },
 "2052": {
 "nom": "Poro-Snax",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "2055": {
 "nom": "Balise de contrôle",
 "prix": 75,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable",
+"Lane",
+"Stealth",
+"Vision"
+]
 },
 "2065": {
 "nom": "Chant de guerre de Shurelya",
@@ -500,63 +834,114 @@
 3113,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"Active",
+"CooldownReduction",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "2138": {
 "nom": "Élixir de fer",
 "prix": 500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Consumable",
+"NonbootsMovement",
+"Tenacity"
+]
 },
 "2139": {
 "nom": "Élixir de sorcellerie",
 "prix": 500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable",
+"ManaRegen",
+"SpellDamage"
+]
 },
 "2140": {
 "nom": "Élixir de rage",
 "prix": 500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable",
+"Damage",
+"LifeSteal",
+"SpellVamp"
+]
 },
 "2141": {
 "nom": "Jus chapi-chapo",
 "prix": 300,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Consumable"
+]
 },
 "2150": {
 "nom": "Élixir de compétence",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable"
+]
 },
 "2151": {
 "nom": "Élixir d'avarice",
 "prix": 50,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Consumable",
+"Tenacity"
+]
 },
 "2152": {
 "nom": "Élixir de force",
 "prix": 50,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable",
+"Tenacity"
+]
 },
 "2403": {
 "nom": "Désintégrateur de sbires",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "2420": {
 "nom": "Protège-bras du savant",
@@ -567,7 +952,13 @@
 1029,
 1052
 ],
-"armure": 25
+"armure": 25,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"SpellDamage",
+"Active"
+]
 },
 "2421": {
 "nom": "Protège-bras pulvérisé",
@@ -578,14 +969,20 @@
 1029,
 1052
 ],
-"armure": 25
+"armure": 25,
+"rm": 0,
+"etiquettes": []
 },
 "2422": {
 "nom": "Chaussures légèrement magiques",
 "prix": 300,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "2501": {
 "nom": "Armure sanguine",
@@ -595,7 +992,12 @@
 2021,
 2021
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage"
+]
 },
 "2502": {
 "nom": "Désespoir infini",
@@ -606,7 +1008,14 @@
 3067,
 1028
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "2503": {
 "nom": "Torche noire",
@@ -616,7 +1025,14 @@
 3802,
 2508
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "2504": {
 "nom": "Rookern kaénique",
@@ -626,7 +1042,13 @@
 3211,
 1057
 ],
-"armure": 0
+"armure": 0,
+"rm": 80,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"HealthRegen"
+]
 },
 "2508": {
 "nom": "Cendres fatidiques",
@@ -635,7 +1057,11 @@
 "recette": [
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "2510": {
 "nom": "Aube et crépuscule",
@@ -647,7 +1073,15 @@
 3067,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"AttackSpeed",
+"SpellDamage",
+"OnHit",
+"AbilityHaste"
+]
 },
 "2512": {
 "nom": "Chasseur de monstres",
@@ -657,7 +1091,14 @@
 3086,
 3144
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "2517": {
 "nom": "Faim insatiable",
@@ -668,7 +1109,15 @@
 1037,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal",
+"SpellVamp",
+"Tenacity",
+"AbilityHaste"
+]
 },
 "2520": {
 "nom": "Briseur de bastion",
@@ -678,7 +1127,13 @@
 2020,
 3134
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "2522": {
 "nom": "Actualisateur",
@@ -688,7 +1143,13 @@
 3802,
 1026
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "2523": {
 "nom": "Lunettes Hextech C44",
@@ -699,7 +1160,12 @@
 6670,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike"
+]
 },
 "2524": {
 "nom": "Flûtes de Bandle",
@@ -710,7 +1176,16 @@
 1029,
 1033
 ],
-"armure": 20
+"armure": 20,
+"rm": 20,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"AttackSpeed",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "2525": {
 "nom": "Harnais protoplasmique",
@@ -720,7 +1195,14 @@
 3067,
 1011
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"NonbootsMovement",
+"Tenacity",
+"AbilityHaste"
+]
 },
 "2526": {
 "nom": "Diadème des murmures",
@@ -731,14 +1213,27 @@
 1028,
 3070
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"ManaRegen"
+]
 },
 "2530": {
 "nom": "Diadème musical",
 "prix": 2250,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"ManaRegen",
+"AbilityHaste"
+]
 },
 "3002": {
 "nom": "Sac de l'explorateur",
@@ -748,7 +1243,13 @@
 3066,
 1031
 ],
-"armure": 40
+"armure": 40,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"NonbootsMovement"
+]
 },
 "3003": {
 "nom": "Bâton de l'archange",
@@ -759,7 +1260,13 @@
 3802,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "3004": {
 "nom": "Manamune",
@@ -770,7 +1277,15 @@
 3133,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Mana",
+"CooldownReduction",
+"OnHit",
+"AbilityHaste"
+]
 },
 "3006": {
 "nom": "Jambières du berzerker",
@@ -781,7 +1296,12 @@
 1042,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"Boots"
+]
 },
 "3008": {
 "nom": "Jambières gloutonnes",
@@ -790,7 +1310,13 @@
 "recette": [
 1001
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"LifeSteal",
+"SpellVamp",
+"Boots"
+]
 },
 "3009": {
 "nom": "Bottes de célérité",
@@ -799,7 +1325,11 @@
 "recette": [
 1001
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3010": {
 "nom": "Semelles symbiotiques",
@@ -808,7 +1338,11 @@
 "recette": [
 1001
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3011": {
 "nom": "Putrificateur techno-chimique",
@@ -818,7 +1352,13 @@
 3916,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"AbilityHaste"
+]
 },
 "3013": {
 "nom": "Âmes synchronisées",
@@ -827,7 +1367,11 @@
 "recette": [
 3010
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3020": {
 "nom": "Chaussures de sorcier",
@@ -836,7 +1380,12 @@
 "recette": [
 1001
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots",
+"MagicPenetration"
+]
 },
 "3024": {
 "nom": "Bouclier glacial",
@@ -847,7 +1396,14 @@
 1027,
 2022
 ],
-"armure": 25
+"armure": 25,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Mana",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3026": {
 "nom": "Ange gardien",
@@ -857,7 +1413,12 @@
 2019,
 1038
 ],
-"armure": 45
+"armure": 45,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Damage"
+]
 },
 "3031": {
 "nom": "Lame d'infini",
@@ -868,7 +1429,12 @@
 1037,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"Damage"
+]
 },
 "3032": {
 "nom": "Flèches des Yun Tal",
@@ -879,7 +1445,13 @@
 3144,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"AttackSpeed"
+]
 },
 "3033": {
 "nom": "Rappel mortel",
@@ -890,7 +1462,13 @@
 3035,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"ArmorPenetration"
+]
 },
 "3035": {
 "nom": "Dernier souffle",
@@ -900,7 +1478,12 @@
 1036,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"ArmorPenetration",
+"Damage"
+]
 },
 "3036": {
 "nom": "Salutations de Dominik",
@@ -910,14 +1493,26 @@
 3035,
 6670
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"ArmorPenetration"
+]
 },
 "3040": {
 "nom": "Étreinte du séraphin",
 "prix": 2900,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "3041": {
 "nom": "Voleur d'âmes de Mejai",
@@ -926,14 +1521,28 @@
 "recette": [
 1082
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"NonbootsMovement"
+]
 },
 "3042": {
 "nom": "Muramana",
 "prix": 2900,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Mana",
+"CooldownReduction",
+"OnHit",
+"ArmorPenetration"
+]
 },
 "3044": {
 "nom": "Phage",
@@ -943,7 +1552,13 @@
 1028,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"NonbootsMovement"
+]
 },
 "3046": {
 "nom": "Danseur fantôme",
@@ -954,7 +1569,13 @@
 3086,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement"
+]
 },
 "3047": {
 "nom": "Coques en acier",
@@ -964,7 +1585,12 @@
 1001,
 1029
 ],
-"armure": 25
+"armure": 25,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Boots"
+]
 },
 "3050": {
 "nom": "Convergence de Zeke",
@@ -975,7 +1601,14 @@
 1029,
 1033
 ],
-"armure": 25
+"armure": 25,
+"rm": 25,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"AbilityHaste"
+]
 },
 "3051": {
 "nom": "Hache d'Âtrinsèque",
@@ -986,7 +1619,12 @@
 1042,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed"
+]
 },
 "3053": {
 "nom": "Gage de Sterak",
@@ -997,7 +1635,13 @@
 2021,
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"Tenacity"
+]
 },
 "3057": {
 "nom": "Brillance",
@@ -1006,7 +1650,12 @@
 "recette": [
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"OnHit",
+"AbilityHaste"
+]
 },
 "3065": {
 "nom": "Visage spirituel",
@@ -1016,7 +1665,15 @@
 3211,
 3067
 ],
-"armure": 0
+"armure": 0,
+"rm": 50,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"HealthRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3066": {
 "nom": "Plaque de lune ailée",
@@ -1025,7 +1682,12 @@
 "recette": [
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"NonbootsMovement"
+]
 },
 "3067": {
 "nom": "Gemme exaltante",
@@ -1035,7 +1697,13 @@
 1028,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3068": {
 "nom": "Égide solaire",
@@ -1046,14 +1714,26 @@
 1031,
 1028
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"Aura",
+"AbilityHaste"
+]
 },
 "3070": {
 "nom": "Larme de la déesse",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Mana",
+"ManaRegen"
+]
 },
 "3071": {
 "nom": "Couperet noir",
@@ -1064,7 +1744,17 @@
 3067,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"CooldownReduction",
+"OnHit",
+"NonbootsMovement",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "3072": {
 "nom": "Soif-de-sang",
@@ -1075,7 +1765,12 @@
 1037,
 1053
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal"
+]
 },
 "3073": {
 "nom": "Hexplaque expérimentale",
@@ -1086,7 +1781,16 @@
 1042,
 3044
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"AttackSpeed",
+"CooldownReduction",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "3074": {
 "nom": "Hydre vorace",
@@ -1097,7 +1801,15 @@
 1053,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal",
+"CooldownReduction",
+"OnHit",
+"AbilityHaste"
+]
 },
 "3075": {
 "nom": "Cotte épineuse",
@@ -1108,7 +1820,12 @@
 1031,
 1028
 ],
-"armure": 75
+"armure": 75,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor"
+]
 },
 "3076": {
 "nom": "Armure roncière",
@@ -1118,7 +1835,11 @@
 1029,
 1029
 ],
-"armure": 30
+"armure": 30,
+"rm": 0,
+"etiquettes": [
+"Armor"
+]
 },
 "3077": {
 "nom": "Tiamat",
@@ -1128,7 +1849,12 @@
 1036,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"OnHit"
+]
 },
 "3078": {
 "nom": "Force de la trinité",
@@ -1139,7 +1865,17 @@
 3044,
 3051
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"AttackSpeed",
+"CooldownReduction",
+"OnHit",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "3082": {
 "nom": "Mailles du gardien",
@@ -1149,7 +1885,11 @@
 1029,
 1029
 ],
-"armure": 40
+"armure": 40,
+"rm": 0,
+"etiquettes": [
+"Armor"
+]
 },
 "3083": {
 "nom": "Armure de Warmog",
@@ -1160,7 +1900,12 @@
 1011,
 3801
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen"
+]
 },
 "3084": {
 "nom": "Cœuracier",
@@ -1171,7 +1916,12 @@
 3801,
 1011
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen"
+]
 },
 "3085": {
 "nom": "Ouragan de Runaan",
@@ -1181,7 +1931,14 @@
 3086,
 3144
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"OnHit",
+"NonbootsMovement"
+]
 },
 "3086": {
 "nom": "Zèle",
@@ -1191,7 +1948,13 @@
 1018,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement"
+]
 },
 "3087": {
 "nom": "Poignard de Statikk",
@@ -1202,7 +1965,15 @@
 3113,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"SpellDamage",
+"OnHit",
+"NonbootsMovement"
+]
 },
 "3089": {
 "nom": "Coiffe de Rabadon",
@@ -1212,7 +1983,11 @@
 1058,
 1058
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "3091": {
 "nom": "Au bout du rouleau",
@@ -1223,7 +1998,14 @@
 1057,
 1043
 ],
-"armure": 0
+"armure": 0,
+"rm": 45,
+"etiquettes": [
+"SpellBlock",
+"AttackSpeed",
+"OnHit",
+"Tenacity"
+]
 },
 "3094": {
 "nom": "Canon ultrarapide",
@@ -1233,7 +2015,13 @@
 3086,
 3144
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement"
+]
 },
 "3095": {
 "nom": "Lame tempête",
@@ -1244,7 +2032,14 @@
 1018,
 3144
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement"
+]
 },
 "3100": {
 "nom": "Fléau de liche",
@@ -1255,7 +2050,14 @@
 3113,
 1026
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"OnHit",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "3102": {
 "nom": "Voile de la banshee",
@@ -1265,7 +2067,12 @@
 1058,
 4632
 ],
-"armure": 0
+"armure": 0,
+"rm": 40,
+"etiquettes": [
+"SpellBlock",
+"SpellDamage"
+]
 },
 "3107": {
 "nom": "Rédemption",
@@ -1275,7 +2082,14 @@
 3108,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3108": {
 "nom": "Codex méphitique",
@@ -1285,7 +2099,13 @@
 1052,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3109": {
 "nom": "Vœu du chevalier",
@@ -1296,7 +2116,17 @@
 1031,
 1006
 ],
-"armure": 40
+"armure": 40,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Armor",
+"Aura",
+"Active",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3110": {
 "nom": "Cœur gelé",
@@ -1306,7 +2136,15 @@
 3082,
 3024
 ],
-"armure": 75
+"armure": 75,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Mana",
+"Aura",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3111": {
 "nom": "Sandales de Mercure",
@@ -1316,14 +2154,27 @@
 1001,
 1033
 ],
-"armure": 0
+"armure": 0,
+"rm": 20,
+"etiquettes": [
+"Boots",
+"SpellBlock",
+"Tenacity"
+]
 },
 "3112": {
 "nom": "Orbe du gardien",
 "prix": 950,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"ManaRegen",
+"Lane"
+]
 },
 "3113": {
 "nom": "Feu follet éthéré",
@@ -1332,7 +2183,12 @@
 "recette": [
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"NonbootsMovement",
+"SpellDamage"
+]
 },
 "3114": {
 "nom": "Idole interdite",
@@ -1341,7 +2197,11 @@
 "recette": [
 1004
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"ManaRegen"
+]
 },
 "3115": {
 "nom": "Dent de Nashor",
@@ -1352,7 +2212,14 @@
 1026,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"SpellDamage",
+"OnHit",
+"AbilityHaste"
+]
 },
 "3116": {
 "nom": "Sceptre de Rylai",
@@ -1363,7 +2230,13 @@
 1011,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"Slow"
+]
 },
 "3117": {
 "nom": "Bottes de mobilité",
@@ -1372,7 +2245,11 @@
 "recette": [
 1001
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3118": {
 "nom": "Malfaisance",
@@ -1382,7 +2259,13 @@
 3802,
 1026
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "3119": {
 "nom": "Approche de l'hiver",
@@ -1393,14 +2276,26 @@
 1011,
 3067
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"AbilityHaste"
+]
 },
 "3121": {
 "nom": "Fimbulvetr",
 "prix": 2400,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"AbilityHaste"
+]
 },
 "3123": {
 "nom": "Marque du bourreau",
@@ -1409,7 +2304,11 @@
 "recette": [
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage"
+]
 },
 "3124": {
 "nom": "Lame enragée de Guinsoo",
@@ -1420,7 +2319,14 @@
 1043,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"SpellDamage",
+"OnHit"
+]
 },
 "3133": {
 "nom": "Marteau de Caulfield",
@@ -1431,7 +2337,13 @@
 2022,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3134": {
 "nom": "Dague dentelée",
@@ -1441,7 +2353,12 @@
 1036,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"ArmorPenetration"
+]
 },
 "3135": {
 "nom": "Bâton du vide",
@@ -1451,7 +2368,12 @@
 4630,
 1026
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"MagicPenetration",
+"SpellDamage"
+]
 },
 "3137": {
 "nom": "Fleur de crypte",
@@ -1462,7 +2384,13 @@
 3108,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"MagicPenetration",
+"AbilityHaste"
+]
 },
 "3139": {
 "nom": "Cimeterre mercuriel",
@@ -1473,7 +2401,16 @@
 1037,
 1053
 ],
-"armure": 0
+"armure": 0,
+"rm": 35,
+"etiquettes": [
+"SpellBlock",
+"Damage",
+"LifeSteal",
+"Active",
+"NonbootsMovement",
+"Tenacity"
+]
 },
 "3140": {
 "nom": "Ceinture de mercure",
@@ -1482,7 +2419,12 @@
 "recette": [
 1033
 ],
-"armure": 0
+"armure": 0,
+"rm": 30,
+"etiquettes": [
+"Active",
+"SpellBlock"
+]
 },
 "3142": {
 "nom": "Lame spectre de Youmuu",
@@ -1493,7 +2435,14 @@
 6690,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Active",
+"NonbootsMovement",
+"ArmorPenetration"
+]
 },
 "3143": {
 "nom": "Présage de Randuin",
@@ -1503,7 +2452,14 @@
 3082,
 1011
 ],
-"armure": 75
+"armure": 75,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"Active",
+"Slow"
+]
 },
 "3144": {
 "nom": "Fronde de l'éclaireur",
@@ -1513,7 +2469,11 @@
 1042,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed"
+]
 },
 "3145": {
 "nom": "Alternateur Hextech",
@@ -1523,7 +2483,11 @@
 1052,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "3146": {
 "nom": "Pistolame Hextech",
@@ -1534,7 +2498,15 @@
 3145,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal",
+"SpellDamage",
+"Active",
+"SpellVamp"
+]
 },
 "3147": {
 "nom": "Déguisement hanté",
@@ -1544,7 +2516,12 @@
 1052,
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage"
+]
 },
 "3152": {
 "nom": "Ceinture-roquette Hextech",
@@ -1555,7 +2532,16 @@
 3067,
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"Active",
+"CooldownReduction",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "3153": {
 "nom": "Lame du roi déchu",
@@ -1566,7 +2552,15 @@
 1043,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"LifeSteal",
+"Slow",
+"OnHit"
+]
 },
 "3155": {
 "nom": "Hexterminateur",
@@ -1577,7 +2571,12 @@
 1033,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 25,
+"etiquettes": [
+"Damage",
+"SpellBlock"
+]
 },
 "3156": {
 "nom": "Gueule de Malmortius",
@@ -1587,7 +2586,15 @@
 3155,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 40,
+"etiquettes": [
+"SpellBlock",
+"Damage",
+"LifeSteal",
+"SpellVamp",
+"AbilityHaste"
+]
 },
 "3157": {
 "nom": "Sablier de Zhonya",
@@ -1597,7 +2604,13 @@
 1058,
 2420
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"SpellDamage",
+"Active"
+]
 },
 "3158": {
 "nom": "Bottes de lucidité",
@@ -1607,7 +2620,12 @@
 1001,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots",
+"CooldownReduction"
+]
 },
 "3161": {
 "nom": "Lance de Shojin",
@@ -1618,7 +2636,13 @@
 2021,
 1028
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"AbilityHaste"
+]
 },
 "3165": {
 "nom": "Morellonomicon",
@@ -1629,7 +2653,14 @@
 1026,
 3067
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3168": {
 "nom": "Voie immortelle",
@@ -1638,7 +2669,13 @@
 "recette": [
 3008
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"LifeSteal",
+"SpellVamp",
+"Boots"
+]
 },
 "3170": {
 "nom": "Célérité martiale",
@@ -1647,7 +2684,11 @@
 "recette": [
 3009
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3171": {
 "nom": "Lucidité pourpre",
@@ -1656,7 +2697,12 @@
 "recette": [
 3158
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CooldownReduction",
+"Boots"
+]
 },
 "3172": {
 "nom": "Jambières de métal",
@@ -1665,7 +2711,13 @@
 "recette": [
 3006
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"LifeSteal",
+"NonbootsMovement"
+]
 },
 "3173": {
 "nom": "Broyeuses à chaînes",
@@ -1674,7 +2726,14 @@
 "recette": [
 3111
 ],
-"armure": 0
+"armure": 0,
+"rm": 25,
+"etiquettes": [
+"SpellBlock",
+"Boots",
+"Tenacity",
+"MagicResist"
+]
 },
 "3174": {
 "nom": "Avancée blindée",
@@ -1683,7 +2742,12 @@
 "recette": [
 3047
 ],
-"armure": 35
+"armure": 35,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Boots"
+]
 },
 "3175": {
 "nom": "Chaussures de lanceur de sorts",
@@ -1692,7 +2756,12 @@
 "recette": [
 3020
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots",
+"MagicPenetration"
+]
 },
 "3176": {
 "nom": "Semelles militaires",
@@ -1701,14 +2770,25 @@
 "recette": [
 3013
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Boots"
+]
 },
 "3177": {
 "nom": "Lame du gardien",
 "prix": 950,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"Lane",
+"AbilityHaste"
+]
 },
 "3179": {
 "nom": "Glaive d'ombre",
@@ -1718,7 +2798,15 @@
 3134,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Vision",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "3181": {
 "nom": "Brise-coques",
@@ -1729,14 +2817,27 @@
 3066,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"NonbootsMovement"
+]
 },
 "3184": {
 "nom": "Marteau du gardien",
 "prix": 950,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"LifeSteal",
+"Lane"
+]
 },
 "3190": {
 "nom": "Médaillon de l'Iron Solari",
@@ -1747,7 +2848,17 @@
 1029,
 1033
 ],
-"armure": 30
+"armure": 30,
+"rm": 30,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"Aura",
+"Active",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "3211": {
 "nom": "Manteau de spectre",
@@ -1758,7 +2869,13 @@
 1033,
 1006
 ],
-"armure": 0
+"armure": 0,
+"rm": 35,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"SpellBlock"
+]
 },
 "3222": {
 "nom": "Bénédiction de Mikael",
@@ -1768,7 +2885,16 @@
 3067,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"ManaRegen",
+"Active",
+"CooldownReduction",
+"Tenacity",
+"AbilityHaste"
+]
 },
 "3302": {
 "nom": "Terminus",
@@ -1778,42 +2904,83 @@
 3051,
 1043
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"OnHit",
+"MagicPenetration",
+"ArmorPenetration"
+]
 },
 "3330": {
 "nom": "Effigie d'épouvantail",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Active",
+"Jungle",
+"Lane",
+"Trinket",
+"Vision"
+]
 },
 "3340": {
 "nom": "Balise camouflée",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Active",
+"Jungle",
+"Lane",
+"Trinket",
+"Vision"
+]
 },
 "3363": {
 "nom": "Altération divinatoire",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Active",
+"Trinket",
+"Vision"
+]
 },
 "3364": {
 "nom": "Brouilleur oraculaire",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Active",
+"Trinket",
+"Vision"
+]
 },
 "3400": {
 "nom": "Votre part",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable",
+"GoldPer"
+]
 },
 "3504": {
 "nom": "Encensoir ardent",
@@ -1823,7 +2990,14 @@
 3113,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"SpellDamage",
+"ManaRegen",
+"NonbootsMovement"
+]
 },
 "3508": {
 "nom": "Faux spectrale",
@@ -1834,21 +3008,38 @@
 3133,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"ManaRegen",
+"CooldownReduction",
+"OnHit",
+"AbilityHaste"
+]
 },
 "3599": {
 "nom": "Lance noire de Kalista",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable"
+]
 },
 "3600": {
 "nom": "Lance noire de Kalista",
 "prix": 0,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Consumable"
+]
 },
 "3742": {
 "nom": "Plaque du mort",
@@ -1859,7 +3050,14 @@
 1028,
 1031
 ],
-"armure": 55
+"armure": 55,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"Slow",
+"NonbootsMovement"
+]
 },
 "3748": {
 "nom": "Hydre titanesque",
@@ -1870,7 +3068,14 @@
 2021,
 1011
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Damage",
+"OnHit"
+]
 },
 "3801": {
 "nom": "Bracelet cristallin",
@@ -1880,7 +3085,12 @@
 1028,
 1006
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen"
+]
 },
 "3802": {
 "nom": "Chapitre perdu",
@@ -1891,7 +3101,15 @@
 1027,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "3803": {
 "nom": "Catalyseur de l'éternité",
@@ -1902,7 +3120,14 @@
 1028,
 1027
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Mana",
+"ManaRegen"
+]
 },
 "3814": {
 "nom": "Manteau de la nuit",
@@ -1912,28 +3137,58 @@
 3134,
 2021
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"ArmorPenetration"
+]
 },
 "3865": {
 "nom": "Atlas",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3866": {
 "nom": "Boussole runique",
 "prix": 400,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3867": {
 "nom": "Trésor des mondes",
 "prix": 400,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3869": {
 "nom": "Opposition céleste",
@@ -1942,7 +3197,16 @@
 "recette": [
 3867
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3870": {
 "nom": "Rêve éveillé",
@@ -1951,7 +3215,16 @@
 "recette": [
 3867
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3871": {
 "nom": "Pique dimensionnelle de Zaz'Zak",
@@ -1960,7 +3233,16 @@
 "recette": [
 3867
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3876": {
 "nom": "Traîneau du solstice",
@@ -1969,7 +3251,16 @@
 "recette": [
 3867
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3877": {
 "nom": "Mélodie du sang",
@@ -1978,28 +3269,43 @@
 "recette": [
 3867
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"ManaRegen",
+"Vision",
+"GoldPer",
+"Lane"
+]
 },
 "3901": {
 "nom": "<rarityLegendary>Feu à volonté</rarityLegendary><br><subtitleLeft><silver>500 serpents d'argent</silver></subtitleLeft>",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "3902": {
 "nom": "<rarityLegendary>Jeune Camarde</rarityLegendary><br><subtitleLeft><silver>500 serpents d'argent</silver></subtitleLeft>",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "3903": {
 "nom": "<rarityLegendary>Moral élevé</rarityLegendary><br><subtitleLeft><silver>500 serpents d'argent</silver></subtitleLeft>",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "3916": {
 "nom": "Orbe de l'oubli",
@@ -2008,7 +3314,11 @@
 "recette": [
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage"
+]
 },
 "4005": {
 "nom": "Mandat impérial",
@@ -2019,7 +3329,14 @@
 4642,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "4401": {
 "nom": "Force de la nature",
@@ -2030,7 +3347,13 @@
 1028,
 3066
 ],
-"armure": 0
+"armure": 0,
+"rm": 55,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"NonbootsMovement"
+]
 },
 "4628": {
 "nom": "Concentration lointaine",
@@ -2041,7 +3364,12 @@
 3108,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"AbilityHaste"
+]
 },
 "4629": {
 "nom": "Volonté cosmique",
@@ -2052,7 +3380,14 @@
 3113,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "4630": {
 "nom": "Joyau putréfiant",
@@ -2061,7 +3396,12 @@
 "recette": [
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"MagicPenetration",
+"SpellDamage"
+]
 },
 "4632": {
 "nom": "Barrière verdoyante",
@@ -2072,7 +3412,12 @@
 1033,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 25,
+"etiquettes": [
+"SpellBlock",
+"SpellDamage"
+]
 },
 "4633": {
 "nom": "Créateur de failles",
@@ -2082,7 +3427,14 @@
 3147,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"CooldownReduction",
+"SpellVamp"
+]
 },
 "4635": {
 "nom": "Regard parasitaire",
@@ -2092,7 +3444,13 @@
 1028,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"SpellVamp"
+]
 },
 "4636": {
 "nom": "Moissonneur nocturne",
@@ -2102,7 +3460,15 @@
 3145,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"CooldownReduction",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "4637": {
 "nom": "Étreinte démoniaque",
@@ -2113,14 +3479,30 @@
 1011,
 1052
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage"
+]
 },
 "4641": {
 "nom": "Pierre de balise stimulante",
 "prix": 350,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"SpellDamage",
+"ManaRegen",
+"Vision",
+"Active",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "4642": {
 "nom": "Miroir en verre de Bandle",
@@ -2131,7 +3513,14 @@
 1052,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "4645": {
 "nom": "Flamme-ombre",
@@ -2141,7 +3530,12 @@
 3145,
 1058
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"MagicPenetration"
+]
 },
 "4646": {
 "nom": "Onde orageuse",
@@ -2151,7 +3545,14 @@
 3145,
 3113
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"GoldPer",
+"NonbootsMovement",
+"MagicPenetration"
+]
 },
 "6333": {
 "nom": "Danse de la mort",
@@ -2162,7 +3563,13 @@
 1037,
 3133
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Damage",
+"AbilityHaste"
+]
 },
 "6609": {
 "nom": "Épée dentelée chimico-punk",
@@ -2173,7 +3580,14 @@
 1011,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6610": {
 "nom": "Ciel éventré",
@@ -2183,7 +3597,14 @@
 2021,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6616": {
 "nom": "Bâton des flots",
@@ -2193,7 +3614,14 @@
 3108,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6617": {
 "nom": "Régénérateur de pierre de lune",
@@ -2203,7 +3631,15 @@
 3067,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6620": {
 "nom": "Échos d'Helia",
@@ -2213,7 +3649,15 @@
 3067,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6621": {
 "nom": "Cœur de l'aube",
@@ -2224,7 +3668,12 @@
 3114,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen"
+]
 },
 "6631": {
 "nom": "Estropieur",
@@ -2235,7 +3684,14 @@
 3044,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Damage",
+"AttackSpeed",
+"Slow"
+]
 },
 "6653": {
 "nom": "Tourment de Liandry",
@@ -2245,7 +3701,12 @@
 3147,
 2508
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage"
+]
 },
 "6655": {
 "nom": "Écho de Luden",
@@ -2255,7 +3716,14 @@
 3802,
 3145
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6657": {
 "nom": "Bâton séculaire",
@@ -2265,7 +3733,15 @@
 1026,
 3803
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"SpellDamage",
+"Mana",
+"ManaRegen"
+]
 },
 "6660": {
 "nom": "Cendres de Bami",
@@ -2275,7 +3751,12 @@
 1028,
 2022
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"AbilityHaste"
+]
 },
 "6662": {
 "nom": "Gantelet givrant",
@@ -2286,7 +3767,16 @@
 1028,
 1031
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"CooldownReduction",
+"Slow",
+"OnHit",
+"AbilityHaste"
+]
 },
 "6664": {
 "nom": "Rayonnement du vide",
@@ -2296,7 +3786,16 @@
 6660,
 3211
 ],
-"armure": 0
+"armure": 0,
+"rm": 40,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"HealthRegen",
+"Aura",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "6665": {
 "nom": "Jak'Sho, le Protéiforme",
@@ -2307,7 +3806,14 @@
 1031,
 1057
 ],
-"armure": 45
+"armure": 45,
+"rm": 45,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"MagicResist"
+]
 },
 "6670": {
 "nom": "Carquois zénithien",
@@ -2317,7 +3823,12 @@
 1036,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike"
+]
 },
 "6672": {
 "nom": "Tueur de krakens",
@@ -2328,7 +3839,14 @@
 3051,
 1043
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"AttackSpeed",
+"OnHit",
+"NonbootsMovement"
+]
 },
 "6673": {
 "nom": "Arc-bouclier immortel",
@@ -2338,7 +3856,12 @@
 1037,
 6670
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike"
+]
 },
 "6675": {
 "nom": "Tremblelame navori",
@@ -2349,7 +3872,13 @@
 3086,
 1042
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"CriticalStrike",
+"AttackSpeed",
+"NonbootsMovement"
+]
 },
 "6676": {
 "nom": "Percepteur",
@@ -2360,7 +3889,13 @@
 3134,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"ArmorPenetration"
+]
 },
 "6690": {
 "nom": "Rectrix",
@@ -2369,7 +3904,12 @@
 "recette": [
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"NonbootsMovement"
+]
 },
 "6692": {
 "nom": "Éclipse",
@@ -2380,7 +3920,13 @@
 1037,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "6693": {
 "nom": "Griffes du rôdeur",
@@ -2390,7 +3936,14 @@
 3134,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6694": {
 "nom": "Rancune de Serylda",
@@ -2400,7 +3953,14 @@
 3133,
 3035
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6695": {
 "nom": "Crochet de serpent",
@@ -2410,7 +3970,12 @@
 3134,
 1037
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"ArmorPenetration"
+]
 },
 "6696": {
 "nom": "Arc axiomatique",
@@ -2420,7 +3985,13 @@
 2020,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6697": {
 "nom": "Orgueil",
@@ -2430,7 +4001,15 @@
 3134,
 3133
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Active",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6698": {
 "nom": "Hydre profane",
@@ -2440,7 +4019,15 @@
 3077,
 2020
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Active",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6699": {
 "nom": "Cyclosabre voltaïque",
@@ -2451,7 +4038,15 @@
 1036,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Active",
+"CooldownReduction",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "6701": {
 "nom": "Opportunité",
@@ -2462,14 +4057,23 @@
 3134,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Active",
+"NonbootsMovement",
+"ArmorPenetration"
+]
 },
 "7050": {
 "nom": "Gangplank Placeholder",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "8001": {
 "nom": "Chaînes de l'anathème",
@@ -2479,7 +4083,14 @@
 3067,
 1011
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Active",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "8010": {
 "nom": "Malédiction du sanguinaire",
@@ -2489,7 +4100,14 @@
 3147,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"CooldownReduction",
+"MagicPenetration"
+]
 },
 "8020": {
 "nom": "Masque abyssal",
@@ -2499,7 +4117,15 @@
 3067,
 1057
 ],
-"armure": 0
+"armure": 0,
+"rm": 45,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"CooldownReduction",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "322065": {
 "nom": "Chant de guerre de Shurelya",
@@ -2509,7 +4135,16 @@
 3113,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"Active",
+"CooldownReduction",
+"NonbootsMovement",
+"AbilityHaste"
+]
 },
 "322526": {
 "nom": "Diadème des murmures",
@@ -2520,14 +4155,27 @@
 1028,
 323070
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"ManaRegen"
+]
 },
 "322530": {
 "nom": "Diadème musical",
 "prix": 2250,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"ManaRegen",
+"AbilityHaste"
+]
 },
 "323002": {
 "nom": "Sac de l'explorateur",
@@ -2537,7 +4185,13 @@
 3066,
 1031
 ],
-"armure": 45
+"armure": 45,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"NonbootsMovement"
+]
 },
 "323003": {
 "nom": "Bâton de l'archange",
@@ -2548,7 +4202,13 @@
 3802,
 3108
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "323004": {
 "nom": "Manamune",
@@ -2559,21 +4219,43 @@
 3133,
 1036
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Mana",
+"CooldownReduction",
+"OnHit",
+"AbilityHaste"
+]
 },
 "323040": {
 "nom": "Étreinte du séraphin",
 "prix": 2900,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "323042": {
 "nom": "Muramana",
 "prix": 2900,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"Mana",
+"CooldownReduction",
+"OnHit",
+"ArmorPenetration"
+]
 },
 "323050": {
 "nom": "Convergence de Zeke",
@@ -2584,14 +4266,26 @@
 3067,
 1033
 ],
-"armure": 30
+"armure": 30,
+"rm": 30,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"AbilityHaste"
+]
 },
 "323070": {
 "nom": "Larme de la déesse",
 "prix": 400,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Mana",
+"ManaRegen"
+]
 },
 "323075": {
 "nom": "Cotte épineuse",
@@ -2602,7 +4296,12 @@
 1031,
 1028
 ],
-"armure": 85
+"armure": 85,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor"
+]
 },
 "323107": {
 "nom": "Rédemption",
@@ -2613,7 +4312,14 @@
 1028,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "323109": {
 "nom": "Vœu du chevalier",
@@ -2624,7 +4330,17 @@
 1031,
 1006
 ],
-"armure": 50
+"armure": 50,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"Armor",
+"Aura",
+"Active",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "323110": {
 "nom": "Cœur gelé",
@@ -2634,7 +4350,15 @@
 3082,
 3024
 ],
-"armure": 75
+"armure": 75,
+"rm": 0,
+"etiquettes": [
+"Armor",
+"Mana",
+"Aura",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "323119": {
 "nom": "Approche de l'hiver",
@@ -2645,14 +4369,26 @@
 1011,
 3067
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"AbilityHaste"
+]
 },
 "323121": {
 "nom": "Fimbulvetr",
 "prix": 2400,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Mana",
+"AbilityHaste"
+]
 },
 "323190": {
 "nom": "Médaillon de l'Iron Solari",
@@ -2663,7 +4399,17 @@
 1029,
 1033
 ],
-"armure": 30
+"armure": 30,
+"rm": 30,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"Armor",
+"Aura",
+"Active",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "323222": {
 "nom": "Bénédiction de Mikael",
@@ -2674,7 +4420,16 @@
 1028,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"ManaRegen",
+"Active",
+"CooldownReduction",
+"Tenacity",
+"AbilityHaste"
+]
 },
 "323504": {
 "nom": "Encensoir ardent",
@@ -2685,7 +4440,14 @@
 1052,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"SpellDamage",
+"ManaRegen",
+"NonbootsMovement"
+]
 },
 "324005": {
 "nom": "Mandat impérial",
@@ -2695,7 +4457,14 @@
 1026,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "326616": {
 "nom": "Bâton des flots",
@@ -2706,7 +4475,14 @@
 1052,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "326617": {
 "nom": "Régénérateur de pierre de lune",
@@ -2717,7 +4493,15 @@
 1028,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "326620": {
 "nom": "Échos d'Helia",
@@ -2727,7 +4511,15 @@
 3067,
 4642
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"ManaRegen",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "326621": {
 "nom": "Cœur de l'aube",
@@ -2738,7 +4530,12 @@
 3114,
 3114
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"SpellDamage",
+"ManaRegen"
+]
 },
 "326657": {
 "nom": "Bâton séculaire",
@@ -2748,7 +4545,15 @@
 1026,
 3803
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"HealthRegen",
+"SpellDamage",
+"Mana",
+"ManaRegen"
+]
 },
 "328020": {
 "nom": "Masque abyssal",
@@ -2758,112 +4563,230 @@
 3067,
 1057
 ],
-"armure": 0
+"armure": 0,
+"rm": 50,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"CooldownReduction",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "663039": {
 "nom": "Jugement d'Atma",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"CriticalStrike",
+"Lane"
+]
 },
 "663056": {
 "nom": "Couronne du Roi-démon",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor",
+"Damage",
+"AttackSpeed",
+"SpellDamage",
+"MagicResist",
+"AbilityHaste"
+]
 },
 "663058": {
 "nom": "Bouclier de roche en fusion",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 80
+"armure": 80,
+"rm": 0,
+"etiquettes": [
+"Health",
+"Armor"
+]
 },
 "663059": {
 "nom": "Manteau de nuit étoilée",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 60,
+"etiquettes": [
+"Health",
+"SpellBlock"
+]
 },
 "663060": {
 "nom": "Épée du divin",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"SpellDamage"
+]
 },
 "663064": {
 "nom": "Talisman de l'ascension de Veigar",
 "prix": 900,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": []
 },
 "663146": {
 "nom": "Pistolame Hextech",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"LifeSteal",
+"SpellDamage",
+"Active",
+"SpellVamp"
+]
 },
 "663172": {
 "nom": "Zéphyr",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"AttackSpeed",
+"CooldownReduction",
+"OnHit",
+"NonbootsMovement",
+"Tenacity"
+]
 },
 "663193": {
 "nom": "Lithoplastron de gargouille",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 55
+"armure": 55,
+"rm": 55,
+"etiquettes": [
+"SpellBlock",
+"Armor",
+"Active",
+"CooldownReduction",
+"AbilityHaste"
+]
 },
 "664011": {
 "nom": "Épée de l'aube",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"CooldownReduction",
+"OnHit",
+"AbilityHaste"
+]
 },
 "664403": {
 "nom": "Spatule dorée",
 "prix": 2500,
 "achetable": false,
 "recette": [],
-"armure": 10
+"armure": 10,
+"rm": 10,
+"etiquettes": [
+"Health",
+"SpellBlock",
+"HealthRegen",
+"Armor",
+"Damage",
+"CriticalStrike",
+"AttackSpeed",
+"LifeSteal",
+"SpellDamage",
+"Mana",
+"ManaRegen",
+"CooldownReduction",
+"NonbootsMovement"
+]
 },
 "664644": {
 "nom": "Couronne de la Reine brisée",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Health",
+"SpellDamage",
+"Mana",
+"AbilityHaste"
+]
 },
 "667101": {
 "nom": "Lame du parieur",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"NonbootsMovement",
+"MagicPenetration",
+"ArmorPenetration",
+"AbilityHaste"
+]
 },
 "667109": {
 "nom": "Cruauté",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 25
+"armure": 25,
+"rm": 25,
+"etiquettes": [
+"Armor",
+"SpellDamage",
+"MagicResist"
+]
 },
 "667112": {
 "nom": "Nécrophage",
 "prix": 2500,
 "achetable": true,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"SpellDamage",
+"MagicPenetration",
+"ArmorPenetration"
+]
 },
 "667666": {
 "nom": "Percepteur",
@@ -2874,14 +4797,26 @@
 3134,
 1018
 ],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"Damage",
+"CriticalStrike",
+"ArmorPenetration"
+]
 },
 "771500": {
 "nom": "Balles perforantes",
 "prix": 0,
 "achetable": false,
 "recette": [],
-"armure": 0
+"armure": 0,
+"rm": 0,
+"etiquettes": [
+"HealthRegen",
+"ManaRegen",
+"OnHit"
+]
 }
 }
 }

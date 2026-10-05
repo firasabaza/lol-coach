@@ -53,8 +53,20 @@ après quelques secondes, ou dès que tu as suivi le conseil (achat fait, ward p
 ## Build et compositions
 
 Au début de la partie, le coach lit les dix champions : plan de lane selon le matchup, build type
-de ton champion, objets que la compo adverse impose (anti-soin, Ceinture de mercure, pénétration
-d'armure, bottes défensives). Pendant la partie, il te dit quand ton or termine le prochain objet.
+de ton champion, objets que la compo adverse fera acheter (anti-soin, Ceinture de mercure,
+pénétration d'armure, bottes défensives).
+
+Pendant la partie, le prochain objet se recalcule en continu d'après ce qui se passe : qui est
+nourri en face, qui a acheté de l'armure, qui soigne, ce que ton équipe t'offre comme protection.
+Le coach en parle quand ça sert :
+
+- à chaque mort, ce qu'il faut prendre à la boutique avec l'or que tu as ;
+- quand il te dit de back, et quand ton or termine l'objet visé ;
+- juste après un achat, l'objet suivant ;
+- en cours de partie, « Change de plan : X avant Y » avec la raison, dès que la partie l'impose.
+
+Le premier objet reste celui du champion. Ensuite, plus le build avance, plus tôt un objet de
+situation passe devant. Le détail des règles est dans `docs/CONNAISSANCES.md`, section 12.
 
 Les classes des champions et les prix viennent de données publiques, mises en cache dans
 `donnees/` (`--maj-donnees`). Les listes fines et les chemins d'items sont tenus à la main dans
@@ -121,6 +133,7 @@ fenêtres de timing.
 - `donnees/saison.toml` : les timers de la saison. À mettre à jour quand un patch les change.
 - `lolcoach/bilan.py` et `lolcoach/apres_match.py` : l'analyse et la page d'après-match.
 - `lolcoach/regles.py` : les fondamentaux. `lolcoach/strategie.py` : matchup, build, macro avancée.
+- `lolcoach/achats.py` : le prochain objet à acheter, selon le champion et l'état de la partie.
 - `donnees/champions_notes.toml` : soigneurs, accroches, ultis d'engage, chemins d'items par famille.
 
 ## Tests

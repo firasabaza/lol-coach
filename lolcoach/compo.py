@@ -101,12 +101,26 @@ def nom_objet(identifiant: int) -> str:
     return objets().get(identifiant, {}).get("nom", f"objet {identifiant}")
 
 
-def chemin(j: Joueur) -> list[int]:
-    """Le chemin d'items type du champion ; vide s'il n'est rangé dans aucune famille."""
-    for famille in notes().get("chemins", {}).values():
+def _famille(j: Joueur) -> tuple[str, dict]:
+    for nom, famille in notes().get("chemins", {}).items():
         if j.cle.lower() in (cle.lower() for cle in famille["champions"]):
-            return list(famille["objets"])
-    return []
+            return nom, famille
+    return "", {}
+
+
+def famille_de_build(j: Joueur) -> str:
+    """« crit », « on_hit », « kaisa »... ; vide si le champion n'est rangé dans aucune famille."""
+    return _famille(j)[0]
+
+
+def chemin(j: Joueur) -> list[int]:
+    """Les trois objets du build type du champion ; vide s'il n'est rangé dans aucune famille."""
+    return list(_famille(j)[1].get("objets", []))
+
+
+def suite(j: Joueur) -> list[int]:
+    """Ce qui termine le build quand la partie ne réclame rien de particulier."""
+    return list(_famille(j)[1].get("suite", []))
 
 
 def reste_a_payer(cible: int, possedes: Iterable[int]) -> int:
@@ -128,64 +142,23 @@ def reste_a_payer(cible: int, possedes: Iterable[int]) -> int:
     return cout(cible)
 
 
-def prochain_objet(e: Etat) -> int | None:
-    """L'objet à viser maintenant : la suite du chemin type, puis ce que la compo impose."""
-    for objet in chemin(e.moi):
-        if not e.moi.possede(objet):
-            return objet
-    return next((objet for objet, _ in adaptations(e)), None)
+def composants_manquants(cible: int, possedes: Iterable[int]) -> list[int]:
+    """Ce qu'il reste à acheter pour monter `cible`, à tous les étages de sa recette."""
+    sac = Counter(possedes)
+    table = objets()
+    manquants: list[int] = []
 
+    def parcourir(identifiant: int) -> None:
+        for composant in table.get(identifiant, {}).get("recette", []):
+            if sac[composant] > 0:
+                sac[composant] -= 1
+            else:
+                manquants.append(composant)
+                parcourir(composant)
 
-def finissable(e: Etat, poche: float) -> int | None:
-    """L'objet que l'or en poche permet de terminer tout de suite, s'il y en a un."""
-    cible = prochain_objet(e)
-    if cible is None or objets().get(cible, {}).get("prix", 0) < PRIX_OBJET_FINI:
-        return None
-    reste = reste_a_payer(cible, [o.id for o in e.moi.objets for _ in range(o.nombre)])
-    return cible if 0 < reste <= poche else None
+    parcourir(cible)
+    return manquants
 
 
 def objets_finis(j: Joueur) -> int:
     return sum(o.prix >= PRIX_OBJET_FINI for o in j.objets)
-
-
-def adaptations(e: Etat) -> list[tuple[int, str]]:
-    """Objets que la compo adverse justifie, du plus pressant au moins pressant : (objet, raison)."""
-    table = notes().get("adaptation")
-    if not table:
-        return []
-    c = lire_compo(e)
-    magique = fiche(e.moi).get("degats") == "AP"  # Kai'Sa et les ADC qui partent en AP
-    proposes: list[tuple[int, str]] = []
-
-    if c.suppressions and not (e.moi.possede(table["ceinture"]) or e.moi.possede(3139)):
-        proposes.append((table["ceinture"], f"{noms(c.suppressions)} te sort du combat d'un sort"))
-    if len(c.soigneurs) >= 2 and not (e.moi.possede(table["anti_soin"]) or e.moi.possede(table["anti_soin_fini"])):
-        proposes.append((table["anti_soin"], f"soins de {noms(c.soigneurs)}"))
-    blindes = [j for j in e.ennemis if sum(objets().get(o.id, {}).get("armure", 0) for o in j.objets) >= 90]
-    if (len(c.tanks) >= 2 or blindes) and not magique and not e.moi.possede(table["anti_tank"]):
-        raison = f"{noms(blindes)} empile l'armure" if blindes else f"{len(c.tanks)} tanks en face"
-        proposes.append((table["anti_tank"], raison))
-    nourris = [j for j in c.plongeurs if j.kills >= 4 and j.kills - j.morts >= 3]
-    if nourris or len(c.plongeurs) >= 3:
-        survie = 3157 if magique else table["survie"]  # Sablier de Zhonya pour un build AP
-        if not e.moi.possede(survie):
-            raison = f"{noms(nourris)} te tue en un combo" if nourris else f"{noms(c.plongeurs)} plongent sur toi"
-            proposes.append((survie, raison))
-    if len(c.ap) >= 3 and not magique and not e.moi.possede(table["anti_ap"]):
-        proposes.append((table["anti_ap"], f"{len(c.ap)} sources de dégâts magiques"))
-    return proposes
-
-
-def bottes(e: Etat) -> tuple[int, str] | None:
-    """Des bottes défensives, si la compo adverse les justifie ; None pour les bottes habituelles."""
-    table = notes().get("adaptation")
-    if not table:
-        return None
-    c = lire_compo(e)
-    if len(c.controles) + len(c.suppressions) >= 3:
-        return table["bottes_cc"], f"{len(c.controles) + len(c.suppressions)} contrôles en face"
-    tueurs_ad = [j for j in c.plongeurs if j in c.ad]
-    if len(c.ad) >= 4 and tueurs_ad:
-        return table["bottes_ad"], f"{len(c.ad)} champions à dégâts physiques, dont {noms(tueurs_ad)}"
-    return None

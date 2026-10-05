@@ -39,11 +39,13 @@ BF = (1038, "B.F. Glaive", 1300)
 EPEE = (1036, "Épée longue", 350)
 PIOCHE = (1037, "Pioche", 875)
 BOTTES = (1001, "Bottes", 300)
+YUN_TAL = (3032, "Flèches des Yun Tal", 3000)
+COQUES = (3047, "Coques en acier", 1200)
 CAPE = (1018, "Cape d'agilité", 600)
 
 # Inventaires : (à partir de t, objets)
 OBJETS = {
-    MOI: [(5, [DORAN]), (400, [DORAN, BF, EPEE]), (795, [DORAN, BF, EPEE, PIOCHE, BOTTES])],
+    MOI: [(5, [DORAN]), (400, [DORAN, BF, EPEE]), (795, [DORAN, YUN_TAL]), (1020, [DORAN, YUN_TAL, COQUES])],
     "Caitlyn ennemie": [
         (5, [DORAN]),
         (310, [DORAN, BF, BOTTES]),
@@ -62,7 +64,7 @@ NIVEAUX_DEFAUT = [100, 170, 250, 340, 440, 540, 650, 760, 880, 1000, 1130, 1260]
 
 # Courbes linéaires par morceaux : (t, valeur)
 OR = [(0, 500), (4.9, 500), (5, 0), (65, 0), (280, 960), (281, 1260), (399.9, 1714), (400, 64),
-      (556, 640), (558, 1090), (760, 1580), (794.9, 1650), (795, 475), (1290, 2400)]
+      (556, 640), (558, 1090), (760, 1580), (794.9, 1650), (795, 300), (1019.9, 1250), (1020, 50), (1290, 1150)]
 PV = [(0, 1.0), (300, 0.9), (330, 0.30), (395, 0.28), (402, 1.0), (750, 0.8), (760, 0.0),
       (785, 0.0), (786, 1.0), (1290, 0.9)]
 CS = [(0, 0), (63, 0), (1290, 127)]

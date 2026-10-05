@@ -8,9 +8,9 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 
+from .achats import a_la_boutique, conseils, finissable, prochain
 from .compo import (
-    PLONGEURS, POKE, adaptations, bottes, chemin, classe, est, fiche, finissable, lire_compo, nom_objet, noms, notes,
-    objets_finis,
+    PLONGEURS, POKE, chemin, classe, est, fiche, lire_compo, nom_objet, noms, notes, objets_finis,
 )
 from .datadragon import runes
 from .etat import ROLES_BOT, Etat
@@ -70,7 +70,7 @@ def jungler_precoce(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
 
 def build(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
-    """Le build type du champion, puis ce que la compo adverse impose."""
+    """Au départ : le build type du champion, puis ce que la compo adverse fera acheter."""
     if 25 <= e.t < 100 and (etapes := chemin(e.moi)):
         yield Conseil(
             "build-type", INFO, "",
@@ -84,15 +84,17 @@ def build(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     fait = f"En face : {_compte(len(compo.ad), 'physique')}, {_compte(len(compo.ap), 'magique')}"
     if compo.tanks:
         fait += f", {_compte(len(compo.tanks), 'tank')}"
-    prevus = [f"{nom_objet(objet)} ({raison})" for objet, raison in adaptations(e)[:2]]
-    if (chaussures := bottes(e)) is not None:
-        prevus.append(f"{nom_objet(chaussures[0])} ({chaussures[1]})")
-    action = f"À prévoir : {' ; '.join(prevus)}." if prevus else "Rien d'imposé : suis ton build."
+    prevus = [f"{nom_objet(a.objet)} ({a.raison})" for a in conseils(e)[:2]]
+    action = (
+        f"À prévoir : {' ; '.join(prevus)}. Je te dirai quand, selon la partie."
+        if prevus
+        else "Rien d'imposé pour l'instant : suis ton build, je te préviens si la partie change."
+    )
     yield Conseil("build-adaptation", INFO, fait + ".", action)
 
 
 def objet_finissable(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
-    """Le meilleur moment pour back : quand l'or en poche termine un objet."""
+    """Le meilleur moment pour back : quand l'or en poche termine l'objet visé."""
     if e.moi.mort or e.t - s.reapparu_a < 20 or (s.nb_achats and e.t - s.dernier_achat < 20):
         return
     if ennemis_morts(e) >= 3:
@@ -111,7 +113,33 @@ def objet_finissable(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         )
 
 
+def achats(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Le prochain objet, dit quand il sert : à la boutique, puis chaque fois que la cible change."""
+    moi = e.moi
+    if moi.build_complet or (vise := prochain(e)) is None:
+        return
+    pourquoi = f" Pourquoi : {vise.raison}." if vise.score else ""  # la suite du build se passe d'explication
+    # Mort : la boutique est ouverte, c'est maintenant qu'il faut savoir quoi prendre.
+    if s.mort_ce_tour and moi.reapparition >= 8 and (achat := a_la_boutique(e, or_en_poche(e))):
+        yield Conseil(f"boutique-{moi.morts}", INFO, "", f"À la boutique : {achat}.{pourquoi}")
+    # Avant le premier objet la cible est connue (le build type, annoncé au départ). Ensuite on attend
+    # que les achats soient finis : à la boutique la cible change à chaque clic.
+    if moi.mort or not objets_finis(moi) or e.t - s.dernier_achat < 8:
+        return
+    if vise.devance:
+        # La partie fait passer un objet devant le build : on le dit avec sa raison.
+        attente = f" Commence par {nom_objet(vise.composant)}." if vise.composant else ""
+        yield Conseil(
+            f"viser-{vise.objet}", TEMPO,
+            f"Change de plan : {nom_objet(vise.objet)} avant {nom_objet(vise.devance)}.",
+            f"Pourquoi : {vise.raison}.{attente}",
+        )
+    else:
+        yield Conseil(f"viser-{vise.objet}", INFO, "", f"Prochain achat : {nom_objet(vise.objet)}.{pourquoi}")
+
+
 def pics(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Chaque objet terminé ouvre une fenêtre : la tienne, ou celle de l'ADC d'en face."""
     finis = objets_finis(e.moi)
     if finis == 1:
         yield Conseil(
@@ -119,11 +147,9 @@ def pics(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             "Pic de puissance : cherche un trade ou un objectif dans les deux minutes.", intention="agressif",
         )
     elif finis == 2:
-        suite = adaptations(e)
-        ensuite = f" Ensuite : {nom_objet(suite[0][0])}, {suite[0][1]}." if suite else ""
         yield Conseil(
             "pic-2", TEMPO, "Deux objets terminés.",
-            "Tu deviens la menace principale : groupe et joue les objectifs." + ensuite,
+            "Tu deviens la menace principale : groupe et joue les objectifs.",
         )
     elif finis == 3:
         yield Conseil(
@@ -514,7 +540,8 @@ def rotations(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
 
 REGLES: tuple[Regle, ...] = (
-    plan_de_lane, lecture_adverse, jungler_precoce, build, objet_finissable, pics, menaces, etat_du_joueur, ultis,
+    plan_de_lane, lecture_adverse, jungler_precoce, build, objet_finissable, achats, pics, menaces, etat_du_joueur,
+    ultis,
     retard_de_niveau, objets_adverses, rotations, etat_de_partie, nombres, grands_objectifs, tournants,
     condition_de_victoire, milieu_de_partie,
 )

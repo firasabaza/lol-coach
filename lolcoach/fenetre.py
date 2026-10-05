@@ -37,7 +37,7 @@ ACCENTS = {
 GENRES = (
     (("drake", "baron", "grubs", "herald", "ame", "elder", "avantage", "sans-jungler", "etat", "plan-de-combat"), "objectif"),
     (("or-", "canon", "finir", "mort-or", "farm", "pv-"), "or"),
-    (("build", "pic", "adc-pic", "items", "trinket", "pink"), "build"),
+    (("build", "pic", "adc-pic", "items", "trinket", "pink", "viser", "boutique"), "build"),
     (("vision",), "vision"),
     (("jungler", "gank", "crabes"), "jungler"),
     (("sort-",), "sort"),

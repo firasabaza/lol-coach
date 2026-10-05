@@ -45,36 +45,28 @@ dominants = ["Draven", "Caitlyn", "Lucian", "Kalista", "MissFortune", "Tristana"
 # archétype, pas des statistiques du patch : corrige-les si la méta bouge.
 [chemins.crit]
 objets = [3032, 3031, 3046]   # Flèches des Yun Tal, Lame d'infini, Danseur fantôme
+suite = [3036, 3072, 3026]    # Salutations de Dominik, Soif-de-sang, Ange gardien
 champions = ["Jinx", "Tristana", "Aphelios", "Caitlyn", "Zeri", "Yunara", "Ashe", "Twitch"]
 
 [chemins.lanceur]
 objets = [3508, 6675, 3031]   # Faux spectrale, Tremblelame navori, Lame d'infini
+suite = [3036, 3072, 3026]
 champions = ["Lucian", "Xayah", "Sivir"]
 
 [chemins.on_hit]
 objets = [6672, 3124, 3302]   # Tueur de krakens, Lame enragée de Guinsoo, Terminus
+suite = [3153, 3091, 3026]    # Lame du roi déchu, Au bout du rouleau, Ange gardien
 champions = ["Vayne", "KogMaw", "Kalista", "Varus"]
 
 [chemins.letalite]
 objets = [6676, 3031, 3036]   # Percepteur, Lame d'infini, Salutations de Dominik
+suite = [3094, 3072, 3026]    # Canon ultrarapide, Soif-de-sang, Ange gardien
 champions = ["Jhin", "MissFortune", "Draven", "Samira"]
 
 [chemins.kaisa]
-objets = [6672, 3124, 3115]   # Tueur de krakens, Lame enragée de Guinsoo, Dent de Nashor
+objets = [6672, 3124, 3302]   # Tueur de krakens, Lame enragée de Guinsoo, Terminus
+suite = [3115, 3157, 3089]    # Dent de Nashor, Sablier de Zhonya, Coiffe de Rabadon
 champions = ["Kaisa"]
-
-# Objets d'adaptation, par fonction.
-[adaptation]
-ceinture = 3140       # Ceinture de mercure
-anti_soin = 3123      # Marque du bourreau
-anti_soin_fini = 3033 # Rappel mortel
-anti_tank = 3036      # Salutations de Dominik
-survie = 3026         # Ange gardien
-anti_ap = 3156        # Gueule de Malmortius
-vol_de_vie = 3072     # Soif-de-sang
-bottes_ad = 3047      # Coques en acier
-bottes_cc = 3111      # Sandales de Mercure
-trinket_bleu = 3363   # Altération divinatoire
 
 # Le sort avec lequel un support attrape, immobilise ou protège : le coach annonce son temps de
 # recharge au niveau 1 (lu dans les données du patch), parce que c'est la fenêtre pour trader.

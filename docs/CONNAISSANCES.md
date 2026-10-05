@@ -201,24 +201,50 @@ fines (accroches, soigneurs, ultis d'engage) : `donnees/champions_notes.toml`, t
 
 ## 12. Build et objets d'adaptation
 
-**Principe [consensus].** Les deux premiers objets sont ceux du champion ; à partir du troisième,
-on répond à la partie.
-- Un champion qui te sort du combat d'un sort (Malzahar, Warwick, Mordekaiser) : Ceinture de
-  mercure avant les combats à cinq.
-- Deux soigneurs ou plus : Marque du bourreau tôt, Rappel mortel ensuite.
-- Deux tanks, ou un ennemi qui empile l'armure : Salutations de Dominik.
-- Un assassin nourri, ou trois plongeurs : Ange gardien (Sablier de Zhonya sur un build AP).
-- Trois sources de dégâts magiques : Gueule de Malmortius.
+**Principe [consensus].** Le premier objet est celui du champion : un carry sans dégâts ne sert à
+rien, même vivant. Ensuite on répond à la partie, et d'autant plus tôt que le besoin est grave.
+- Un champion qui te sort du combat d'un sort (Malzahar, Warwick, Mordekaiser, Zed) : Ceinture de
+  mercure, puis Cimeterre mercuriel sur un tireur.
+- Des soigneurs : Marque du bourreau tôt, Rappel mortel ensuite. Rappel mortel et Salutations de
+  Dominik ne se cumulent pas : face aux soins et à l'armure, Rappel mortel fait les deux.
+- Un ennemi qui a acheté de l'armure, ou deux tanks : Salutations de Dominik (Bâton du vide contre
+  la résistance magique sur un build magique).
+- Un assassin ou un plongeur nourri : Arc-bouclier immortel sur un build critique, Ange gardien en
+  on-hit, Sablier de Zhonya sur Kai'Sa. Contre du burst magique en on-hit : Au bout du rouleau.
 - Trois contrôles ou plus : Sandales de Mercure. Quatre physiques dont un assassin : Coques en acier.
+- Les bottes se finissent après le premier objet. La quête de rôle les range ensuite dans un
+  septième emplacement : le build compte six objets en plus des bottes.
 - Lame d'infini jamais en premier : son passif demande 40 % de critique.
 - Le meilleur recall est celui qui termine un objet : c'est un pic de puissance.
 
-**Règles du coach.** À 0:25 le build type, à 0:45 la lecture de la compo et les objets à prévoir.
-En partie : « X gold : objet finissable », un pic annoncé à chaque objet terminé, et le prochain
-objet d'adaptation au deuxième objet.
+**Règles du coach** (`lolcoach/achats.py`). Chaque besoin reçoit un score recalculé à chaque
+lecture, d'après ce que la partie montre et pas seulement d'après la sélection des champions :
+- suppression : 3, plus le score de celui qui la lance (jusqu'à 4,5) ;
+- survie : 3 dès qu'un plongeur ou un burst a deux kills d'avance sur ses morts ou 800 gold de
+  puissance d'avance sur toi, plus son score, plus 0,5 si tu portes une prime ou si aucun
+  enchanteur ni gardien ne te protège ;
+- anti-soin : 1 + le nombre de soigneurs, plus 0,5 par soigneur nourri (un porteur de vol de vie
+  nourri compte comme soigneur) ;
+- pénétration : 2,5 pour deux tanks, 3,5 et plus dès qu'un ennemi a acheté 90 d'armure (ou 60 de
+  résistance magique).
 
-**Limite.** Les chemins d'items sont des repères par famille d'ADC (crit, lanceur, on-hit,
-létalité), écrits à la main à partir de guides : ce ne sont pas les statistiques du patch.
+Un besoin passe devant le build type à partir de 4 avec un objet fini, de 3 avec deux, de 2
+ensuite. Tant que le build type n'est pas fini, un seul objet de situation par objet de dégâts.
+
+Quand le coach parle d'objets :
+- 0:25 le build type, 0:45 la lecture de la compo et ce qu'elle fera acheter ;
+- à chaque mort, ce qu'il faut prendre avec l'or en poche (« finis X », « tel composant, en route
+  vers X », « garde ton or, il manque N ») ;
+- au conseil de back, la même phrase ; « X gold : objet finissable » quand l'or termine l'objet ;
+- huit secondes après un achat, le prochain objet visé ;
+- en cours de partie, « Change de plan : X avant Y » avec la raison, dès qu'un besoin passe devant
+  (un Zed qui prend trois kills, un tank qui finit sa Cotte épineuse).
+
+**Limite.** Les chemins d'items et les objets de situation sont des repères par famille (crit,
+lanceur, on-hit, létalité, Kai'Sa), écrits à la main à partir de guides : ce ne sont pas les
+statistiques du patch. Les seuils sont un réglage, pas une vérité. Le chemin de Kai'Sa (Tueur de
+krakens, Lame enragée de Guinsoo, Terminus) suit ce que Firas joue en classée. Les objets des
+ennemis ne sont connus que quand ils ont été vus.
 
 ## 13. Macro avancée
 

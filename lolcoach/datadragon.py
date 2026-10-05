@@ -38,6 +38,8 @@ def mettre_a_jour(objets: Path = OBJETS, champions: Path = CHAMPIONS) -> str:
             "nom": o["name"], "prix": o["gold"]["total"], "achetable": o["gold"]["purchasable"],
             "recette": [int(c) for c in o.get("from", [])],
             "armure": o.get("stats", {}).get("FlatArmorMod", 0),
+            "rm": o.get("stats", {}).get("FlatSpellBlockMod", 0),
+            "etiquettes": o.get("tags", []),
         }
         for identifiant, o in sorted(bruts.items(), key=lambda o: int(o[0]))
         if o.get("maps", {}).get(FAILLE)
@@ -86,7 +88,7 @@ def _cache(chemin: Path, cle: str) -> dict:
 
 @cache
 def objets() -> dict[int, dict]:
-    """Identifiant d'objet -> {nom, prix total, achetable, recette, armure}. Vide si le cache manque."""
+    """Identifiant d'objet -> {nom, prix total, achetable, recette, armure, rm, etiquettes}. Vide si le cache manque."""
     return {int(i): o for i, o in _cache(OBJETS, "objets").items()}
 
 
