@@ -9,12 +9,13 @@ from __future__ import annotations
 from collections.abc import Iterator
 
 from .achats import a_la_boutique, conseils, finissable, prochain
+from .carte import directions
 from .compo import (
     PLONGEURS, POKE, chemin, classe, est, fiche, lire_compo, nom_objet, noms, notes, objets_finis,
 )
 from .datadragon import runes
 from .etat import ROLES_BOT, Etat
-from .rapport import NET, avance, avance_lane, ennemis_morts, forme, puissance, score
+from .rapport import NET, avance, avance_lane, ennemis_morts, forme, nourri, peut_presser, puissance, score
 from .reglages import Reglages
 from .regles import INFO, TEMPO, URGENT, Conseil, Regle, duree, or_en_poche
 from .suivi import Suivi, lire_structure
@@ -141,10 +142,16 @@ def achats(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 def pics(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     """Chaque objet terminé ouvre une fenêtre : la tienne, ou celle de l'ADC d'en face."""
     finis = objets_finis(e.moi)
-    if finis == 1:
+    if finis == 1 and peut_presser(e, marge=NET):  # un objet fini vaut plus que son prix en composants
         yield Conseil(
             "pic-1", TEMPO, "Premier objet terminé.",
             "Pic de puissance : cherche un trade ou un objectif dans les deux minutes.", intention="agressif",
+        )
+    elif finis == 1:
+        # Derrière, un objet remet à niveau : il ne donne pas le droit de forcer.
+        yield Conseil(
+            "pic-1", TEMPO, "Premier objet terminé.",
+            "Il te remet dans la partie, pas devant : farme jusqu'au deuxième, et ne te bats qu'avec ton équipe.",
         )
     elif finis == 2:
         yield Conseil(
@@ -172,7 +179,7 @@ def menaces(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     """Les ennemis nourris, lus contre ta propre force : une menace, ou une prime à prendre."""
     compo = lire_compo(e)
     for j in e.ennemis:
-        if j.kills < 4 or j.kills - j.morts < 3:
+        if not nourri(j):
             continue
         marge = avance(e, j)
         if marge >= NET:
@@ -212,8 +219,10 @@ def etat_du_joueur(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         return
     etat = forme(e)
     if etat == "domine":
+        constat = (f"Tu es à {score(e.moi)}" if e.moi.kills - e.moi.morts >= 2
+                   else "Tu as plus d'objets que la moyenne d'en face")
         yield Conseil(
-            "nourri", TEMPO, f"Tu es à {score(e.moi)} : la partie se joue autour de toi.",
+            "nourri", TEMPO, f"{constat} : la partie se joue autour de toi.",
             "Chaque objectif se prend avec toi. Force les combats avec ton équipe à portée : c'est toi qui les gagnes.",
             repeter_apres=480, intention="agressif",
         )
@@ -535,13 +544,31 @@ def rotations(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             nom, quand, cote = min(a_venir, key=lambda p: p[1])
             yield Conseil(
                 f"plan-{ev.id}", INFO, f"Prochain objectif : {nom} dans {duree(round((quand - e.t) / 10) * 10)}.",
-                f"D'ici là, pousse mid, puis la side {cote} avec ton support. Reviens une minute avant.",
+                f"Vas-y maintenant : passe par mid, puis côté {cote} avec ton équipe."
+                if quand - e.t <= 60
+                else f"D'ici là, pousse mid, puis la side {cote} avec ton support. Reviens une minute avant.",
             )
+
+
+def placement(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Où aller : quand le joueur le demande, et à son retour en jeu quand la carte impose un endroit."""
+    if s.direction is not None:
+        # La carte bouge entre deux demandes : on donne la première réponse pas encore entendue.
+        choix = directions(e, s, c)
+        reponse = next((d for d in choix if d.cle not in s.directions_dites), choix[-1])
+        s.directions_dites.add(reponse.cle)
+        phrase = f"Sinon : {reponse.phrase[0].lower()}{reponse.phrase[1:]}" if s.direction else reponse.phrase
+        yield Conseil(f"direction-{int(e.t)}", TEMPO, "", phrase)
+    elif not s.en_lane(e) and not e.moi.mort and s.reapparu_a and e.t - s.reapparu_a <= 3:
+        # Au retour d'une mort, on ne parle que si un objectif ou le nombre décident de l'endroit.
+        premier = directions(e, s, c)[0]
+        if premier.cle in ("objectif", "nombre"):
+            yield Conseil(f"direction-retour-{e.moi.morts}", INFO, "", f"Tu reviens. {premier.phrase}")
 
 
 REGLES: tuple[Regle, ...] = (
     plan_de_lane, lecture_adverse, jungler_precoce, build, objet_finissable, achats, pics, menaces, etat_du_joueur,
     ultis,
     retard_de_niveau, objets_adverses, rotations, etat_de_partie, nombres, grands_objectifs, tournants,
-    condition_de_victoire, milieu_de_partie,
+    condition_de_victoire, milieu_de_partie, placement,
 )

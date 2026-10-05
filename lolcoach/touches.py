@@ -1,7 +1,7 @@
-"""Raccourcis clavier globaux pour signaler un sort d'invocateur ennemi.
+"""Raccourcis clavier globaux : signaler un sort d'invocateur ennemi, demander où aller, couper la voix.
 
-Le coach ne voit ni les pings ni le chat : c'est le joueur qui lui dit ce qu'il a vu.
-Les raccourcis ne sont pris à Windows que pendant une partie, pour ne pas gêner le reste.
+Le coach ne voit ni les pings ni le chat : c'est le joueur qui lui dit ce qu'il a vu, et qui lui
+parle. Les raccourcis ne sont pris à Windows que pendant une partie, pour ne pas gêner le reste.
 """
 
 from __future__ import annotations
@@ -37,12 +37,13 @@ def lire_raccourci(texte: str) -> tuple[int, int]:
 
 class Touches:
     def __init__(self, reglages: dict):
-        # (modificateurs, touche, texte du réglage, (numéro de l'ennemi, "flash" | "autre"))
+        # (modificateurs, touche, texte du réglage, (numéro de l'ennemi, "flash" | "autre")), puis les
+        # commandes sans ennemi : (0, "direction"), (0, "voix").
         self._raccourcis = [
             (*lire_raccourci(texte), texte, (numero, quoi))
             for quoi in ("flash", "autre")
             for numero, texte in enumerate(reglages.get(quoi, []), start=1)
-        ]
+        ] + [(*lire_raccourci(texte), texte, (0, commande)) for commande, texte in reglages.get("commandes", {}).items()]
         self._file: queue.Queue[tuple[int, str]] = queue.Queue()
         self._refuses: list[str] = []
         self._fait = threading.Event()
@@ -59,7 +60,7 @@ class Touches:
         self._envoyer(DESACTIVER)
 
     def appuis(self) -> list[tuple[int, str]]:
-        """Les signalements arrivés depuis le dernier appel : (numéro de l'ennemi, "flash" | "autre")."""
+        """Les appuis arrivés depuis le dernier appel : (numéro de l'ennemi, "flash" | "autre"), ou (0, commande)."""
         recus = []
         try:
             while True:

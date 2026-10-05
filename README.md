@@ -39,13 +39,14 @@ en jeu demande Qt :
 python -m pip install -r requirements.txt
 ```
 
-La voix utilise les voix françaises de Windows, par PowerShell 7.
+La voix utilise les voix françaises de Windows, par PowerShell 7. Elle est coupée au lancement :
+en partie, **Ctrl+M** la met et la coupe. Les bulles, elles, sont toujours là.
 
 ## Régler
 
-Tout est dans `config.toml` : niveau de conseil (`coach`, `faits`, `silencieux`), voix (nom,
-hauteur, débit, volume), messagerie (coin de l'écran, durée des bulles), touches des minuteurs,
-seuils (or de recall, PV, farm, délais d'annonce).
+Tout est dans `config.toml` : niveau de conseil (`coach`, `faits`, `silencieux`), voix (active
+ou non au lancement, sa touche, nom, hauteur, débit, volume), messagerie (coin de l'écran, durée
+des bulles), touches (minuteurs, « où aller »), seuils (or de recall, PV, farm, délais d'annonce).
 
 La messagerie ne passe au-dessus du jeu qu'en mode **fenêtré sans bordure**. Une bulle s'efface
 après quelques secondes, ou dès que tu as suivi le conseil (achat fait, ward posée, PV remontés).
@@ -95,6 +96,26 @@ même page est tirée de l'enregistrement du coach : tout y est sauf la carte et
 Limite : les positions sont relevées une fois par minute et lissées entre deux relevés. La carte
 montre où chacun était, pas ce que tu voyais sur ta minimap.
 
+## Où aller : Ctrl+F6
+
+Le coach ne voit pas les positions. Il sait quelles tours sont debout, qui est mort et pour
+combien de temps, quel objectif arrive, et où tu en es (PV, or, avance). En partie, **Ctrl+F6**
+te donne l'endroit où être maintenant :
+
+- « Mid : c'est la lane la plus courte, ta tour est à deux pas. »
+- « Drake dans 45 secondes : passe par mid, puis côté bot. »
+- « Tu es à 25 % : back d'abord. À la boutique : finis Percepteur. »
+
+Si ce n'est pas jouable (un allié farme déjà la vague, un ennemi tient la lane), appuie encore
+dans les 25 secondes : il propose la solution suivante (« Sinon : la vague top devant ta tour
+intérieure seulement... », puis les camps de ta jungle).
+
+Sans que tu demandes, il parle de placement quand une tour tombe, et à ton retour en jeu si un
+objectif ou le nombre de vivants décident de l'endroit.
+
+Quand trois ennemis sont morts, il donne **une** consigne, choisie d'après tes PV, ton or, le
+temps avant leur retour et la carte : back, objectif, ou une tour qu'il nomme.
+
 ## Minuteurs de sorts ennemis
 
 Le coach ne voit ni tes pings ni le chat. Quand tu vois partir un sort d'invocateur, appuie sur
@@ -123,8 +144,10 @@ KDA, sbires et score de vision des dix joueurs, les morts et les événements (d
 Baron, tours, kills).
 
 Il ne voit ni la minimap, ni les positions, ni l'état des vagues. Ses conseils de wave reposent
-sur l'horloge des vagues canon, et sa lecture du jungler adverse sur les kills, les niveaux et les
-fenêtres de timing.
+sur l'horloge des vagues canon, sa lecture du jungler adverse sur les kills, les niveaux et les
+fenêtres de timing, et ses conseils de placement sur les tours, les morts et les objectifs. Il ne
+sait donc pas qu'un allié farme ta vague ou qu'un ennemi tient ta lane : c'est à ça que sert le
+deuxième appui sur Ctrl+F6.
 
 ## Fichiers
 
@@ -134,6 +157,8 @@ fenêtres de timing.
 - `lolcoach/bilan.py` et `lolcoach/apres_match.py` : l'analyse et la page d'après-match.
 - `lolcoach/regles.py` : les fondamentaux. `lolcoach/strategie.py` : matchup, build, macro avancée.
 - `lolcoach/achats.py` : le prochain objet à acheter, selon le champion et l'état de la partie.
+- `lolcoach/carte.py` : où aller, et quoi prendre après un combat gagné.
+- `lolcoach/rapport.py` : le rapport de force. `lolcoach/moteur.py` : l'arbitre entre les conseils.
 - `donnees/champions_notes.toml` : soigneurs, accroches, ultis d'engage, chemins d'items par famille.
 
 ## Tests

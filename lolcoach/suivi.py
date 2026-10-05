@@ -63,6 +63,16 @@ def lire_structure(nom: str) -> tuple[str, str, bool] | None:
     return None
 
 
+def rang_tour(nom: str) -> int | None:
+    """1 pour une tour extérieure, 2 intérieure, 3 d'inhibiteur ; None pour une tour du Nexus ou un nom inconnu."""
+    if trouve := _STRUCTURE.search(nom):
+        return {"3": 1, "2": 2, "1": 3}.get(trouve[3] or "")
+    if trouve := _STRUCTURE_DOC.search(nom):
+        numero = int(trouve[3])
+        return {5: 1, 4: 2, 3: 3}.get(numero) if trouve[2] == "C" else {3: 1, 2: 2, 1: 3}.get(numero)
+    return None
+
+
 class Suivi:
     def __init__(self, reglages: Reglages):
         saison = reglages.saison
@@ -80,6 +90,9 @@ class Suivi:
         self.herald_pris = False
         self.prochain_baron = float(saison["objectifs"]["baron"])
         self.tours_bot_tombees: set[str] = set()  # équipes qui ont perdu leur tour extérieure bot
+        # (équipe propriétaire, lane) -> nombre de tours tombées sur cette lane, de l'extérieure vers la base
+        self.tours_tombees: dict[tuple[str, str], int] = {}
+        self.inhibiteurs: set[tuple[str, str]] = set()  # (équipe propriétaire, lane) des inhibiteurs détruits
         # Le jeu arrondit les sbires à la dizaine inférieure : on retient quand chaque dizaine est atteinte.
         self.cs_palier: tuple[int, float] | None = None
         self._cs: int | None = None
@@ -111,6 +124,12 @@ class Suivi:
         # Ce que le joueur vient de signaler : ("note" | "annule", Minuteur) ou ("refus", explication).
         self.notes: list[tuple[str, Minuteur | str]] = []
         self._notes_en_attente: list[tuple[str, Minuteur | str]] = []
+        # « Où aller ? » demandé par le joueur : rang de la réponse attendue (0 la meilleure, 1 la suivante...).
+        self.direction: int | None = None
+        self.directions_dites: set[str] = set()  # réponses déjà données depuis la première demande
+        self._direction_en_attente = False
+        self._direction_a = float("-inf")
+        self._direction_rang = 0
 
     @property
     def premiere(self) -> bool:
@@ -148,10 +167,20 @@ class Suivi:
         self.sorts[cle] = minuteur
         self._notes_en_attente.append(("note", minuteur))
 
+    def demander_direction(self) -> None:
+        """Le joueur demande où aller. Redemander dans les 25 secondes : la solution suivante."""
+        self._direction_en_attente = True
+
     def maj(self, e: Etat) -> None:
         self.lectures += 1
         self.jungler_vu_ce_tour = False
         self.notes, self._notes_en_attente = self._notes_en_attente, []
+        self.direction = None
+        if self._direction_en_attente:
+            self._direction_rang = self._direction_rang + 1 if e.t - self._direction_a <= 25 else 0
+            if self._direction_rang == 0:
+                self.directions_dites = set()
+            self.direction, self._direction_a, self._direction_en_attente = self._direction_rang, e.t, False
         # Un minuteur écoulé reste quelques secondes, le temps que la règle annonce le retour du sort.
         self.sorts = {cle: m for cle, m in self.sorts.items() if e.t - m.retour <= 5}
 
@@ -235,6 +264,7 @@ class Suivi:
         self.prochain_drake, self.elder = float(o["drake"]), False
         self.prochain_baron, self.herald_pris = float(o["baron"]), False
         self.tours_bot_tombees = set()
+        self.tours_tombees, self.inhibiteurs = {}, set()
         for ev in e.evenements:
             heure = ev.t + self.decalage
             if ev.nom == "DragonKill":
@@ -252,6 +282,10 @@ class Suivi:
                 structure = lire_structure(ev.cible)
                 if structure and structure[1] == "bot" and structure[2]:
                     self.tours_bot_tombees.add(structure[0])
+                if structure and (rang := rang_tour(ev.cible)):
+                    self.tours_tombees[structure[:2]] = max(self.tours_tombees.get(structure[:2], 0), rang)
+            elif ev.nom in ("InhibKilled", "InhibRespawned") and (structure := lire_structure(ev.cible)):
+                (self.inhibiteurs.add if ev.nom == "InhibKilled" else self.inhibiteurs.discard)(structure[:2])
 
     @classmethod
     def _lieu(cls, ev: Evenement, e: Etat, jungler: str) -> tuple[str, str] | None:

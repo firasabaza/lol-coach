@@ -52,10 +52,13 @@ def _hors_profil(e: Etat) -> str | None:
 
 class Coach:
     def __init__(self, client: Client, reglages: Reglages, voix, fenetre, intervalle: float, une_partie: bool,
-                 dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False, client_lol: ClientLol | None = None):
+                 dossier: Path = RACINE, touches=None, ouvrir_rapport: bool = False, client_lol: ClientLol | None = None,
+                 creer_voix=None):
         self.client = client
         self.reglages = reglages
         self.voix = voix
+        self.parle = voix is not None  # la voix se coupe et se remet en partie, sans relancer le coach
+        self._creer_voix = creer_voix  # None : pas de voix du tout (--muet, niveau silencieux)
         self.fenetre = fenetre
         self.touches = touches
         self.ouvrir_rapport = ouvrir_rapport
@@ -136,7 +139,12 @@ class Coach:
         assert self._enregistreur is not None
         if self.touches:
             for numero, quoi in self.touches.appuis():
-                self._moteur.suivi.noter_sort(etat, numero, quoi)
+                if quoi == "voix":
+                    self._basculer_voix()
+                elif quoi == "direction":
+                    self._moteur.suivi.demander_direction()
+                else:
+                    self._moteur.suivi.noter_sort(etat, numero, quoi)
         conseils = self._moteur.lire(etat)
         self._enregistreur.ecrire(brut)
 
@@ -144,7 +152,7 @@ class Coach:
         dits = [c for c in conseils if c.texte(niveau)]
         for c in dits:
             print(f"[{_temps(etat.t)}] {c.texte(niveau)}")
-        if self.voix:
+        if self.voix and self.parle:
             a_voix_haute = [c for c in dits if a_dire(c, etat, self.reglages.voix)]
             for c in a_voix_haute[:2]:  # au plus deux phrases par lecture, les plus urgentes
                 self.voix.dire(c.texte(niveau))
@@ -161,6 +169,19 @@ class Coach:
             self.fenetre.minuteurs([
                 (f"{m.sort} {m.champion}", m.retour - etat.t) for m in sorted(suivi.sorts.values(), key=lambda m: m.retour)
             ])
+
+    def _basculer_voix(self) -> None:
+        if self._creer_voix is None:
+            return
+        self.parle = not self.parle
+        if self.parle and self.voix is None:
+            self.voix = self._creer_voix()
+        print("Voix activée." if self.parle else "Voix coupée.")
+        if self.parle:
+            self.voix.dire("Voix activée.")
+        if self.fenetre:
+            touche = str(self.reglages.voix.get("touche", "ctrl+m")).title()
+            self.fenetre.message("Voix activée" if self.parle else "Voix coupée", f"{touche} pour la {'couper' if self.parle else 'remettre'}.")
 
     def _terminer(self) -> None:
         assert self._enregistreur is not None
@@ -254,11 +275,15 @@ def main() -> None:
     else:
         client, intervalle = Client(), 1.0
 
-    voix = fenetre = None
-    if reglages.voix.get("active", True) and not options.muet and reglages.niveau != "silencieux":
+    voix = fenetre = creer_voix = None
+    if not options.muet and reglages.niveau != "silencieux":
         from .voix import Voix
 
-        voix = Voix(reglages.voix)
+        def creer_voix():
+            return Voix(reglages.voix)
+
+        # Coupée au départ si le réglage le dit : elle se remet en partie avec son raccourci.
+        voix = creer_voix() if reglages.voix.get("active", True) else None
     if reglages.fenetre.get("active", True) and not options.sans_fenetre:
         try:
             from .fenetre import Fenetre
@@ -266,20 +291,23 @@ def main() -> None:
             fenetre = Fenetre(reglages.fenetre)
         except ImportError:
             print("Messagerie en jeu désactivée. Pour l'avoir : python -m pip install -r requirements.txt")
-    touches = None
-    if reglages.sorts.get("actif", True):
-        from .touches import Touches
+    from .touches import Touches
 
-        try:
-            touches = Touches(reglages.sorts)
-        except ValueError as erreur:
-            sys.exit(f"Réglages invalides : {erreur}")
+    commandes = {"direction": reglages.carte.get("touche", "ctrl+f6")}
+    if creer_voix:
+        commandes["voix"] = reglages.voix.get("touche", "ctrl+m")
+    raccourcis = dict(reglages.sorts) if reglages.sorts.get("actif", True) else {}
+    raccourcis["commandes"] = {commande: touche for commande, touche in commandes.items() if touche}
+    try:
+        touches = Touches(raccourcis)
+    except ValueError as erreur:
+        sys.exit(f"Réglages invalides : {erreur}")
 
     coach = Coach(
         client, reglages, voix, fenetre, intervalle, une_partie=options.simulation, touches=touches,
         # Après une vraie partie le débrief s'ouvre toujours ; en simulation, seulement devant un terminal.
         ouvrir_rapport=not options.simulation or sys.stdout.isatty(),
-        client_lol=None if options.simulation else ClientLol(),
+        client_lol=None if options.simulation else ClientLol(), creer_voix=creer_voix,
     )
     fil = None
     try:

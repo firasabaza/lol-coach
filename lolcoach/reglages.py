@@ -32,6 +32,7 @@ class Reglages:
     voix: dict = field(default_factory=dict)
     fenetre: dict = field(default_factory=dict)
     sorts: dict = field(default_factory=dict)
+    carte: dict = field(default_factory=dict)
 
 
 def _lire(chemin: Path) -> dict:
@@ -63,4 +64,5 @@ def charger(racine: Path = RACINE) -> Reglages:
         voix=config.get("voix", {}),
         fenetre=config.get("fenetre", {}),
         sorts=config.get("sorts", {}),
+        carte=config.get("carte", {}),
     )

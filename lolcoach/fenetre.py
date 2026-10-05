@@ -35,7 +35,8 @@ ACCENTS = {
 }
 # Famille d'un conseil, d'après le début de sa clé.
 GENRES = (
-    (("drake", "baron", "grubs", "herald", "ame", "elder", "avantage", "sans-jungler", "etat", "plan-de-combat"), "objectif"),
+    (("drake", "baron", "grubs", "herald", "ame", "elder", "avantage", "sans-jungler", "etat", "plan-de-combat", "direction", "tour-"),
+     "objectif"),
     (("or-", "canon", "finir", "mort-or", "farm", "pv-"), "or"),
     (("build", "pic", "adc-pic", "items", "trinket", "pink", "viser", "boutique"), "build"),
     (("vision",), "vision"),

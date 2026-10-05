@@ -355,8 +355,90 @@ importante passe et l'autre attend :
 | 6 | prudent | niveau de retard, jungler pas vu, ennemi nourri |
 
 Sont contraires : objectif et back, tempo et back, objectif et prudent, agressif et prudent,
-danger et agressif. Une même intention n'est pas redite avant 45 secondes pour le back, 40 pour
-la prudence, 30 pour l'agressif. Un conseil écarté revient s'il est encore vrai après le conflit.
+danger et agressif, danger et objectif. Une même intention n'est pas redite avant 45 secondes pour
+le back, 40 pour la prudence, 30 pour l'agressif. Un conseil écarté revient s'il est encore vrai
+après le conflit.
+
+Trois garde-fous d'état, ajoutés après la partie du 5 octobre 2026 (« prends une tour » dit à
+33 % de PV avec un objet finissable) :
+- un joueur à 35 % de PV ou moins depuis plusieurs lectures ne reçoit aucun conseil d'intention
+  objectif ou agressif : sa seule décision est de rentrer ;
+- un ordre urgent se décide sur l'état du moment, pas sur ce qui a été dit trente secondes plus
+  tôt ;
+- quand la partie retourne une consigne que le joueur vient d'entendre, le coach le dit : « Le
+  back attendra. », « Changement de plan. », « Stop. ».
+
+Et l'état du joueur filtre les conseils qui poussent au combat (`rapport.peut_presser`) : pas en
+retard d'un demi-objet sur son adversaire de lane, pas après deux morts avant dix minutes, pas à
+trois morts de plus que de kills, pas face à un adversaire de lane nourri qu'il ne domine pas.
+Un drake ne se propose qu'avec le jungler allié en vie et sans infériorité numérique.
+
+## 18. Après un combat gagné : back, objectif ou tour
+
+**Principe [consensus].** Trois ennemis morts ouvrent une fenêtre qui dure jusqu'au premier
+retour. Ce qu'on en fait dépend de soi autant que de la carte.
+- Bas en PV, on ne prend rien : mais c'est le back le plus sûr de la partie, et il se prend tout
+  de suite. « Une plaque de plus » ne vaut pas une mort avec une prime sur la tête.
+- En forme : un objectif neutre disponible passe avant une tour (Baron à quatre vivants avec le
+  jungler, drake avec le jungler ou à trois).
+- Sinon la tour, sur la lane où l'on se trouve : bot pendant la phase de lane, mid ensuite. Un
+  inhibiteur à découvert passe avant une tour.
+- De l'or à dépenser et moins de quinze secondes avant leur retour : pas le temps pour une tour,
+  on rentre acheter.
+- Les cinq morts pour vingt secondes après 15 minutes : on finit, quels que soient les PV.
+
+**Règle du coach** (`carte.apres_combat`). Une seule consigne, qui nomme la structure (« La tour
+mid intérieure, avec la vague. ») et dit quoi faire de l'or (« Back juste après : tu as 1500 gold
+à dépenser. », ou « À la boutique : finis Percepteur. »). Rien n'est dit si les morts reviennent
+dans moins de huit secondes.
+
+## 19. Où être sur la carte en milieu de partie
+
+**Principe [consensus].**
+- Dès qu'une tour extérieure bot tombe, d'un côté ou de l'autre, l'ADC va mid : c'est la lane la
+  plus courte, donc celle où l'on rejoint sa tour le plus vite. Les sides sont pour les joueurs
+  qui ont un Téléport ou un duel.
+- Mid, on ne pousse qu'avec son support à côté ou le jungler adverse vu ailleurs. Sinon on laisse
+  la vague venir.
+- Une vague de side se prend quand elle arrive à sa tour, puis on revient mid dans les quinze
+  secondes. Jamais seul en side à l'opposé de son équipe.
+- Chaque tour perdue recule la limite : devant la tour intérieure une fois l'extérieure tombée,
+  et plus de side seul quand deux tours sont tombées sur une lane.
+- On ne suit pas tous les combats : on se demande si on sera revenu pour la vague suivante.
+- Un allié farme déjà la vague : on ne la partage pas. On prend les camps de sa jungle du côté
+  du prochain objectif, puis la vague suivante. Si le midlaner ne laisse pas la lane, on tient
+  la lane libre sous sa tour.
+- En retard avec la tour extérieure perdue : geler la vague devant la tour intérieure et ne
+  prendre que ce qui arrive.
+- Une minute avant un objectif, on passe par mid et on arrive avec son équipe, jamais le premier
+  dans la rivière.
+
+**Règle du coach** (`carte.directions`). Le coach ne voit pas les positions. Il sait quelles tours
+sont debout des deux côtés, qui est mort et pour combien de temps, quel objectif arrive et de quel
+côté, et l'état du joueur. Il en tire un endroit, puis des solutions de repli :
+- en supériorité de deux joueurs : la décision de la section 18 ;
+- bas en PV : le back d'abord ;
+- en infériorité : sous la tour mid, sans combat avant le retour des alliés ;
+- objectif dans les 75 secondes, ou disponible et jouable : y aller par mid ;
+- sinon mid, à la profondeur que les tours permettent ; puis la side du prochain objectif ; puis
+  la jungle si un allié tient déjà la vague.
+
+Il parle de placement à chaque tour qui change la donne (tour bot, tour mid alliée), au retour
+d'une mort quand un objectif ou le nombre décident de l'endroit, et à la demande : une touche
+(Ctrl+F6) donne la meilleure réponse, un nouvel appui dans les 25 secondes donne la suivante.
+C'est la réponse au cas que le coach ne peut pas voir : la vague déjà prise par un allié, ou la
+lane tenue par un ennemi plus fort.
+
+**Limite.** Ces règles viennent de guides écrits, pas de l'analyse de replays ou de vocaux de
+joueurs Challenger : le coach ne sait ni regarder une vidéo ni écouter un stream. Sans les
+positions, il donne un plan par l'état de la partie ; ce qui se voit à l'écran reste au joueur.
+
+Sources ajoutées :
+- [dodge.gg, Bot Lane (ADC) Guide 2026](https://www.dodge.gg/en-US/lol/news/bot-lane-adc-guide-2026)
+- [games.gg, League of Legends ADC Guide](https://games.gg/league-of-legends/guides/league-of-legends-adc-guide/)
+- [Mobalytics, How to play behind as ADC](https://mobalytics.gg/lol/guides/how-to-play-behind-adc)
+- [r/summonerschool, What should an ADC do (mid game)](https://lr.us.psf.lt/r/summonerschool/comments/1duknnt/what_should_an_adc_do)
+- [GuildOrder, Role and lane theory](https://guildorder.com/games/league/guides/role-and-lane-theory)
 
 Trois ennemis morts : ni back ni alerte de PV, on prend un objectif ; tous morts pour vingt
 secondes ou plus après 15 minutes, on finit la partie.

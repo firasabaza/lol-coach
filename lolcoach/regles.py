@@ -9,11 +9,16 @@ from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 
 from .achats import a_la_boutique, finissable
+from .carte import PV_POUR_JOUER, apres_combat
 from .compo import est
 from .etat import PINK, ROLES_BOT, Etat
-from .rapport import ECRASANT, NET, avance, avance_lane, ennemis_morts, forme, score
+from .mots import duree, heure
+from .rapport import (
+    ECRASANT, NET, avance_lane, drake_jouable, ennemis_morts, forme, objets_estimes, or_en_poche, peut_presser, score,
+    vivants,
+)
 from .reglages import Reglages
-from .suivi import Suivi, lire_structure
+from .suivi import Suivi, lire_structure, rang_tour
 
 URGENT, TEMPO, INFO = 1, 2, 3
 
@@ -38,32 +43,6 @@ class Conseil:
 
 
 Regle = Callable[[Etat, Suivi, Reglages], Iterator[Conseil]]
-
-
-def duree(secondes: float) -> str:
-    s = max(0, round(secondes))
-    if s < 60:
-        return f"{s} secondes"
-    minutes, reste = divmod(s, 60)
-    base = "une minute" if minutes == 1 else f"{minutes} minutes"
-    return base if reste == 0 else f"{base} {reste}"
-
-
-def heure(t: float) -> str:
-    """Une heure de jeu telle qu'on la dit : « 12 minutes 40 »."""
-    minutes, secondes = divmod(max(0, round(t)), 60)
-    return f"{minutes} minutes {secondes}" if secondes else f"{minutes} minutes"
-
-
-def or_en_poche(e: Etat) -> float:
-    """L'or que le joueur peut encore transformer en puissance.
-
-    Zéro quand le build est fini (il n'y a plus rien à acheter), et quand l'outil d'entraînement
-    en a donné des dizaines de milliers.
-    """
-    if e.moi.build_complet or (e.mode == "PRACTICETOOL" and e.or_ > 10000):
-        return 0.0
-    return e.or_
 
 
 def accompli(conseil: Conseil, dit_a: float, e: Etat, s: Suivi) -> bool:
@@ -222,7 +201,7 @@ def recall(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     # Juste après une réapparition ou un achat on est à la fontaine : lui dire de back n'a pas de sens.
     if e.moi.mort or e.t - s.reapparu_a < 20 or (s.nb_achats and e.t - s.dernier_achat < 20):
         return
-    # Trois ennemis morts : la carte est libre, on prend quelque chose. Le back et les PV attendront.
+    # Trois ennemis morts : la règle d'avantage tranche entre le back, l'objectif et la tour.
     if ennemis_morts(e) >= 3:
         return
 
@@ -312,7 +291,7 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if jg.mort and jg.reapparition >= 10 and not e.moi.mort:
         if ennemis_morts(e) >= 3:
             return  # la règle d'avantage numérique le dit déjà, en mieux
-        if s.drake_dispo(e.t):
+        if s.drake_dispo(e.t) and drake_jouable(e):
             yield Conseil(
                 f"jungler-mort-{jg.morts}", TEMPO, f"Leur jungler est mort, {duree(jg.reapparition)}.",
                 "Drake gratuit : ping ton jungler et pousse.", intention="objectif",
@@ -342,16 +321,25 @@ def jungler(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
                     "Avancé : recule. Sous tour : c'est le moment de back.",
                     intention="" if devant else "prudent",
                 )
-        elif cote == "top" and s.drake_dispo(e.t):
+        elif cote == "top" and s.drake_dispo(e.t) and drake_jouable(e):
             yield Conseil(
                 cle, TEMPO, "Leur jungler vient d'apparaître en top.",
                 "Il est loin : drake possible, ping ton jungler.", repeter_apres=60, intention="objectif",
             )
-        elif cote == "top" and lane:
+        elif cote == "top" and lane and vivants(e)[1] - vivants(e)[0] >= 2:
+            pass  # à deux de moins, la règle d'infériorité parle : pas de « tu es safe »
+        elif cote == "top" and lane and peut_presser(e):
             yield Conseil(
                 cle, TEMPO, "Leur jungler vient d'apparaître en top.",
                 f"Tu es safe {traversee} secondes : joue agressif ou prends la vision rivière.", repeter_apres=60,
                 intention="agressif",
+            )
+        elif cote == "top" and lane:
+            # En retard ou après deux morts : la fenêtre sert à farmer et à warder, pas à trader.
+            yield Conseil(
+                cle, TEMPO, "Leur jungler vient d'apparaître en top.",
+                f"Tu es safe {traversee} secondes : farme sans crainte et pose la vision rivière, sans chercher le trade.",
+                repeter_apres=60,
             )
         elif cote == "mid" and lane and not devant:
             yield Conseil(
@@ -394,18 +382,12 @@ def avantage(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     morts = [j for j in e.ennemis if j.mort]
 
     if len(morts) >= 3 and not e.moi.mort:
-        retour = min(j.reapparition for j in morts)  # le premier qui revient ferme la fenêtre
-        if len(morts) == len(e.ennemis) and retour >= 20 and e.t >= 900:
-            action = "Finissez : tout le monde mid avec la vague, la partie se gagne maintenant."
-        elif s.baron_dispo(e.t) and retour >= 15:
-            action = "Baron, maintenant."
-        elif s.drake_dispo(e.t):
-            action = "Drake, maintenant."
-        else:
-            action = "Prends une tour ou un inhibiteur : le back viendra après."
-        yield Conseil(
-            "avantage", URGENT, f"{len(morts)} ennemis morts.", action, repeter_apres=45, intention="objectif"
-        )
+        # Une seule consigne, choisie d'après les PV, l'or, le temps avant leur retour et la carte.
+        if decision := apres_combat(e, s, c):
+            yield Conseil(
+                "avantage", URGENT, f"{len(morts)} ennemis morts.", decision.phrase, repeter_apres=45,
+                intention="back" if decision.quoi == "back" else "objectif",
+            )
         return
 
     if not s.en_lane(e):
@@ -480,6 +462,10 @@ def items(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if adc is None or (s.nb_achats and e.t - s.dernier_achat < 20):
         return  # pas d'ADC en face, ou panier en cours : l'écart bouge à chaque clic
     ecart = e.moi.valeur_objets - adc.valeur_objets
+    if ecart > 0:
+        # Ses objets ne sont connus que quand il a été vu : une avance ne s'annonce que si elle
+        # tient aussi face à ce que son score laisse supposer.
+        ecart = max(0, min(ecart, e.moi.valeur_objets - objets_estimes(e, adc)))
     # Trois annonces au plus dans chaque sens : au-delà, l'écart est acquis et le redire n'apprend rien.
     palier = min(3, abs(ecart) // c.seuils.ecart_items)
     if palier == 0:
@@ -504,22 +490,36 @@ def items(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
 
 def tours(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Une tour qui tombe déplace l'endroit où l'ADC peut farmer."""
+    en_lane = s.en_lane(e)
     for ev in s.nouveaux:
         structure = lire_structure(ev.cible) if ev.nom == "TurretKilled" else None
-        if structure is None or structure[1] != "bot" or not structure[2]:
-            continue  # seule la tour extérieure bot change le plan de l'ADC
-        if structure[0] == e.moi.equipe:
+        rang = rang_tour(ev.cible) if structure else None
+        if structure is None or rang is None:
+            continue
+        equipe, lane, _ = structure
+        if lane == "bot" and rang == 1 and equipe == e.moi.equipe:
             yield Conseil(
                 "tour-bot-perdue", TEMPO, "Ta tour bot est tombée.",
-                "La lane est trop longue : va farm mid, ne reste pas seul en bot.",
+                "La lane est trop longue pour toi : va farmer mid. En bot, seulement la vague qui arrive devant ta "
+                "tour intérieure, jamais seul plus loin.",
             )
-        else:
-            yield Conseil(
-                "tour-bot-prise", TEMPO, "Tour bot ennemie détruite.",
-                "Porte ton avance mid avec ton support : la tour mid est la suivante. La side, c'est pour ton toplaner."
-                if forme(e) == "domine"
-                else "Va mid avec ton support. La side, c'est pour ton toplaner.",
-            )
+        elif lane == "bot" and rang == 1:
+            if not e.moi.mort and e.pv <= PV_POUR_JOUER:
+                action = "Tu es bas : back d'abord. Ensuite, mid avec ton support : la side, c'est pour ton toplaner."
+            elif forme(e) == "domine":
+                action = "Porte ton avance mid avec ton support : la tour mid est la suivante. La side, c'est pour ton toplaner."
+            else:
+                action = "Va mid avec ton support. La side, c'est pour ton toplaner."
+            yield Conseil("tour-bot-prise", TEMPO, "Tour bot ennemie détruite.", action)
+        elif lane == "mid" and equipe == e.moi.equipe and rang <= 2 and not en_lane:
+            # La lane la plus sûre recule d'une tour : on dit où se tenir maintenant.
+            if rang == 1:
+                action = "Farme mid devant ta tour intérieure : la vague vient à toi. Plus de side seul sans voir trois ennemis."
+            else:
+                action = "Reste collé à ton équipe : chaque vague se nettoie de loin, sous ta tour d'inhibiteur."
+            nom = "extérieure" if rang == 1 else "intérieure"
+            yield Conseil(f"tour-mid-perdue-{rang}", TEMPO, f"Ta tour mid {nom} est tombée.", action)
 
     fin = c.saison["sbires"]["fin_de_lane"]
     if fin <= e.t < fin + 30:

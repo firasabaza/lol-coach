@@ -6,7 +6,8 @@
 niveau = "coach"
 
 [voix]
-active = true
+active = false           # coupée au lancement ; en partie, la touche ci-dessous la met et la coupe
+touche = "ctrl+m"
 nom = "Microsoft Julie"  # autres voix FR installées : Microsoft Hortense, Microsoft Paul
 hauteur = 1.15           # 1.0 = voix telle quelle ; plus haut = plus aiguë (1.1 à 1.25 reste naturel)
 debit = 2                # -10 (lent) à 10 (rapide)
@@ -42,6 +43,12 @@ actif = true
 # Une touche par ennemi, dans l'ordre du tableau des scores : top, jungle, mid, ADC, support.
 flash = ["ctrl+f1", "ctrl+f2", "ctrl+f3", "ctrl+f4", "ctrl+f5"]
 autre = ["shift+f1", "shift+f2", "shift+f3", "shift+f4", "shift+f5"]   # son autre sort
+
+# « Où aller ? » : en partie, cette touche te donne l'endroit où être maintenant (lane, objectif, back).
+# Si ce n'est pas jouable (un allié farme déjà la vague, un ennemi la tient), appuie encore dans les
+# 25 secondes : le coach propose la solution suivante.
+[carte]
+touche = "ctrl+f6"
 
 [seuils]
 or_recall = 1300         # de quoi acheter un gros composant
