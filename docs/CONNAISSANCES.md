@@ -442,3 +442,147 @@ Sources ajoutées :
 
 Trois ennemis morts : ni back ni alerte de PV, on prend un objectif ; tous morts pour vingt
 secondes ou plus après 15 minutes, on finit la partie.
+
+## 20. Ce que disent les cinq guides vidéo (lus le 6 octobre 2026)
+
+Lus par leurs sous-titres, résumés ici avec mes mots. Les transcriptions ne sont pas dans le dépôt.
+
+| Vidéo | Auteur | Ce qu'elle couvre |
+|---|---|---|
+| [The ONLY ADC Guide You'll EVER NEED](https://www.youtube.com/watch?v=Ogz4LiB5hcA) | Skill Capped | plan de trade, niveaux, vague selon le support, recall, composants, milieu de partie, réglages |
+| [EVERYTHING You NEED to know about MACRO in SEASON 16](https://www.youtube.com/watch?v=cFMt7wVSBdo) | Skill Capped | drakes et grubs, tours, homeguard, timers de jungle, TP, quêtes de rôle |
+| [How Challengers ALWAYS Know What to Build](https://www.youtube.com/watch?v=GWhOWDr_Hbw) | Skill Capped | dégâts ou défense, compo qui tue vite ou qui dure, objets de transition |
+| [Guide ultime ADC saison 15](https://www.youtube.com/watch?v=muwKHe1yO2Y) | iReaz, coaching de Booshi | revue d'une lane Miss Fortune et Leona contre Caitlyn et Braum |
+| [J'explique des notions de base du rôle d'ADC](https://www.youtube.com/watch?v=IaqL7jOQEGY) | Wakz | réglages, routine d'entraînement (sous-titres automatiques presque illisibles) |
+
+### Le plan de trade se lit dans les runes
+
+Avant la première vague, une seule question : trade court ou combat long ? Les runes principales
+se rangent sur une échelle. Jeu de jambes, Comète, Premier coup, Toucher de feu mortel : une auto ou
+un sort, puis on recule. Électrocution, Déluge de lames, Attaque soutenue : une à trois autos.
+Tempo mortel, Conquérant : on garde ses PV et on ne se bat que jusqu'au bout. Deux joueurs qui
+s'échangent une auto chacun, c'est celui du trade court qui gagne ; si le combat dure, ça s'inverse.
+**Dans le coach** : à 1:00, la phrase compare ta rune à celle de l'ADC adverse (`[trades]` dans
+`champions_notes.toml`).
+
+### Les niveaux
+
+Un niveau vaut environ 600 gold de stats, et en bot ils sont deux à le prendre. Niveau 2 : la
+première vague plus trois mêlées, en tapant la première vague plus que l'adversaire. Niveau 3 :
+deux mêlées de la vague qui suit le canon. Si la poussée est perdue, on recule et on joue le
+niveau suivant. Prendre le niveau 2 en premier ne sert à rien si l'adversaire farme tranquille
+sous sa tour : il faut qu'il soit à portée d'être puni.
+
+### La vague sert d'abord au support
+
+- Support qui engage (Leona, Nautilus) : ne pas pousser en permanence, il lui faut de la place.
+  Vague au milieu ou de son côté, crash puis rebond, pas de combat dans une grosse vague ennemie,
+  et rester à portée d'auto de lui : s'il engage et que l'ADC est trop loin, il est seul.
+- Support à distance (enchanteur, mage) : grosse vague lente en ne prenant que les derniers coups,
+  crash, puis harcèlement sous la tour par trades courts. La vague protège d'un engage et cache
+  des sorts adverses.
+- Jouer « haut sur la vague », à la limite de la portée adverse : chaque sbire qu'il prend lui
+  coûte une auto. Trois pas trop loin, et la lane stagne.
+- Ne pas taper un support tank qu'on ne tuera pas.
+- Une vague qui reste au milieu sans jamais crasher annule l'avance : on ne peut ni warder, ni
+  bouger, ni prendre de plaque. Deux vagues poussées lentement, puis crash.
+- Le freeze est rare : une vague, deux au plus, dans les six premiers niveaux, pour préparer un
+  gank ou une punition. Devant, on prend la tour vite et on va peser mid.
+- Après un kill : crash tout de suite, chaque seconde compte.
+- Ne pas suivre un mouvement inutile d'un allié au prix de deux vagues : un recall est un mouvement.
+- Les pings avant un niveau 2 ou une plongée sont sous-utilisés.
+
+**Dans le coach** : « plan-de-vague » à 0:35 selon ton support, et les conseils d'avance d'objets
+demandent maintenant la tour, pas le freeze.
+
+### Rentrer à la base
+
+Trois choses à regarder : la vague, l'or, l'état de chacun (PV et mana). On rentre quand une grosse
+vague vient de crasher, quand on est bas, ou quand l'or paie un objet ou un composant qui compte.
+Avec le homeguard de la saison 16, la fontaine est à 12 secondes de la lane mid et 17 d'une side,
+plus 8 secondes de recall : quand l'adversaire rentre ou meurt, on a le temps de pousser une vague,
+pas de s'offrir une plaque de trop. Le plus souvent, pousser vite et rentrer en même temps que lui.
+
+Tous les composants ne se valent pas en début de partie : les dégâts d'attaque servent à chaque
+auto et à chaque sort, la vitesse d'attaque et le critique seulement si le combat dure. Donc BF
+Glaive à 1300, Pioche à 875, sinon autant d'Épées longues que l'objet en prend ; la Hache
+d'Âtrinsèque, l'Arc courbe, la Fronde et les Dagues en dernier (sauf builds à effets à l'impact).
+À 1200 gold sur un build à BF Glaive, on reste une vague de plus. Le premier objet se choisit
+d'après l'or du premier back, pas d'après un taux de victoire.
+**Dans le coach** : `achats.a_la_boutique` choisit le composant par ce critère, `achats.bon_back`
+règle le seuil du conseil de back sur le composant qui compte, et le premier objet suit ce que tu
+montes (une Pioche mène aux Lunettes Hextech, un BF Glaive aux Flèches des Yun Tal).
+
+### Timers de la saison 16
+
+- Sbires à 0:30, camps à 0:55, crabes à 2:55 : les junglers finissent leur clear vers 2:55.
+- Le premier canon meurt vers 2:30 : c'est le moment de warder la rivière.
+- 3:45 : le premier camp du jungler réapparaît, il retourne là où il a commencé.
+- Sur une ward, le score de sbires d'un jungler dit son chemin : 4 par camp.
+- Contre un jungler qui passe par-dessus les murs ou par la lane (Zac, Jarvan, Shaco), la ward de
+  rivière ne suffit pas. Une ward dans le buisson où l'on rappelle montre qui vient sur la vague.
+
+**Dans le coach** : ward annoncée à 2:25, retour du jungler à 3:45 quand on sait où il a fini son
+clear, mise en garde contre les junglers de `ganks_hors_riviere`.
+
+### Objectifs et tours
+
+- Le drake passe avant les grubs : c'est l'âme qui finit les parties. Devant, un drake tôt avance
+  l'âme de cinq minutes ; derrière, il la retarde d'autant. Les grubs sont un luxe.
+- Les plaques ne tombent plus à 14 minutes. Chaque plaque détruite durcit la tour vingt secondes,
+  d'autant plus qu'il y a de monde autour **[vérifié sur le wiki : seules les tours extérieures ont
+  des plaques, 120 gold chacune]**. Une tour se prend donc en deux ou trois passages.
+- Le TP : celui du top adverse offert par sa quête a sept minutes de recharge. S'il est parti, le
+  drake suivant se joue à cinq contre quatre si sa lane est poussée.
+- La quête de rôle se finit toute seule en jouant normalement : elle ne doit jamais empêcher une
+  rotation.
+
+**Dans le coach** : après un combat gagné, « une ou deux plaques, pas plus » ; un TP noté avec
+Shift+F1 à F5 et pas revenu est rappelé à l'annonce du drake.
+
+### Milieu de partie
+
+En théorie l'ADC et son support vont mid. En pratique tout le monde y va, et trois joueurs se
+partagent une vague pendant que les sides se perdent. Or l'ADC est le rôle qui gagne le plus d'or
+par sbire (quête de rôle) et qui scale le mieux (un emplacement de plus). Donc : à chaque passage
+à la fontaine, regarder les trois vagues et aller à la plus grosse ; pousser tant que c'est sûr,
+regrouper, recommencer. Pas quand un objectif arrive dans les trente secondes. Rester groupé à
+partager le farm est plus risqué pour monter que d'accepter que des alliés se fassent attraper.
+**Dans le coach** : le texte de fin de lane, le rappel de farm à 15, 20 et 25 minutes, et la
+deuxième réponse de Ctrl+F6.
+
+### Objets : dégâts ou défense
+
+« Devant, défensif ; derrière, offensif » est incomplet. On regarde si la compo d'en face veut tuer
+vite ou faire durer, et ça se lit surtout au mid et au support : assassin et support d'engage,
+elle tue vite, la survie vaut plus ; mage de contrôle et enchanteur, elle gagne les combats longs,
+il faut la tuer vite. Dans le doute, les dégâts : tuer est la meilleure défense, et pousser une
+vague ou finir une tour trois secondes plus tôt ouvre des options.
+
+Les objets de transition (l'objet de vitesse d'attaque et de critique d'un tireur) sont bons
+devant. Derrière, on les saute pour aller droit aux objets qui percent. Pareil quand la partie
+impose déjà plusieurs objets : on n'a pas la place pour la transition.
+**Dans le coach** : `achats.tempo_adverse` (listes `mids_assassins` et `mids_de_controle`),
+l'ensemble `TRANSITION`, et la phrase d'adaptation à 0:45.
+
+### Réglages
+
+Attaque-déplacement sur le curseur, portée d'attaque affichée, une touche d'attaque-déplacement
+(en un clic si possible, sur A ou un bouton de souris), et une touche « cibler uniquement les
+champions » pour les plongées. **Dans le coach** : `python -m lolcoach --reglages-jeu` lit le
+fichier de réglages du jeu et dit ce qui manque ; le coach le rappelle à son lancement.
+
+### Outils que ces guides rendent possibles
+
+- Un minuteur du TP de quête du top adverse (sept minutes) : il n'apparaît pas dans ses sorts
+  d'invocateur, il faudrait une touche à part.
+- Une routine d'entraînement en outil d'entraînement, mesurée par le coach : dix minutes de last
+  hit sous pression, score de sbires à 5 et 10 minutes comparé d'une séance à l'autre.
+- Dans l'après-match : le premier back (heure, or, ce qui a été acheté) comparé à ce que le
+  coach aurait conseillé ; les secondes entre un kill en lane et le crash de la vague.
+- Le chemin du jungler adverse par son score de sbires au moment où il se montre (4 par camp) :
+  le score est arrondi à la dizaine par l'API, donc à vérifier en vraie partie avant de s'y fier.
+
+**Limite.** Ce que ces guides enseignent sur le placement à l'écran (la distance exacte à l'ADC
+adverse, la ligne avec son support, l'endroit où se tenir en combat) ne peut pas être vérifié par
+le coach : l'API ne donne pas les positions. Il le dit comme plan, au début de la lane.

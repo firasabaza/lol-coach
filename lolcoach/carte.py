@@ -20,7 +20,8 @@ from .suivi import Suivi
 
 PV_POUR_JOUER = 0.40  # en dessous, on ne prend ni tour ni objectif : on rentre
 PROCHE = 75  # secondes : un objectif plus proche que ça décide de l'endroit où être
-TROP_TARD = 8  # secondes : si les morts reviennent plus vite, il n'y a plus de fenêtre à jouer
+TROP_TARD = 15  # secondes : si les morts sont de retour en lane plus vite, il n'y a plus de fenêtre à jouer
+POUR_UNE_PLAQUE = 25  # secondes qu'il faut avoir devant soi pour aller taper une tour
 
 
 @dataclass(frozen=True)
@@ -50,8 +51,7 @@ def tour_a_prendre(e: Etat, s: Suivi, c: Reglages) -> str | None:
     for lane in lanes:
         tombees = s.tours_tombees.get((eux, lane), 0)
         if tombees == 0:
-            plaques = ", 120 gold la plaque" if e.t < c.saison["sbires"]["fin_de_lane"] else ""
-            return f"la tour {lane} extérieure{plaques}"
+            return f"la tour {lane} extérieure"  # la seule qui porte des plaques, et elles restent toute la partie
         if tombees < 3:
             return f"la tour {lane} intérieure" if tombees == 1 else f"la tour d'inhibiteur {lane}"
     return None
@@ -75,6 +75,8 @@ def apres_combat(e: Etat, s: Suivi, c: Reglages) -> Decision | None:
     """
     morts = [j for j in e.ennemis if j.mort]
     retour = min(j.reapparition for j in morts)  # le premier qui revient ferme la fenêtre
+    # Avec le homeguard, un mort qui réapparaît est en lane mid douze secondes plus tard.
+    en_lane = retour + c.saison["trajets"]["base_vers_mid"]
     nous, eux = vivants(e)
     poche = or_en_poche(e)
     achat = a_la_boutique(e, poche)
@@ -92,19 +94,22 @@ def apres_combat(e: Etat, s: Suivi, c: Reglages) -> Decision | None:
         suite = f" Tu reviens pour le {nom}." if dans <= 60 else ""
         return Decision("back", f"Tu es à {_pourcent(e.pv)} : c'est le moment le plus sûr pour rentrer. "
                                 f"Back maintenant.{boutique}{suite}")
-    if retour < TROP_TARD:
+    if en_lane < TROP_TARD:
         return None
     if s.baron_dispo(e.t) and retour >= 15 and nous >= 4 and smite:
         return Decision("objectif", f"Baron, maintenant : ils ne sont plus que {eux}.")
     if s.drake_dispo(e.t) and retour >= 10 and (smite or nous >= 3):
         return Decision("objectif", "Drake, maintenant." if smite else "Drake, maintenant : sans ton jungler, tout le monde dessus.")
     tour = tour_a_prendre(e, s, c)
-    if riche and (retour < 15 or tour is None):
-        return Decision("back", f"Ils reviennent dans {duree(retour)} : pas le temps pour une tour. Back maintenant.{boutique}")
+    if riche and (en_lane < POUR_UNE_PLAQUE or tour is None):
+        return Decision("back", f"Ils sont de retour en lane dans {duree(en_lane)} : pas le temps pour une tour. "
+                                f"Back maintenant.{boutique}")
     if tour is None:
         return Decision("tour", "Pousse la vague la plus proche avec ton équipe.")
     apres = f" Back juste après : tu as {int(poche // 50 * 50)} gold à dépenser." if riche else ""
-    return Decision("tour", f"{tour[0].upper()}{tour[1:]}, avec la vague.{apres}")
+    # Une tour extérieure se prend en deux ou trois passages : elle durcit vingt secondes après chaque plaque.
+    plaques = " Une ou deux plaques à 120 gold, pas plus : elle durcit après chacune." if tour.endswith("extérieure") else ""
+    return Decision("tour", f"{tour[0].upper()}{tour[1:]}, avec la vague.{plaques}{apres}")
 
 
 def _mid(e: Etat, s: Suivi, etat: str) -> str:
@@ -173,7 +178,10 @@ def directions(e: Etat, s: Suivi, c: Reglages) -> list[Direction]:
                     else "Arrive avec ton équipe, jamais le premier dans la rivière")
         choix.append(Direction("objectif", f"{nom} {quand} : passe par mid, puis côté {cote}. {conduite}."))
     choix.append(Direction("mid", _mid(e, s, etat)))
+    # Mid à trois sur une vague, c'est de l'or perdu pour le rôle qui en gagne le plus par sbire.
+    choix.append(Direction("vagues", "Si un allié farme déjà mid, ne partage pas : regarde les trois vagues et va à la "
+                                     "plus grosse. Pousse-la tant que c'est sûr, puis regroupe."))
     choix.append(Direction("side", _side(e, s, cote)))
-    choix.append(Direction("jungle", f"Si un allié farme déjà ta vague, ne la partage pas : prends les camps de ta jungle "
-                                     f"côté {cote} s'ils sont là, puis la vague suivante."))
+    choix.append(Direction("jungle", f"Aucune vague libre : prends les camps de ta jungle côté {cote} s'ils sont là, "
+                                     "puis la vague suivante."))
     return choix

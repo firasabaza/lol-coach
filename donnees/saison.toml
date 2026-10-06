@@ -17,9 +17,17 @@ crabe = 175                  # verifie : 2:55
 respawn_camp = 135           # 2:15, inchangé depuis plusieurs saisons
 respawn_buff = 300
 gank_niveau_3 = 130          # estime : 3 camps puis gank, autour de 2:10
+ward_canon = 150             # guide : le premier canon meurt vers 2:30, c'est le moment de warder la rivière
+premier_respawn = 225        # guide : à 3:45 le premier camp du jungler réapparaît, il retourne où il a commencé
 fin_premier_clear = 175      # estime : full clear terminé vers le spawn des crabes
 traversee_carte = 30         # estime : temps pour passer d'un côté de la carte à l'autre
-base_vers_bot = 25           # estime : temps pour rejoindre la botlane depuis la fontaine
+base_vers_bot = 20           # estime : 17 s jusqu'à la tour extérieure, plus le détour par la rivière
+
+# Retour en lane depuis la fontaine, avec le homeguard de la saison 16 (Skill Capped, macro saison 16).
+[trajets]
+recall = 8
+base_vers_mid = 12
+base_vers_side = 17          # top ou bot, jusqu'à la tour extérieure
 
 [objectifs]
 drake = 300                  # verifie

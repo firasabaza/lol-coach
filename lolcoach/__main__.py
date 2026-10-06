@@ -14,7 +14,7 @@ import threading
 import time
 from pathlib import Path
 
-from . import __version__, apres_match
+from . import __version__, apres_match, reglages_jeu
 from .bilan import analyser
 from .client import Client
 from .lcu import ClientLol
@@ -231,6 +231,8 @@ def main() -> None:
     arguments.add_argument("--sans-fenetre", action="store_true", help="sans la messagerie en jeu")
     arguments.add_argument("--debrief", metavar="FICHIER", help="refait le rapport d'une partie enregistrée")
     arguments.add_argument("--maj-donnees", action="store_true", help="télécharge objets et champions du dernier patch")
+    arguments.add_argument("--reglages-jeu", action="store_true",
+                           help="vérifie les réglages du jeu conseillés pour un ADC (attaque-déplacement, portée)")
     arguments.add_argument("--apres-match", nargs="?", const="", metavar="ID",
                            help="ouvre l'après-match de ta dernière partie, ou de la partie ID")
     if sys.stdout is None:
@@ -244,6 +246,9 @@ def main() -> None:
         from .datadragon import mettre_a_jour
 
         print(f"Prix des objets mis à jour, patch {mettre_a_jour()}.")
+        return
+    if options.reglages_jeu:
+        print(reglages_jeu.rapport(reglages_jeu.verifier()))
         return
     try:
         reglages = charger()
@@ -310,6 +315,13 @@ def main() -> None:
         ouvrir_rapport=not options.simulation or sys.stdout.isatty(),
         client_lol=None if options.simulation else ClientLol(), creer_voix=creer_voix,
     )
+    if not options.simulation:
+        # Une fois par lancement : ce qui manque dans les réglages du jeu, dans le journal et en bulle.
+        manquants = [constat for constat in reglages_jeu.verifier() or [] if not constat.bon]
+        for constat in manquants:
+            print(f"Réglage du jeu conseillé : {constat.nom} ({constat.pourquoi}).")
+        if manquants and fenetre:
+            fenetre.message("Réglage du jeu à faire", " ; ".join(constat.nom for constat in manquants) + ".")
     fil = None
     try:
         if fenetre:

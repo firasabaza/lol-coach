@@ -73,7 +73,10 @@ class ApresUnCombat(unittest.TestCase):
 
     def test_sans_objectif_la_tour_est_nommee(self):
         d = self.decision(drake_pris_a=1090.0)
-        self.assertEqual((d.quoi, d.phrase), ("tour", "La tour mid extérieure, avec la vague."))
+        self.assertEqual(d.quoi, "tour")
+        # Une tour extérieure se prend en plusieurs passages : elle durcit après chaque plaque.
+        self.assertEqual(d.phrase, "La tour mid extérieure, avec la vague. Une ou deux plaques à 120 gold, pas plus : "
+                                   "elle durcit après chacune.")
         # La tour mid déjà tombée : la suivante sur la même lane. De l'or en poche : le back vient après.
         d = self.decision(drake_pris_a=1090.0, tours=("Turret_TChaos_L1_P3_1", ), poche=1500)
         self.assertEqual(d.phrase, "La tour mid intérieure, avec la vague. Back juste après : tu as 1500 gold à dépenser.")
@@ -84,13 +87,14 @@ class ApresUnCombat(unittest.TestCase):
         self.assertEqual(tour_a_prendre(e, s, REGLAGES), "l'inhibiteur bot")
 
     def test_de_l_or_et_peu_de_temps_on_rentre(self):
+        # Réapparition dans 12 secondes, plus 12 de trajet jusqu'à la lane mid avec le homeguard.
         d = self.decision(drake_pris_a=1090.0, poche=1500, retour=12)
         self.assertEqual(d.quoi, "back")
-        self.assertIn("Ils reviennent dans 12 secondes : pas le temps pour une tour.", d.phrase)
+        self.assertIn("Ils sont de retour en lane dans 24 secondes : pas le temps pour une tour.", d.phrase)
 
     def test_ils_reviennent_il_n_y_a_plus_rien_a_dire(self):
-        self.assertIsNone(self.decision(retour=5))
-        cles = [c.cle for c in regles.avantage(*lire(partie(1100, retour=5)), REGLAGES)]
+        self.assertIsNone(self.decision(retour=2))
+        cles = [c.cle for c in regles.avantage(*lire(partie(1100, retour=2)), REGLAGES)]
         self.assertNotIn("avantage", cles)
 
     def test_le_coach_tranche_une_seule_fois(self):
@@ -118,16 +122,16 @@ class Placement(unittest.TestCase):
         # prochain objectif, puis la jungle.
         e, s = lire(partie(960, drake_pris_a=955.0))
         choix = directions(e, s, REGLAGES)
-        self.assertEqual([d.cle for d in choix], ["mid", "side", "jungle"])
+        self.assertEqual([d.cle for d in choix], ["mid", "vagues", "side", "jungle"])
         self.assertIn("la lane la plus courte", choix[0].phrase)
-        self.assertIn("La vague top quand elle arrive à ta tour extérieure", choix[1].phrase)  # côté Baron
-        self.assertIn("Si un allié farme déjà ta vague", choix[2].phrase)
+        self.assertIn("regarde les trois vagues et va à la plus grosse", choix[1].phrase)
+        self.assertIn("La vague top quand elle arrive à ta tour extérieure", choix[2].phrase)  # côté Baron
 
     def test_les_tours_perdues_reculent_la_limite(self):
         perdues = ("Turret_TOrder_L1_P3_1", "Turret_TOrder_L2_P3_1", "Turret_TOrder_L2_P2_1")
         choix = directions(*lire(partie(960, tours=perdues, drake_pris_a=955.0)), REGLAGES)
         self.assertIn("Mid, devant ta tour intérieure", choix[0].phrase)
-        self.assertIn("Plus de tour en top : n'y va pas seul.", choix[1].phrase)
+        self.assertIn("Plus de tour en top : n'y va pas seul.", choix[2].phrase)
 
     def test_un_objectif_proche_passe_devant(self):
         # 19:15 : Baron dans 45 secondes.
@@ -155,8 +159,8 @@ class Placement(unittest.TestCase):
             reponses += [c.action for c in moteur.lire(depuis_json(brut)) if c.cle.startswith("direction-")]
         self.assertEqual(len(reponses), 4)
         self.assertTrue(reponses[0].startswith("Mid : c'est la lane la plus courte"))
-        self.assertTrue(reponses[1].startswith("Sinon : la vague top"))
-        self.assertTrue(reponses[2].startswith("Sinon : si un allié farme déjà ta vague"))
+        self.assertTrue(reponses[1].startswith("Sinon : si un allié farme déjà mid, ne partage pas"))
+        self.assertTrue(reponses[2].startswith("Sinon : la vague top"))
         self.assertEqual(reponses[3], reponses[0])  # plus de 25 secondes après : on repart de la meilleure réponse
 
     def test_tours_et_inhibiteurs_suivis_des_deux_cotes(self):

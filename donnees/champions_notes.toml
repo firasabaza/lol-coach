@@ -14,6 +14,18 @@ suppressions = ["Malzahar", "Warwick", "Skarner", "Mordekaiser", "Lissandra", "Z
 controles = ["Morgana", "Ashe", "Leona", "Amumu", "Sejuani", "Rammus", "Lillia", "Zoe", "Nautilus", "TwistedFate",
              "Veigar", "Maokai", "Rell", "Thresh", "Blitzcrank", "Lux", "Neeko", "Elise", "Vi"]
 
+# Junglers qui ne passent pas par la rivière : par-dessus un mur, par la lane ou en invisible.
+# Contre eux la ward de rivière ne suffit pas.
+ganks_hors_riviere = ["Zac", "JarvanIV", "Shaco", "Skarner", "Khazix", "Kayn", "Nocturne", "Evelynn", "Twitch", "RekSai"]
+
+# Le mid donne le ton d'une compo : un assassin veut tuer vite, un mage de contrôle veut que le combat dure.
+# Les mids de mêlée qui se battent longtemps (Sylas, Yone, Yasuo) ne sont ni l'un ni l'autre.
+mids_assassins = ["Zed", "Talon", "Katarina", "Akali", "Fizz", "Leblanc", "Qiyana", "Kassadin", "Ekko", "Naafiri",
+                  "Diana", "Khazix", "Pantheon"]
+mids_de_controle = ["Orianna", "Viktor", "Azir", "Anivia", "Syndra", "Hwei", "Xerath", "Malzahar", "Ryze",
+                    "Cassiopeia", "Taliyah", "Velkoz", "Ziggs", "Lux", "Vex", "Lissandra", "TwistedFate", "Veigar",
+                    "AurelionSol", "Mel", "Zoe", "Karthus"]
+
 # Attrapent à distance en lane : rester derrière ses sbires.
 accroches = ["Blitzcrank", "Thresh", "Nautilus", "Pyke", "Morgana", "Lux", "Neeko", "Zyra", "Swain"]
 
@@ -43,8 +55,11 @@ dominants = ["Draven", "Caitlyn", "Lucian", "Kalista", "MissFortune", "Tristana"
 
 # Chemins d'items types, par famille d'ADC (identifiants Data Dragon). Ce sont des repères par
 # archétype, pas des statistiques du patch : corrige-les si la méta bouge.
+# `premiers` : les autres premiers objets courants de la famille. Le coach suit celui que tu es
+# vraiment en train de monter (une Pioche mène aux Lunettes Hextech, un BF Glaive aux Flèches des Yun Tal).
 [chemins.crit]
 objets = [3032, 3031, 3046]   # Flèches des Yun Tal, Lame d'infini, Danseur fantôme
+premiers = [2523, 6672]       # Lunettes Hextech C44, Tueur de krakens
 suite = [3036, 3072, 3026]    # Salutations de Dominik, Soif-de-sang, Ange gardien
 champions = ["Jinx", "Tristana", "Aphelios", "Caitlyn", "Zeri", "Yunara", "Ashe", "Twitch"]
 
@@ -55,6 +70,7 @@ champions = ["Lucian", "Xayah", "Sivir"]
 
 [chemins.on_hit]
 objets = [6672, 3124, 3302]   # Tueur de krakens, Lame enragée de Guinsoo, Terminus
+premiers = [3087, 3153]       # Poignard de Statikk, Lame du roi déchu
 suite = [3153, 3091, 3026]    # Lame du roi déchu, Au bout du rouleau, Ange gardien
 champions = ["Vayne", "KogMaw", "Kalista", "Varus"]
 
@@ -105,6 +121,12 @@ TahmKench = "Q"
 Renata = "Q"
 
 # Rune principale d'un adversaire de lane -> ce qu'elle change. {nom} : le champion, {rune} : la rune.
+# Ce que veut une rune principale : un échange d'une auto, trois autos, ou un combat qui dure.
+[trades]
+courts = [8021, 8229, 8369, 8992, 8214]   # Jeu de jambes, Comète, Premier coup, Toucher de feu mortel, Aery
+burst = [8112, 9923, 8005]                # Électrocution, Déluge de lames, Attaque soutenue
+longs = [8008, 8010]                      # Tempo mortel, Conquérant
+
 [runes]
 8005 = "{nom} joue {rune} : la troisième auto d'affilée amplifie les dégâts. Pas de trade long."
 9923 = "{nom} joue {rune} : trois autos partent d'un coup. Ne prends pas le trade court."

@@ -118,6 +118,11 @@ def chemin(j: Joueur) -> list[int]:
     return list(_famille(j)[1].get("objets", []))
 
 
+def premiers(j: Joueur) -> list[int]:
+    """Les autres premiers objets courants de la famille du champion."""
+    return list(_famille(j)[1].get("premiers", []))
+
+
 def suite(j: Joueur) -> list[int]:
     """Ce qui termine le build quand la partie ne réclame rien de particulier."""
     return list(_famille(j)[1].get("suite", []))

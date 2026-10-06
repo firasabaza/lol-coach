@@ -101,7 +101,7 @@ class PartieSimulee(unittest.TestCase):
 
     def test_les_moments_cles_sont_vus_au_bon_moment(self):
         attendus = {
-            "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 120, "jungler-vu-top": 200,
+            "debut": 0, "niveau-eux-2": 95, "gank-niveau-3": 145, "jungler-vu-top": 200,
             "jungler-fenetre-200": 231,  # une seconde plus tard : « safe 30 secondes » pesait encore "jungler-vu-bot": 372,
             "drake-300-60": 240, "drake-300-30": 270, "grubs": 451, "jungler-6": 500,
             "tour-bot-prise": 700, "mort-or-1": 760, "fin-de-lane": 840, "herald": 840,
@@ -241,8 +241,8 @@ class Compositions(unittest.TestCase):
         self.assertEqual(a_la_boutique(depuis_json(simulateur.partie(790)), 1650), "finis Flèches des Yun Tal")
         depart = depuis_json(simulateur.partie(100))
         self.assertEqual(a_la_boutique(depart, 1300), "BF Glaive, en route vers Flèches des Yun Tal")
-        # Pas de quoi payer un composant entier : on avance quand même, par un étage plus bas de la recette.
-        self.assertEqual(a_la_boutique(depart, 700), "Fronde de l'éclaireur, en route vers Flèches des Yun Tal")
+        # Pas de quoi payer le BF Glaive : on avance quand même, par ce qui sert le plus tout de suite.
+        self.assertEqual(a_la_boutique(depart, 700), "Épée longue, en route vers Flèches des Yun Tal")
         self.assertIsNone(a_la_boutique(depart, 200))  # rien à acheter : silence
         # Besoin pressant trop cher pour l'instant : le composant qui sert déjà, l'objet ensuite.
         soins = depuis_json(partie_contre("Caitlyn", "Soraka", "Warwick", "Syndra", "Aatrox", t=1100))

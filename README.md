@@ -41,6 +41,7 @@ python -m lolcoach --simulation
 | `--apres-match` | ouvre l'après-match de ta dernière partie ; `--apres-match 8003015310` pour une partie précise |
 | `--debrief parties/xxx.jsonl.gz` | refait l'après-match d'une partie enregistrée par le coach |
 | `--maj-donnees` | télécharge objets et champions du dernier patch (à relancer après un patch) |
+| `--reglages-jeu` | vérifie les réglages du jeu conseillés pour un ADC (attaque-déplacement sur le curseur, portée, touches) |
 
 Il faut Python 3.12. Le coach lui-même n'utilise que la bibliothèque standard ; la messagerie
 en jeu demande Qt :
@@ -162,7 +163,7 @@ deuxième appui sur Ctrl+F6.
 ## Fichiers
 
 - `SPEC.md` : le projet, les choix, le plan.
-- `docs/CONNAISSANCES.md` : ce que le coach sait, avec les sources.
+- `docs/CONNAISSANCES.md` : ce que le coach sait, avec les sources. La section 20 résume cinq guides vidéo d'ADC.
 - `donnees/saison.toml` : les timers de la saison. À mettre à jour quand un patch les change.
 - `lolcoach/bilan.py` et `lolcoach/apres_match.py` : l'analyse et la page d'après-match.
 - `lolcoach/regles.py` : les fondamentaux. `lolcoach/strategie.py` : matchup, build, macro avancée.

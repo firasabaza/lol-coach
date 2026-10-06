@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 
-from .achats import a_la_boutique, conseils, finissable, prochain
+from .achats import a_la_boutique, conseils, finissable, prochain, tempo_adverse
 from .carte import directions
 from .compo import (
     PLONGEURS, POKE, chemin, classe, est, fiche, lire_compo, nom_objet, noms, notes, objets_finis,
@@ -32,7 +32,7 @@ def plan_de_lane(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     """Deux phrases sur le matchup, juste après l'annonce des champions."""
     if not 8 <= e.t < 70:
         return
-    adc, sup, allie = e.ennemi("BOTTOM"), e.ennemi("UTILITY"), e.allie("UTILITY")
+    adc, sup = e.ennemi("BOTTOM"), e.ennemi("UTILITY")
     points: list[str] = []
     if sup:
         if est(sup, "accroches"):
@@ -48,17 +48,57 @@ def plan_de_lane(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         if ecart >= 50:
             points.append(f"Tu as {ecart} de portée de plus que {adc.champion} : touche-le chaque fois qu'il prend un sbire.")
         elif ecart <= -50:
-            points.append(f"{adc.champion} a {-ecart} de portée de plus que toi : pas de trade à l'auto, joue tes sorts.")
+            points.append(f"{adc.champion} a {-ecart} de portée de plus que toi : pas d'auto contre auto, "
+                          "réponds par auto plus sort et joue à la limite de sa portée, pas trois pas derrière.")
     if est(e.moi, "scaling"):
         points.append("Ton champion gagne avec le temps : la lane se joue pour le farm, pas pour le kill.")
     elif est(e.moi, "dominants"):
         points.append("Ton champion doit gagner la lane : prends la priorité dès le niveau 1.")
-    if allie and (est(allie, "engages") or est(allie, "accroches")):
-        points.append(f"{allie.champion} engage : suis à son premier contrôle.")
-    elif allie and classe(allie, {"ENCHANTER"}):
-        points.append(f"{allie.champion} te protège : c'est toi qui lances les trades.")
     if points:
         yield Conseil("plan-de-lane", INFO, "", " ".join(points[:2]))
+
+
+def plan_de_vague(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
+    """Comment tenir la vague selon le support qu'on a : en lane, la vague sert d'abord à lui."""
+    allie = e.allie("UTILITY")
+    if not 35 <= e.t < 70 or allie is None:
+        return
+    if est(allie, "engages") or est(allie, "accroches"):
+        action = (f"Avec {allie.champion} : vague au milieu ou de ton côté, jamais collée à leur tour, il lui faut "
+                  "de la place pour engager. Crash, puis laisse-la revenir. Reste à portée d'auto de lui : s'il part sans toi, il meurt.")
+    elif classe(allie, {"ENCHANTER"}) or classe(allie, MAGES):
+        action = (f"Avec {allie.champion} : construis une grosse vague en ne prenant que les derniers coups, crash-la, "
+                  "puis harcelez sous leur tour par trades courts. La grosse vague vous protège d'un engage.")
+    else:
+        return
+    sup = e.ennemi("UTILITY")
+    if sup and sup in lire_compo(e).tanks:
+        action += f" Ne tape pas {sup.champion}, un tank ne meurt pas en lane : ta cible c'est leur carry."
+    yield Conseil("plan-de-vague", INFO, "", action)
+
+
+def _plan_de_trade(e: Etat) -> str:
+    """Trade court ou combat long : ce que les deux runes principales décident, avant même le matchup."""
+    adc = e.ennemi("BOTTOM")
+    genres = notes().get("trades", {})
+
+    def genre(rune: int) -> str:
+        return next((nom for nom, liste in genres.items() if rune in liste), "")
+
+    if adc is None:
+        return ""
+    moi, lui = genre(e.moi.rune), genre(adc.rune)
+    noms_runes = f"Tu joues {runes().get(e.moi.rune, 'ta rune')}, {adc.champion} joue {runes().get(adc.rune, 'la sienne')}"
+    if moi == "longs" and lui in ("courts", "burst"):
+        return (f"{noms_runes} : les échanges courts sont pour {adc.champion}, les combats qui durent pour toi. Ne rends pas "
+                "coup pour coup : garde tes PV, et quand tu y vas, va jusqu'au bout.")
+    if moi in ("courts", "burst") and lui == "longs":
+        limite = "Une auto ou un sort" if moi == "courts" else "Trois autos au plus"
+        return f"{noms_runes} : {limite}, puis sors de portée. Si le combat dure, sa rune prend le dessus."
+    if moi == lui == "longs":
+        return (f"{noms_runes} : vous voulez tous les deux un combat long, il se gagne au niveau et à la vague. "
+                "Joue le niveau 2 : un niveau vaut environ 600 gold de stats.")
+    return ""
 
 
 def jungler_precoce(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
@@ -66,7 +106,7 @@ def jungler_precoce(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
     if jungler and est(jungler, "ganks_precoces") and 95 <= e.t < 115:
         yield Conseil(
             "jungler-precoce", TEMPO, "",
-            f"{jungler.champion} gank fort dès son premier passage : garde ta ward pour la rivière à 2 minutes.",
+            f"{jungler.champion} gank fort dès son premier passage : garde ta ward pour la rivière à 2:30, quand le premier canon meurt.",
         )
 
 
@@ -91,6 +131,11 @@ def build(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
         if prevus
         else "Rien d'imposé pour l'instant : suis ton build, je te préviens si la partie change."
     )
+    tempo, meneurs = tempo_adverse(e)
+    if tempo == "rush":
+        action += f" {noms(meneurs)} font une compo qui tue vite : contre elle, un objet de survie tôt vaut plus qu'un objet de dégâts."
+    elif tempo == "defense":
+        action += f" {noms(meneurs)} font une compo qui gagne les combats longs : pars sur les dégâts, il faut tuer vite."
     yield Conseil("build-adaptation", INFO, fait + ".", action)
 
 
@@ -421,10 +466,13 @@ def lecture_adverse(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
             "Dès que ce sort est parti, tu as ce temps pour trader."
         )
     duo = [j for j in (e.ennemi("BOTTOM"), support) if j]
-    for j in duo:
-        if modele := table.get("runes", {}).get(str(j.rune)):
-            points.append(modele.format(nom=j.champion, rune=runes().get(j.rune, "sa rune")))
-            break
+    if trade := _plan_de_trade(e):
+        points.insert(0, trade)  # le plan de trade passe avant tout : il dit comment jouer toute la lane
+    else:
+        for j in duo:
+            if modele := table.get("runes", {}).get(str(j.rune)):
+                points.append(modele.format(nom=j.champion, rune=runes().get(j.rune, "sa rune")))
+                break
     for identifiant, modele in table.get("sorts_ennemis", {}).items():
         porteurs = [j for j in duo if any(porte.id == identifiant for porte in j.sorts)]
         if porteurs:
@@ -567,7 +615,8 @@ def placement(e: Etat, s: Suivi, c: Reglages) -> Iterator[Conseil]:
 
 
 REGLES: tuple[Regle, ...] = (
-    plan_de_lane, lecture_adverse, jungler_precoce, build, objet_finissable, achats, pics, menaces, etat_du_joueur,
+    plan_de_lane, plan_de_vague, lecture_adverse, jungler_precoce, build, objet_finissable, achats, pics, menaces,
+    etat_du_joueur,
     ultis,
     retard_de_niveau, objets_adverses, rotations, etat_de_partie, nombres, grands_objectifs, tournants,
     condition_de_victoire, milieu_de_partie, placement,
